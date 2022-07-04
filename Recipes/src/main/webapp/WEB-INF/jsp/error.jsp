@@ -1,6 +1,6 @@
 <%-- 
-    Document   : test
-    Created on : Jul 1, 2022, 9:44:01 AM
+    Document   : error
+    Created on : Jul 4, 2022, 12:29:52 PM
     Author     : akisk
 --%>
 
@@ -9,11 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Test Page</title>
+        <title>Error Page</title>
     </head>
     <body>
-        <h1>Test for Tomcat</h1>
-        <a href="/register">Register</a>
-        <a href="/login">Login</a>
+        <h1>Error World!</h1>
     </body>
 </html>

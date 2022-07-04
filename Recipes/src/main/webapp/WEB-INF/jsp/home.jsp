@@ -1,19 +1,18 @@
 <%-- 
-    Document   : test
-    Created on : Jul 1, 2022, 9:44:01 AM
+    Document   : home
+    Created on : Jul 4, 2022, 2:34:53 PM
     Author     : akisk
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Test Page</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>Test for Tomcat</h1>
-        <a href="/register">Register</a>
-        <a href="/login">Login</a>
+        <h1>Successfull Login in World!</h1>
     </body>
 </html>
