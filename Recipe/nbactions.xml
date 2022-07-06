@@ -3,13 +3,16 @@
     <action>
         <actionName>run</actionName>
         <packagings>
-            <packaging>war</packaging>
-            <packaging>ear</packaging>
-            <packaging>ejb</packaging>
+            <packaging>jar</packaging>
         </packagings>
         <goals>
-            <goal>package</goal>
+            <goal>spring-boot:run</goal>
         </goals>
+        <properties>
+            <spring-boot.run.jvmArguments>-noverify -XX:TieredStopAtLevel=1 </spring-boot.run.jvmArguments>
+            <spring-boot.run.mainClass>com.group.project.RecipeApplication</spring-boot.run.mainClass>
+            <Env.SPRING_OUTPUT_ANSI_ENABLED>always</Env.SPRING_OUTPUT_ANSI_ENABLED>
+        </properties>
     </action>
     <action>
         <actionName>debug</actionName>
@@ -20,8 +23,8 @@
             <goal>spring-boot:run</goal>
         </goals>
         <properties>
-            <spring-boot.run.jvmArguments>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -noverify -XX:TieredStopAtLevel=1</spring-boot.run.jvmArguments>
-            <spring-boot.run.mainClass>com.example.recipe.RecipesApplication</spring-boot.run.mainClass>
+            <spring-boot.run.jvmArguments>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -noverify -XX:TieredStopAtLevel=1 </spring-boot.run.jvmArguments>
+            <spring-boot.run.mainClass>com.group.project.RecipeApplication</spring-boot.run.mainClass>
             <Env.SPRING_OUTPUT_ANSI_ENABLED>always</Env.SPRING_OUTPUT_ANSI_ENABLED>
             <jpda.listen>true</jpda.listen>
         </properties>
@@ -36,7 +39,7 @@
             <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
         </goals>
         <properties>
-            <exec.args>-classpath %classpath com.example.recipe.RecipesApplication</exec.args>
+            <exec.args>-classpath %classpath com.group.project.RecipeApplication</exec.args>
             <exec.executable>java</exec.executable>
         </properties>
     </action>
