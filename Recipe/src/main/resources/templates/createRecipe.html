@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+
+<body>
+    <form action="" method="post">
+        <div class="form-wrapper">
+            <div class="input-wrapper">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name">
+            </div>
+            <div class="input-wrapper">
+                <label for="instructions">Instructions</label>
+                <textarea name="instructions" id="instructions" cols="30" rows="1"></textarea>
+            </div>
+            <div class="input-wrapper">
+                <label for="utensils">Utensils</label>
+                <textarea name="utensils" id="utensils" cols="30" rows="1"></textarea>
+            </div>
+            <div class="input-wrapper">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" cols="30" rows="1"></textarea>
+            </div>
+            <div class="input-wrapper">
+                <label for="photo">Input photo</label>
+                <input type="file" name="photo" id="photo">
+            </div>
+            <div class="input-wrapper">
+                <label for="video">Input video</label>
+                <input type="file" name="video" id="video">
+            </div>
+            <div class="input-wrapper">
+                <label for="type">Choose type</label>
+                <select name="type" id="type">
+                    <option selected disabled value="-1">Choose one</option>
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                    <option value="forSale">For auction</option>
+                </select>
+            </div>
+            <div class="input-wrapper">
+                <p>TODO More info for paid users</p>
+            </div>
+        </div>
+        <button type="submit">Submit Form</button>
+    </form>
+</body>
+
+</html>

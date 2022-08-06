@@ -5,46 +5,38 @@
 package com.group.project.models;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author akisk
  */
 @Entity
-@Table(name = "roles")
-@XmlRootElement
+@Table(name = "measurments")
 @NamedQueries({
-    @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
-    @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
-    @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name")})
-public class Roles implements Serializable {
+    @NamedQuery(name = "Measurments.findAll", query = "SELECT m FROM Measurments m"),
+    @NamedQuery(name = "Measurments.findById", query = "SELECT m FROM Measurments m WHERE m.id = :id"),
+    @NamedQuery(name = "Measurments.findByMeasurment", query = "SELECT m FROM Measurments m WHERE m.measurment = :measurment")})
+public class Measurments implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "name")
-    private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roles")
-    private Set<User> userSet;
+    @Column(name = "measurment")
+    private String measurment;
 
-    public Roles() {
+    public Measurments() {
     }
 
-    public Roles(Integer id) {
+    public Measurments(Integer id) {
         this.id = id;
     }
 
@@ -56,21 +48,12 @@ public class Roles implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMeasurment() {
+        return measurment;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @XmlTransient
-    public Set<User> getUserSet() {
-        return userSet;
-    }
-
-    public void setUserSet(Set<User> userSet) {
-        this.userSet = userSet;
+    public void setMeasurment(String measurment) {
+        this.measurment = measurment;
     }
 
     @Override
@@ -83,10 +66,10 @@ public class Roles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof Measurments)) {
             return false;
         }
-        Roles other = (Roles) object;
+        Measurments other = (Measurments) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -95,7 +78,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.group.project.models.Roles[ id=" + id + " ]";
+        return "com.group.project.models.Measurments[ id=" + id + " ]";
     }
     
 }

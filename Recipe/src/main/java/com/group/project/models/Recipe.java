@@ -12,16 +12,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,12 +26,13 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "recipe")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Recipe.findAll", query = "SELECT r FROM Recipe r"),
     @NamedQuery(name = "Recipe.findById", query = "SELECT r FROM Recipe r WHERE r.id = :id"),
     @NamedQuery(name = "Recipe.findByName", query = "SELECT r FROM Recipe r WHERE r.name = :name"),
-    @NamedQuery(name = "Recipe.findByPrivate1", query = "SELECT r FROM Recipe r WHERE r.private1 = :private1")})
+    @NamedQuery(name = "Recipe.findByPhoto", query = "SELECT r FROM Recipe r WHERE r.photo = :photo"),
+    @NamedQuery(name = "Recipe.findByVideo", query = "SELECT r FROM Recipe r WHERE r.video = :video"),
+    @NamedQuery(name = "Recipe.findByType", query = "SELECT r FROM Recipe r WHERE r.type = :type")})
 public class Recipe implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,20 +51,27 @@ public class Recipe implements Serializable {
     @Lob
     @Column(name = "description")
     private String description;
-    @Column(name = "private")
-    private Short private1;
-    @ManyToMany(mappedBy = "recipeSet")
-    private Set<Ingredient> ingredientSet;
-    @JoinTable(name = "recipe_has_utencils", joinColumns = {
-        @JoinColumn(name = "recipe_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "utencils_id", referencedColumnName = "id")})
-    @ManyToMany
-    private Set<Utencils> utencilsSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Paid paid;
+    @Column(name = "photo")
+    private String photo;
+    @Column(name = "video")
+    private String video;
+    @Column(name = "type")
+    private String type;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<RecipeHasIngredient> recipeHasIngredientSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<SavedRecipes> savedRecipesSet;
+    @OneToMany(mappedBy = "recipeId")
+    private Set<Bought> boughtSet;
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User ownerId;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Videos videos;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Photos photos;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Tipsandtricks tipsandtricks;
 
     public Recipe() {
     }
@@ -115,38 +120,52 @@ public class Recipe implements Serializable {
         this.description = description;
     }
 
-    public Short getPrivate1() {
-        return private1;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setPrivate1(Short private1) {
-        this.private1 = private1;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    @XmlTransient
-    public Set<Ingredient> getIngredientSet() {
-        return ingredientSet;
+    public String getVideo() {
+        return video;
     }
 
-    public void setIngredientSet(Set<Ingredient> ingredientSet) {
-        this.ingredientSet = ingredientSet;
+    public void setVideo(String video) {
+        this.video = video;
     }
 
-    @XmlTransient
-    public Set<Utencils> getUtencilsSet() {
-        return utencilsSet;
+    public String getType() {
+        return type;
     }
 
-    public void setUtencilsSet(Set<Utencils> utencilsSet) {
-        this.utencilsSet = utencilsSet;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Paid getPaid() {
-        return paid;
+    public Set<RecipeHasIngredient> getRecipeHasIngredientSet() {
+        return recipeHasIngredientSet;
     }
 
-    public void setPaid(Paid paid) {
-        this.paid = paid;
+    public void setRecipeHasIngredientSet(Set<RecipeHasIngredient> recipeHasIngredientSet) {
+        this.recipeHasIngredientSet = recipeHasIngredientSet;
+    }
+
+    public Set<SavedRecipes> getSavedRecipesSet() {
+        return savedRecipesSet;
+    }
+
+    public void setSavedRecipesSet(Set<SavedRecipes> savedRecipesSet) {
+        this.savedRecipesSet = savedRecipesSet;
+    }
+
+    public Set<Bought> getBoughtSet() {
+        return boughtSet;
+    }
+
+    public void setBoughtSet(Set<Bought> boughtSet) {
+        this.boughtSet = boughtSet;
     }
 
     public User getOwnerId() {
@@ -155,6 +174,30 @@ public class Recipe implements Serializable {
 
     public void setOwnerId(User ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public Videos getVideos() {
+        return videos;
+    }
+
+    public void setVideos(Videos videos) {
+        this.videos = videos;
+    }
+
+    public Photos getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(Photos photos) {
+        this.photos = photos;
+    }
+
+    public Tipsandtricks getTipsandtricks() {
+        return tipsandtricks;
+    }
+
+    public void setTipsandtricks(Tipsandtricks tipsandtricks) {
+        this.tipsandtricks = tipsandtricks;
     }
 
     @Override

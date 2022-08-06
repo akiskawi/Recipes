@@ -14,58 +14,58 @@ import javax.persistence.Embeddable;
  * @author akisk
  */
 @Embeddable
-public class UserPK implements Serializable {
+public class SavedRecipesPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "user_id")
+    private int userId;
     @Basic(optional = false)
-    @Column(name = "roles_id")
-    private int rolesId;
+    @Column(name = "recipe_id")
+    private int recipeId;
 
-    public UserPK() {
+    public SavedRecipesPK() {
     }
 
-    public UserPK(int id, int rolesId) {
-        this.id = id;
-        this.rolesId = rolesId;
+    public SavedRecipesPK(int userId, int recipeId) {
+        this.userId = userId;
+        this.recipeId = recipeId;
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getRolesId() {
-        return rolesId;
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setRolesId(int rolesId) {
-        this.rolesId = rolesId;
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) id;
-        hash += (int) rolesId;
+        hash += (int) userId;
+        hash += (int) recipeId;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserPK)) {
+        if (!(object instanceof SavedRecipesPK)) {
             return false;
         }
-        UserPK other = (UserPK) object;
-        if (this.id != other.id) {
+        SavedRecipesPK other = (SavedRecipesPK) object;
+        if (this.userId != other.userId) {
             return false;
         }
-        if (this.rolesId != other.rolesId) {
+        if (this.recipeId != other.recipeId) {
             return false;
         }
         return true;
@@ -73,7 +73,7 @@ public class UserPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.group.project.models.UserPK[ id=" + id + ", rolesId=" + rolesId + " ]";
+        return "com.group.project.models.SavedRecipesPK[ userId=" + userId + ", recipeId=" + recipeId + " ]";
     }
     
 }
