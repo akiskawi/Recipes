@@ -6,53 +6,72 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/thymeleaf.html to edit this
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title></title>
+    <title>Create Recipe</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../static/css/style.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"> -->
+
 
 </head>
 
 <body>
-    <form action="" method="post">
-        <div class="form-wrapper">
-            <div class="input-wrapper">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name">
+
+    <div class="container">
+        <h1>Create a Recipe</h1>
+        <form action="" method="post">
+            <div class="input-wrapper md:span-2">
+                <input type="text" name="name" id="name" class="form-input" placeholder="Name">
+                <label for="name" class="form-label">Name</label>
             </div>
             <div class="input-wrapper">
-                <label for="instructions">Instructions</label>
-                <textarea name="instructions" id="instructions" cols="30" rows="1"></textarea>
+                <input type="text" name="instructions" id="instructions" class="form-input" placeholder="Instructions">
+                <label for="instructions" class="form-label">Instructions</label>
             </div>
             <div class="input-wrapper">
-                <label for="utensils">Utensils</label>
-                <textarea name="utensils" id="utensils" cols="30" rows="1"></textarea>
+                <input type="text" name="utensils" id="utensils" class="form-input" placeholder="Utensils">
+                <label for="utensils" class="form-label">Utensils</label>
             </div>
             <div class="input-wrapper">
-                <label for="description">Description</label>
-                <textarea name="description" id="description" cols="30" rows="1"></textarea>
+                <input type="text" name="description" id="description" class="form-input" placeholder="Description">
+                <label for="description" class="form-label">Description</label>
             </div>
             <div class="input-wrapper">
-                <label for="photo">Input photo</label>
-                <input type="file" name="photo" id="photo">
+                <input type="file" name="photo" id="photo" class="form-input">
+                <label for="photo" class="form-label">Input photo</label>
             </div>
-            <div class="input-wrapper">
-                <label for="video">Input video</label>
-                <input type="file" name="video" id="video">
-            </div>
-            <div class="input-wrapper">
-                <label for="type">Choose type</label>
-                <select name="type" id="type">
+            <!-- <div class="input-wrapper md:span-2">
+                <label class="form-input" for="public">
+                    <input  type="radio" id="public" name="type" value="public">
+                    Public
+                </label>
+                <label class="form-input" for="private">
+                    <input  type="radio" id="private" name="type" value="private">
+                    Private
+                </label>
+                <label class="form-input" for="forSale">
+                    <input type="radio" id="forSale" name="type" value="forSale">
+                    For Auction
+                </label>
+            </div> -->
+
+            <!-- <div class="input-wrapper">
+                <select name="type" id="type" class="form-input">
                     <option selected disabled value="-1">Choose one</option>
                     <option value="public">Public</option>
                     <option value="private">Private</option>
                     <option value="forSale">For auction</option>
                 </select>
-            </div>
-            <div class="input-wrapper">
-                <p>TODO More info for paid users</p>
-            </div>
-        </div>
-        <button type="submit">Submit Form</button>
+                <label for="type" class="form-label">Choose type</label>
+            </div> -->
+            <button class="btn md:span-2" type="submit">Submit Form</button>
+
+    </div>
     </form>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script> -->
+
 </body>
 
 </html>
