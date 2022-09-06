@@ -15,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -22,12 +24,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
     @NamedQuery(name = "User.findByEMail", query = "SELECT u FROM User u WHERE u.eMail = :eMail"),
     @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
-    @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")})
+    @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +46,9 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "role")
     private String role;
+    @Basic(optional = false)
+    @Column(name = "password")
+    private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<SavedRecipes> savedRecipesSet;
     @OneToMany(mappedBy = "userId")
@@ -56,9 +63,10 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String role) {
+    public User(Integer id, String role, String password) {
         this.id = id;
         this.role = role;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -93,6 +101,15 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @XmlTransient
     public Set<SavedRecipes> getSavedRecipesSet() {
         return savedRecipesSet;
     }
@@ -101,6 +118,7 @@ public class User implements Serializable {
         this.savedRecipesSet = savedRecipesSet;
     }
 
+    @XmlTransient
     public Set<Bought> getBoughtSet() {
         return boughtSet;
     }
@@ -109,6 +127,7 @@ public class User implements Serializable {
         this.boughtSet = boughtSet;
     }
 
+    @XmlTransient
     public Set<Recipe> getRecipeSet() {
         return recipeSet;
     }
