@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -24,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "recipe")
@@ -40,6 +42,7 @@ public class Recipe implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
@@ -60,9 +63,11 @@ public class Recipe implements Serializable {
     private String video;
     @Column(name = "type")
     private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipeId")
     private Set<RecipeHasIngredient> recipeHasIngredientSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private TipsAndTricks tipsAndTricks;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipeId")
     private Set<SavedRecipes> savedRecipesSet;
     @OneToMany(mappedBy = "recipeId")
     private Set<Bought> boughtSet;
@@ -73,8 +78,6 @@ public class Recipe implements Serializable {
     private Videos videos;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Photos photos;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Tipsandtricks tipsandtricks;
 
     public Recipe() {
     }
@@ -156,6 +159,14 @@ public class Recipe implements Serializable {
         this.recipeHasIngredientSet = recipeHasIngredientSet;
     }
 
+    public TipsAndTricks getTipsAndTricks() {
+        return tipsAndTricks;
+    }
+
+    public void setTipsAndTricks(TipsAndTricks tipsAndTricks) {
+        this.tipsAndTricks = tipsAndTricks;
+    }
+
     @XmlTransient
     public Set<SavedRecipes> getSavedRecipesSet() {
         return savedRecipesSet;
@@ -196,14 +207,6 @@ public class Recipe implements Serializable {
 
     public void setPhotos(Photos photos) {
         this.photos = photos;
-    }
-
-    public Tipsandtricks getTipsandtricks() {
-        return tipsandtricks;
-    }
-
-    public void setTipsandtricks(Tipsandtricks tipsandtricks) {
-        this.tipsandtricks = tipsandtricks;
     }
 
     @Override

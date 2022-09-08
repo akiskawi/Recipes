@@ -19,15 +19,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
-@Table(name = "tipsandtricks")
+@Table(name = "tips_and_tricks")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tipsandtricks.findAll", query = "SELECT t FROM Tipsandtricks t"),
-    @NamedQuery(name = "Tipsandtricks.findByRecipeId", query = "SELECT t FROM Tipsandtricks t WHERE t.recipeId = :recipeId")})
-public class Tipsandtricks implements Serializable {
+    @NamedQuery(name = "TipsAndTricks.findAll", query = "SELECT t FROM TipsAndTricks t"),
+    @NamedQuery(name = "TipsAndTricks.findByRecipeId", query = "SELECT t FROM TipsAndTricks t WHERE t.recipeId = :recipeId")})
+public class TipsAndTricks implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Lob
@@ -41,10 +41,10 @@ public class Tipsandtricks implements Serializable {
     @OneToOne(optional = false)
     private Recipe recipe;
 
-    public Tipsandtricks() {
+    public TipsAndTricks() {
     }
 
-    public Tipsandtricks(Integer recipeId) {
+    public TipsAndTricks(Integer recipeId) {
         this.recipeId = recipeId;
     }
 
@@ -82,10 +82,10 @@ public class Tipsandtricks implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tipsandtricks)) {
+        if (!(object instanceof TipsAndTricks)) {
             return false;
         }
-        Tipsandtricks other = (Tipsandtricks) object;
+        TipsAndTricks other = (TipsAndTricks) object;
         if ((this.recipeId == null && other.recipeId != null) || (this.recipeId != null && !this.recipeId.equals(other.recipeId))) {
             return false;
         }
@@ -94,7 +94,7 @@ public class Tipsandtricks implements Serializable {
 
     @Override
     public String toString() {
-        return "com.group.project.models.Tipsandtricks[ recipeId=" + recipeId + " ]";
+        return "com.group.project.models.TipsAndTricks[ recipeId=" + recipeId + " ]";
     }
     
 }
