@@ -12,14 +12,14 @@ import java.util.List;
  * @author akisk
  */
 public interface RecipeServiceInterface {
-    
+
     void createRecipe(Recipe r);
-    
+
     Recipe showRecipe(Integer id);
-    
-    Recipe updateRecipe(Recipe r);
-    
+
+    Recipe updateRecipe(Integer id, Recipe r);
+
     void deleteRecipe(Integer id);
-    
+
     List<Recipe> showAllRecipe();
 }

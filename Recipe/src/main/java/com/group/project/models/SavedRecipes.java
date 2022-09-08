@@ -5,9 +5,12 @@
 package com.group.project.models;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -24,40 +27,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SavedRecipes.findAll", query = "SELECT s FROM SavedRecipes s"),
-    @NamedQuery(name = "SavedRecipes.findByUserId", query = "SELECT s FROM SavedRecipes s WHERE s.savedRecipesPK.userId = :userId"),
-    @NamedQuery(name = "SavedRecipes.findByRecipeId", query = "SELECT s FROM SavedRecipes s WHERE s.savedRecipesPK.recipeId = :recipeId"),
-    @NamedQuery(name = "SavedRecipes.findByBought", query = "SELECT s FROM SavedRecipes s WHERE s.bought = :bought")})
+    @NamedQuery(name = "SavedRecipes.findByBought", query = "SELECT s FROM SavedRecipes s WHERE s.bought = :bought"),
+    @NamedQuery(name = "SavedRecipes.findBySavedRecipesId", query = "SELECT s FROM SavedRecipes s WHERE s.savedRecipesId = :savedRecipesId")})
 public class SavedRecipes implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected SavedRecipesPK savedRecipesPK;
     @Column(name = "bought")
     private Boolean bought;
-    @JoinColumn(name = "recipe_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "saved_recipes_id")
+    private Integer savedRecipesId;
+    @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Recipe recipe;
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Recipe recipeId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User user;
+    private User userId;
 
     public SavedRecipes() {
     }
 
-    public SavedRecipes(SavedRecipesPK savedRecipesPK) {
-        this.savedRecipesPK = savedRecipesPK;
-    }
-
-    public SavedRecipes(int userId, int recipeId) {
-        this.savedRecipesPK = new SavedRecipesPK(userId, recipeId);
-    }
-
-    public SavedRecipesPK getSavedRecipesPK() {
-        return savedRecipesPK;
-    }
-
-    public void setSavedRecipesPK(SavedRecipesPK savedRecipesPK) {
-        this.savedRecipesPK = savedRecipesPK;
+    public SavedRecipes(Integer savedRecipesId) {
+        this.savedRecipesId = savedRecipesId;
     }
 
     public Boolean getBought() {
@@ -68,26 +61,34 @@ public class SavedRecipes implements Serializable {
         this.bought = bought;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public Integer getSavedRecipesId() {
+        return savedRecipesId;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setSavedRecipesId(Integer savedRecipesId) {
+        this.savedRecipesId = savedRecipesId;
     }
 
-    public User getUser() {
-        return user;
+    public Recipe getRecipeId() {
+        return recipeId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRecipeId(Recipe recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (savedRecipesPK != null ? savedRecipesPK.hashCode() : 0);
+        hash += (savedRecipesId != null ? savedRecipesId.hashCode() : 0);
         return hash;
     }
 
@@ -98,7 +99,7 @@ public class SavedRecipes implements Serializable {
             return false;
         }
         SavedRecipes other = (SavedRecipes) object;
-        if ((this.savedRecipesPK == null && other.savedRecipesPK != null) || (this.savedRecipesPK != null && !this.savedRecipesPK.equals(other.savedRecipesPK))) {
+        if ((this.savedRecipesId == null && other.savedRecipesId != null) || (this.savedRecipesId != null && !this.savedRecipesId.equals(other.savedRecipesId))) {
             return false;
         }
         return true;
@@ -106,7 +107,7 @@ public class SavedRecipes implements Serializable {
 
     @Override
     public String toString() {
-        return "com.group.project.models.SavedRecipes[ savedRecipesPK=" + savedRecipesPK + " ]";
+        return "com.group.project.models.SavedRecipes[ savedRecipesId=" + savedRecipesId + " ]";
     }
     
 }
