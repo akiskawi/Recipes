@@ -58,29 +58,30 @@ public class RecipeController {
         model.addAttribute("recipe", recipeServiceInterface.showRecipe(id));
         return "updateRecipeForm";
     }
+
     /*
     Do Update a Recipe From an ID
      */
     @PostMapping("/updaterecipe/{id}")
-    public String doUpdateRecipe(@PathVariable Integer id, Model model,@RequestParam Recipe r) {
-        model.addAttribute("recipe", recipeServiceInterface.showRecipe(id));
-        Recipe updatedRecipe = recipeServiceInterface.updateRecipe(r);
+    public String doUpdateRecipe(@PathVariable Integer id, Model model, @RequestParam Recipe r) {
+        Recipe updatedRecipe = recipeServiceInterface.updateRecipe(id, r);
         model.addAttribute("recipe", updatedRecipe);
         return "recipeshow";
     }
+
     /*
     Delete a Recipe From an ID
-    */
+     */
     @GetMapping("/delete/{id}")
-    public String deleteRecipe(@PathVariable Integer id){
+    public String deleteRecipe(@PathVariable Integer id) {
         return "showallrecipes";
     }
-    
+
     /*
     Show all Recipes
-    */
+     */
     @GetMapping("/recipes")
-    public String showAllRecipes(){
+    public String showAllRecipes() {
         return "showAllRecipes";
     }
 }

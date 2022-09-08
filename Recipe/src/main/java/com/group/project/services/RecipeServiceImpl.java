@@ -15,7 +15,7 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
 
     @Autowired
     RecipeRepo recipeRepo;
-    
+
     @Override
     public void createRecipe(Recipe r) {
         recipeRepo.save(r);
@@ -27,8 +27,16 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
     }
 
     @Override
-    public Recipe updateRecipe(Recipe r) {
-        return recipeRepo.save(r);
+    public Recipe updateRecipe(Integer id, Recipe r) {
+        Recipe updateRecipe = showRecipe(id);
+        updateRecipe.setName(r.getName());
+        updateRecipe.setInstructions(r.getInstructions());
+        updateRecipe.setUtensils(r.getUtensils());
+        updateRecipe.setDescription(r.getDescription());
+        updateRecipe.setPhoto(r.getPhoto());
+        updateRecipe.setVideo(r.getVideo());
+        updateRecipe.setType(r.getType());
+        return recipeRepo.save(updateRecipe);
     }
 
     @Override
@@ -40,5 +48,5 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
     public List<Recipe> showAllRecipe() {
         return recipeRepo.findAll();
     }
-    
+
 }
