@@ -20,15 +20,15 @@ public class FriendListPK implements Serializable {
     @Column(name = "user_id")
     private int userId;
     @Basic(optional = false)
-    @Column(name = "fruend_id")
-    private int fruendId;
+    @Column(name = "friend_id")
+    private int friendId;
 
     public FriendListPK() {
     }
 
-    public FriendListPK(int userId, int fruendId) {
+    public FriendListPK(int userId, int friendId) {
         this.userId = userId;
-        this.fruendId = fruendId;
+        this.friendId = friendId;
     }
 
     public int getUserId() {
@@ -39,19 +39,19 @@ public class FriendListPK implements Serializable {
         this.userId = userId;
     }
 
-    public int getFruendId() {
-        return fruendId;
+    public int getFriendId() {
+        return friendId;
     }
 
-    public void setFruendId(int fruendId) {
-        this.fruendId = fruendId;
+    public void setFriendId(int fruendId) {
+        this.friendId = fruendId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) userId;
-        hash += (int) fruendId;
+        hash += (int) friendId;
         return hash;
     }
 
@@ -65,7 +65,7 @@ public class FriendListPK implements Serializable {
         if (this.userId != other.userId) {
             return false;
         }
-        if (this.fruendId != other.fruendId) {
+        if (this.friendId != other.friendId) {
             return false;
         }
         return true;
@@ -73,7 +73,7 @@ public class FriendListPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.group.project.models.FriendListPK[ userId=" + userId + ", fruendId=" + fruendId + " ]";
+        return "com.group.project.models.FriendListPK[ userId=" + userId + ", fruendId=" + friendId + " ]";
     }
     
 }

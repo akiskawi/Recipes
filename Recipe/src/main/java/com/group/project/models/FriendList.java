@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "FriendList.findAll", query = "SELECT f FROM FriendList f"),
     @NamedQuery(name = "FriendList.findByUserId", query = "SELECT f FROM FriendList f WHERE f.friendListPK.userId = :userId"),
-    @NamedQuery(name = "FriendList.findByFruendId", query = "SELECT f FROM FriendList f WHERE f.friendListPK.fruendId = :fruendId")})
+    @NamedQuery(name = "FriendList.findByFriendId", query = "SELECT f FROM FriendList f WHERE f.friendListPK.friendId = :friendId")})
 public class FriendList implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,8 +36,8 @@ public class FriendList implements Serializable {
         this.friendListPK = friendListPK;
     }
 
-    public FriendList(int userId, int fruendId) {
-        this.friendListPK = new FriendListPK(userId, fruendId);
+    public FriendList(int userId, int friendId) {
+        this.friendListPK = new FriendListPK(userId, friendId);
     }
 
     public FriendListPK getFriendListPK() {
