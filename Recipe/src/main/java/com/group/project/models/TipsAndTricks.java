@@ -18,8 +18,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author georg
+ * @author akisk
  */
 @Entity
 @Table(name = "tips_and_tricks")

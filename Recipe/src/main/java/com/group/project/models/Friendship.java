@@ -34,6 +34,7 @@ public class Friendship implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_id")
     private int userId;
+
     @Basic(optional = false)
     @Column(name = "friend_id")
     private int friendId;
@@ -50,10 +51,11 @@ public class Friendship implements Serializable {
         this.friendshipId = friendshipId;
     }
 
-    public Friendship(Integer friendshipId, int userId, int friendId) {
+    public Friendship(Integer friendshipId, int userId) {
         this.friendshipId = friendshipId;
         this.userId = userId;
         this.friendId = friendId;
+
     }
 
     public int getUserId() {
@@ -63,6 +65,7 @@ public class Friendship implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
 
     public int getFriendId() {
         return friendId;
