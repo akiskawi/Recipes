@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "recipe_has_ingredient")

@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "friendship")
@@ -34,8 +34,10 @@ public class Friendship implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_id")
     private int userId;
+
+    @Basic(optional = false)
     @Column(name = "friend_id")
-    private Integer friendId;
+    private int friendId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -52,6 +54,8 @@ public class Friendship implements Serializable {
     public Friendship(Integer friendshipId, int userId) {
         this.friendshipId = friendshipId;
         this.userId = userId;
+        this.friendId = friendId;
+
     }
 
     public int getUserId() {
@@ -62,11 +66,12 @@ public class Friendship implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getFriendId() {
+
+    public int getFriendId() {
         return friendId;
     }
 
-    public void setFriendId(Integer friendId) {
+    public void setFriendId(int friendId) {
         this.friendId = friendId;
     }
 
