@@ -87,8 +87,9 @@ public class RecipeController {
     Show all Recipes
      */
     @GetMapping("/all")
-    public String showAllRecipes() {
-        return "showAllRecipes";
+    public String showAllRecipes(Model m) {
+        m.addAttribute("allrecipes", recipeServiceInterface.showAllRecipe());
+        return "allrecipes";
     }
 
     /*
