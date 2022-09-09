@@ -1,4 +1,4 @@
-package com.group.project.repository;
+package com.group.project.repositories;
 
 import com.group.project.models.Friendship;
 import org.springframework.data.jpa.repository.JpaRepository;
