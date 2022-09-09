@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Update User</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/userstyle.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <h1>Update User</h1>
+        </div>
+        <div>
+            <form th:action="@{/users/doupdate}" th:object="${userup}" method="post">
+                <input type="hidden" th:field="*{id}" th:value="${userup.id}"/>
+                <div>
+                    Name <input type="text" th:field="*{name}" th:value="${userup.name}"/>
+                </div>
+                <div>
+                    Password <input type="text" th:field="*{password}" th:value="${userup.password}"/>
+                </div>
+                <div>
+                    Email <input type="text" th:field="*{email}" th:value="${userup.email}"/>
+                </div>
+                <div>
+                    Role <input type="text" th:field="*{role}" th:value="${userup.role}"/>
+                </div>
+                <input type="submit" value="Submit User" class="buttonfake buttongrey"/>
+                <a th:href="@{/users}" class="buttonfake buttongrey">Cancel</a>
+            </form>
+        </div>
+    </body>
+</html>
