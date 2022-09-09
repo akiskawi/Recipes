@@ -5,6 +5,8 @@
 package com.group.project.repositories;
 
 import com.group.project.models.Recipe;
+import com.group.project.models.User;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,5 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface RecipeRepo extends JpaRepository<Recipe, Integer>  {
+    
+    List<Recipe> findAllByOwnerid(User u);
     
 }

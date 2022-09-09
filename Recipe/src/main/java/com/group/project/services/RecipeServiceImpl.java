@@ -5,6 +5,7 @@
 package com.group.project.services;
 
 import com.group.project.models.Recipe;
+import com.group.project.models.User;
 import com.group.project.repositories.RecipeRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,11 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
     @Override
     public List<Recipe> showAllRecipe() {
         return recipeRepo.findAll();
+    }
+
+    @Override
+    public List<Recipe> showAllRecipeFromUser(User u) {
+        return recipeRepo.findAllByOwnerid(u);
     }
 
     
