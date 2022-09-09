@@ -5,7 +5,7 @@
 package com.group.project.services;
 
 import com.group.project.models.Recipe;
-import com.group.project.repository.RecipeRepo;
+import com.group.project.repositories.RecipeRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
