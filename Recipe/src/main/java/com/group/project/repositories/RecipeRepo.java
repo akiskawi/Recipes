@@ -16,6 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecipeRepo extends JpaRepository<Recipe, Integer>  {
     
-    List<Recipe> findAllByOwnerid(User u);
+    List<Recipe> findByOwnerId(User u);
     
 }

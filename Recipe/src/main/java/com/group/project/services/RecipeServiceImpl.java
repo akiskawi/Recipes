@@ -52,7 +52,7 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
 
     @Override
     public List<Recipe> showAllRecipeFromUser(User u) {
-        return recipeRepo.findAllByOwnerid(u);
+        return recipeRepo.findByOwnerId(u);
     }
 
     
