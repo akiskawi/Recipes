@@ -27,22 +27,23 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Friendship.findAll", query = "SELECT f FROM Friendship f"),
     @NamedQuery(name = "Friendship.findByUserId", query = "SELECT f FROM Friendship f WHERE f.userId = :userId"),
     @NamedQuery(name = "Friendship.findByFriendId", query = "SELECT f FROM Friendship f WHERE f.friendId = :friendId"),
-    @NamedQuery(name = "Friendship.findByFriendshipId", query = "SELECT f FROM Friendship f WHERE f.friendshipId = :friendshipId")})
+    @NamedQuery(name = "Friendship.findByFriendshipId", query = "SELECT f FROM Friendship f WHERE f.friendshipId = :friendshipId"),
+    @NamedQuery(name = "Friendship.findByRequestValid", query = "SELECT f FROM Friendship f WHERE f.requestValid = :requestValid")})
 public class Friendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "user_id")
     private int userId;
-
-    @Basic(optional = false)
     @Column(name = "friend_id")
-    private int friendId;
+    private Integer friendId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "friendship_id")
     private Integer friendshipId;
+    @Column(name = "request_valid")
+    private Boolean requestValid;
 
     public Friendship() {
     }
@@ -54,8 +55,6 @@ public class Friendship implements Serializable {
     public Friendship(Integer friendshipId, int userId) {
         this.friendshipId = friendshipId;
         this.userId = userId;
-        this.friendId = friendId;
-
     }
 
     public int getUserId() {
@@ -66,12 +65,11 @@ public class Friendship implements Serializable {
         this.userId = userId;
     }
 
-
-    public int getFriendId() {
+    public Integer getFriendId() {
         return friendId;
     }
 
-    public void setFriendId(int friendId) {
+    public void setFriendId(Integer friendId) {
         this.friendId = friendId;
     }
 
@@ -81,6 +79,14 @@ public class Friendship implements Serializable {
 
     public void setFriendshipId(Integer friendshipId) {
         this.friendshipId = friendshipId;
+    }
+
+    public Boolean getRequestValid() {
+        return requestValid;
+    }
+
+    public void setRequestValid(Boolean requestValid) {
+        this.requestValid = requestValid;
     }
 
     @Override
