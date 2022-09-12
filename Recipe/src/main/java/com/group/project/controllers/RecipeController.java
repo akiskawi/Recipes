@@ -80,8 +80,30 @@ public class RecipeController {
     /*
     Show all Recipes
      */
+<<<<<<< Updated upstream
     @GetMapping("/recipes")
     public String showAllRecipes() {
         return "showAllRecipes";
+=======
+    @GetMapping("/all")
+    public String showAllRecipes(Model m) {
+<<<<<<< Updated upstream
+        m.addAttribute("allrecipes", recipeServiceInterface.showAllRecipe());
+        return "allrecipes";
+=======
+        m.addAttribute("allrecipes",recipeServiceInterface.showAllRecipe());
+        return "recipelist";
+>>>>>>> Stashed changes
+    }
+
+    /*
+    Get User Recipes
+     */
+    @GetMapping("/user/{id}")
+    public String showUserRecipes(@PathVariable Integer id,Model model) {
+        List<Recipe> recipelist = recipeServiceInterface.showAllRecipeFromUser(userServiceInterface.getUserById(id));
+        model.addAttribute(recipelist);
+        return "redirect: /showAllRecipes";//ToDO
+>>>>>>> Stashed changes
     }
 }

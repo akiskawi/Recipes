@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author georg
+ * @author akisk
  */
 @Entity
 @Table(name = "friendship")
@@ -32,9 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Friendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
     @Column(name = "friend_id")
     private Integer friendId;
     @Id
@@ -52,16 +51,11 @@ public class Friendship implements Serializable {
         this.friendshipId = friendshipId;
     }
 
-    public Friendship(Integer friendshipId, int userId) {
-        this.friendshipId = friendshipId;
-        this.userId = userId;
-    }
-
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
