@@ -6,12 +6,15 @@ package com.group.project.controllers;
 
 import com.group.project.models.Recipe;
 import com.group.project.services.RecipeServiceInterface;
+import com.group.project.services.UserServiceInterface;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -19,15 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author akisk
  */
 @Controller
+@RequestMapping("/recipe")
 public class RecipeController {
 
     @Autowired
     RecipeServiceInterface recipeServiceInterface;
+    @Autowired
+    UserServiceInterface userServiceInterface;
 
     /*
     Get Form to Create a Recipe
      */
-    @GetMapping("/createrecipe")
+    @GetMapping("/add")
     public String createRecipe() {
         return "create";
     }
@@ -35,7 +41,7 @@ public class RecipeController {
     /*
     Post Form to Create a Recipe
      */
-    @PostMapping("/createrecipe")
+    @PostMapping("/add")
     public String newRecipe(Model model, @RequestParam Recipe r) {
         recipeServiceInterface.createRecipe(r);
         return "productform";
@@ -44,7 +50,7 @@ public class RecipeController {
     /*
     Read a Recipe From an ID
      */
-    @GetMapping("/recipe/{id}")
+    @GetMapping("/{id}")
     public String showRecipe(@PathVariable Integer id, Model model) {
         model.addAttribute("recipe", recipeServiceInterface.showRecipe(id));
         return "recipeshow";
@@ -53,7 +59,7 @@ public class RecipeController {
     /*
     Get Form Update a Recipe From an ID
      */
-    @GetMapping("/updaterecipe/{id}")
+    @GetMapping("/update/{id}")
     public String updateRecipe(@PathVariable Integer id, Model model) {
         model.addAttribute("recipe", recipeServiceInterface.showRecipe(id));
         return "updateRecipeForm";
@@ -62,7 +68,7 @@ public class RecipeController {
     /*
     Do Update a Recipe From an ID
      */
-    @PostMapping("/updaterecipe/{id}")
+    @PostMapping("/update/{id}")
     public String doUpdateRecipe(@PathVariable Integer id, Model model, @RequestParam Recipe r) {
         Recipe updatedRecipe = recipeServiceInterface.updateRecipe(id, r);
         model.addAttribute("recipe", updatedRecipe);
@@ -80,21 +86,28 @@ public class RecipeController {
     /*
     Show all Recipes
      */
-<<<<<<< Updated upstream
-    @GetMapping("/recipes")
-    public String showAllRecipes() {
-        return "showAllRecipes";
-=======
-    @GetMapping("/all")
-    public String showAllRecipes(Model m) {
-<<<<<<< Updated upstream
-        m.addAttribute("allrecipes", recipeServiceInterface.showAllRecipe());
-        return "allrecipes";
-=======
-        m.addAttribute("allrecipes",recipeServiceInterface.showAllRecipe());
-        return "recipelist";
->>>>>>> Stashed changes
-    }
+// <<<<<<< HEAD
+// <<<<<<< Updated upstream
+//     @GetMapping("/recipes")
+//     public String showAllRecipes() {
+//         return "showAllRecipes";
+// =======
+//     @GetMapping("/all")
+//     public String showAllRecipes(Model m) {
+// <<<<<<< Updated upstream
+//         m.addAttribute("allrecipes", recipeServiceInterface.showAllRecipe());
+//         return "allrecipes";
+// =======
+//         m.addAttribute("allrecipes",recipeServiceInterface.showAllRecipe());
+//         return "recipelist";
+// >>>>>>> Stashed changes
+// =======
+//     @GetMapping("/all")
+//     public String showAllRecipes(Model m) {
+//         m.addAttribute("allrecipes", recipeServiceInterface.showAllRecipe());
+//         return "allrecipes";
+// >>>>>>> 80385b7efbcd0ba784bf94daf895d108cb1177d4
+//     }
 
     /*
     Get User Recipes
@@ -103,7 +116,7 @@ public class RecipeController {
     public String showUserRecipes(@PathVariable Integer id,Model model) {
         List<Recipe> recipelist = recipeServiceInterface.showAllRecipeFromUser(userServiceInterface.getUserById(id));
         model.addAttribute(recipelist);
-        return "redirect: /showAllRecipes";//ToDO
->>>>>>> Stashed changes
+        return "redirect: /showAllRecipes";
+
     }
 }
