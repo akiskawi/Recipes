@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Users</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/userstyle.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <h1>The Recipe List</h1>
+        </div>
+        <div>
+            <!--<a th:href="@{/users/add/}" class="buttonfakebig buttonred">Add new User</a>-->
+        </div>
+        <br>
+        <div>
+            <table id="fancytb">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>des</th>
+<!--                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
+                    <th></th>-->
+                </tr>
+                <tr th:each="r: ${allrecipes}">
+                    <td th:text="${r.id}"></td>
+                    <td th:text="${r.name}"></td>
+                    <td th:text="${r.description}"></td>
+                    
+<!--                    <td th:text="${u.password}"></td>
+                    <td th:text="${u.email}"></td>
+                    <td th:text="${u.role}"></td>
+                    <td><a th:href="@{/users/update/{id}(id=${u.id})}" class="buttonfake buttongreen">Update</a></td>
+                    <td><a th:href="@{/users/delete/{id}(id=${u.id})}" class="buttonfake buttonblue">Delete</a></td>-->
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

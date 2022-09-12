@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Add User</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/userstyle.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <h1>Add new User</h1>
+        </div>
+        <div>
+            <form th:action="@{/users/doadd}" th:object="${newuser}" method="post">
+                <div>
+                    Name <input type="text" th:field="*{name}"/>
+                </div>
+                <div>
+                    Password <input type="text" th:field="*{password}"/>
+                </div>
+                <div>
+                    Email <input type="text" th:field="*{email}"/>
+                </div>
+                <div>
+                    Role <input type="text" th:field="*{role}"/>
+                </div>
+                <input type="submit" value="Submit User" class="buttonfake buttongrey"/>
+                <a th:href="@{/users}" class="buttonfake buttongrey">Cancel</a>
+            </form>
+        </div>
+    </body>
+</html>
