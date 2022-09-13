@@ -1,51 +1,47 @@
-import { useState } from 'react';
-
+import React, { useEffect, useState } from 'react'
 import { PlusIcon } from '@heroicons/react/24/solid'
 
-const CustomForm = ({addRecipe}) => {
-    const [recipe, setRecipe] = useState("");
-
-    const handleFormSumbit = (e) => {
-        e.preventDefault();
-        addRecipe({
-            name:recipe,
-            checked:false,
-            id:Date.now()
-        })
-        setRecipe("");
-    }
+const CustomForm = ({ recipe,handleAddFormChange,handleAddFormSubmit }) => {
+    
+    
 
     return (
         <form
-            className="todo"
-            onSubmit={handleFormSumbit}
+            onSubmit={handleAddFormSubmit}
         >
-            <div className="wrapper">
+            <div>
                 <input
                     type="text"
-                    id="recipeName"
-                    className="input"
-                    value={recipe}
-                    onInput={(e)=>setRecipe(e.target.value)}
+                    id="name"
+                    name="name"
+                    value={recipe.name}
+                    onChange={handleAddFormChange}
                     required
                     autoFocus
                     maxLength={60}
                     placeholder="Enter Recipe Name"
                 />
-                <label
-                    htmlFor="task"
-                    className="label"
-                >Enter Recipe Name</label>
+                <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    value={recipe.description}
+                    onChange={handleAddFormChange}
+                    required
+                    maxLength={60}
+                    placeholder="Enter Recipe Description"
+                />
             </div>
             <button
-                className="btn"
+                className='btn'
                 aria-label="Add Recipe"
                 type="submit">
-                <PlusIcon />
-
+                <PlusIcon height={24}
+                    width={24} />
 
             </button>
-        </form>
+        </form >
     )
 }
-export default CustomForm;
+
+export default CustomForm
