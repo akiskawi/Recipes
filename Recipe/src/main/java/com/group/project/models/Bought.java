@@ -109,21 +109,10 @@ public class Bought implements Serializable {
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "com.group.project.models.Bought[ id=" + id + " ]";
-//    }
-
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Bought{id=").append(id);
-        sb.append(", date=").append(date);
-        sb.append(", amount=").append(amount);
-        sb.append(", recipeId=").append(recipeId);
-        sb.append(", userId=").append(userId);
-        sb.append('}');
-        return sb.toString();
-    }  
+        return "com.group.project.models.Bought[ id=" + id + " ]";
+    }
+
     
 }
