@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author georg
+ * @author akisk
  */
 @Entity
 @Table(name = "bought")
@@ -31,8 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Bought.findAll", query = "SELECT b FROM Bought b"),
     @NamedQuery(name = "Bought.findById", query = "SELECT b FROM Bought b WHERE b.id = :id"),
-    @NamedQuery(name = "Bought.findByDate", query = "SELECT b FROM Bought b WHERE b.date = :date"),
-    @NamedQuery(name = "Bought.findByAmount", query = "SELECT b FROM Bought b WHERE b.amount = :amount")})
+    @NamedQuery(name = "Bought.findByDate", query = "SELECT b FROM Bought b WHERE b.date = :date")})
 public class Bought implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,9 +43,6 @@ public class Bought implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "amount")
-    private Double amount;
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     @ManyToOne
     private Recipe recipeId;
@@ -75,14 +71,6 @@ public class Bought implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
     }
 
     public Recipe getRecipeId() {

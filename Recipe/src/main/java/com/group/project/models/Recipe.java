@@ -19,14 +19,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author georg
+ * @author akisk
  */
 @Entity
 @Table(name = "recipe")
@@ -37,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Recipe.findByName", query = "SELECT r FROM Recipe r WHERE r.name = :name"),
     @NamedQuery(name = "Recipe.findByPhoto", query = "SELECT r FROM Recipe r WHERE r.photo = :photo"),
     @NamedQuery(name = "Recipe.findByVideo", query = "SELECT r FROM Recipe r WHERE r.video = :video"),
-    @NamedQuery(name = "Recipe.findByType", query = "SELECT r FROM Recipe r WHERE r.type = :type")})
+    @NamedQuery(name = "Recipe.findByType", query = "SELECT r FROM Recipe r WHERE r.type = :type"),
+    @NamedQuery(name = "Recipe.findByPaid", query = "SELECT r FROM Recipe r WHERE r.paid = :paid")})
 public class Recipe implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,16 +57,17 @@ public class Recipe implements Serializable {
     @Lob
     @Column(name = "description")
     private String description;
+    @Lob
+    @Column(name = "ingredients")
+    private String ingredients;
     @Column(name = "photo")
     private String photo;
     @Column(name = "video")
     private String video;
     @Column(name = "type")
     private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipeId")
-    private Set<RecipeHasIngredient> recipeHasIngredientSet;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private TipsAndTricks tipsAndTricks;
+    @Column(name = "paid")
+    private Boolean paid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipeId")
     private Set<SavedRecipes> savedRecipesSet;
     @OneToMany(mappedBy = "recipeId")
@@ -74,10 +75,6 @@ public class Recipe implements Serializable {
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     @ManyToOne
     private User ownerId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Videos videos;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Photos photos;
 
     public Recipe() {
     }
@@ -126,6 +123,14 @@ public class Recipe implements Serializable {
         this.description = description;
     }
 
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public String getPhoto() {
         return photo;
     }
@@ -150,21 +155,12 @@ public class Recipe implements Serializable {
         this.type = type;
     }
 
-    @XmlTransient
-    public Set<RecipeHasIngredient> getRecipeHasIngredientSet() {
-        return recipeHasIngredientSet;
+    public Boolean getPaid() {
+        return paid;
     }
 
-    public void setRecipeHasIngredientSet(Set<RecipeHasIngredient> recipeHasIngredientSet) {
-        this.recipeHasIngredientSet = recipeHasIngredientSet;
-    }
-
-    public TipsAndTricks getTipsAndTricks() {
-        return tipsAndTricks;
-    }
-
-    public void setTipsAndTricks(TipsAndTricks tipsAndTricks) {
-        this.tipsAndTricks = tipsAndTricks;
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 
     @XmlTransient
@@ -191,22 +187,6 @@ public class Recipe implements Serializable {
 
     public void setOwnerId(User ownerId) {
         this.ownerId = ownerId;
-    }
-
-    public Videos getVideos() {
-        return videos;
-    }
-
-    public void setVideos(Videos videos) {
-        this.videos = videos;
-    }
-
-    public Photos getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(Photos photos) {
-        this.photos = photos;
     }
 
     @Override
