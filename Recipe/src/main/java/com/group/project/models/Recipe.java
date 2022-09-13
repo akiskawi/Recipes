@@ -4,6 +4,7 @@
  */
 package com.group.project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -69,11 +70,14 @@ public class Recipe implements Serializable {
     @Column(name = "paid")
     private Boolean paid;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipeId")
+    @JsonIgnore
     private Set<SavedRecipes> savedRecipesSet;
     @OneToMany(mappedBy = "recipeId")
+    @JsonIgnore
     private Set<Bought> boughtSet;
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private User ownerId;
 
     public Recipe() {
@@ -213,5 +217,5 @@ public class Recipe implements Serializable {
     public String toString() {
         return "com.group.project.models.Recipe[ id=" + id + " ]";
     }
-    
+
 }

@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface RecipeServiceInterface {
 
-    void createRecipe(Recipe r);
+    Recipe createRecipe(Recipe r);
 
-    Recipe showRecipe(Integer id);
+    Recipe getRecipeById(Integer id);
 
     Recipe updateRecipe(Integer id, Recipe r);
 
