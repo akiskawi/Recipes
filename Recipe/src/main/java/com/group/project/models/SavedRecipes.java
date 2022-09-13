@@ -20,20 +20,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author georg
+ * @author akisk
  */
 @Entity
 @Table(name = "saved_recipes")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SavedRecipes.findAll", query = "SELECT s FROM SavedRecipes s"),
-    @NamedQuery(name = "SavedRecipes.findByBought", query = "SELECT s FROM SavedRecipes s WHERE s.bought = :bought"),
     @NamedQuery(name = "SavedRecipes.findBySavedRecipesId", query = "SELECT s FROM SavedRecipes s WHERE s.savedRecipesId = :savedRecipesId")})
 public class SavedRecipes implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Column(name = "bought")
-    private Boolean bought;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -51,14 +48,6 @@ public class SavedRecipes implements Serializable {
 
     public SavedRecipes(Integer savedRecipesId) {
         this.savedRecipesId = savedRecipesId;
-    }
-
-    public Boolean getBought() {
-        return bought;
-    }
-
-    public void setBought(Boolean bought) {
-        this.bought = bought;
     }
 
     public Integer getSavedRecipesId() {

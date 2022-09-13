@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author georg
+ * @author akisk
  */
 @Entity
 @Table(name = "user")
@@ -153,7 +153,10 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) object;
-        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
