@@ -18,11 +18,13 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
     UserService userService;
 
     @Override
-    public void addFriend(Friendship friendship) { friendshipRepo.save(friendship); }
+    public void addFriend(Friendship friendship) {
+        friendshipRepo.save(friendship);
+    }
 
     @Override
-    public void deleteFriend(Friendship friendship) {
-        friendshipRepo.deleteById(friendship.getFriendshipId());
+    public void deleteFriend(Integer friendshipID) {
+        friendshipRepo.deleteById(friendshipID);
     }
 
     @Override
@@ -36,5 +38,10 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
         }
 
         return (friends);
+    }
+
+    @Override
+    public Friendship getFriendship(Integer friendshipID) {
+        return (friendshipRepo.findByFriendshipId(friendshipID));
     }
 }

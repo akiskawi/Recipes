@@ -29,16 +29,18 @@ public class FriendshipController {
     /*
     Delete a Friend From an ID
      */
-    @GetMapping("/deleteFriend/{id}")
-    public String deleteFriend(@PathVariable Integer id) {
+    @GetMapping("/deleteFriend/{friendshipID}")
+    public String deleteFriend(@PathVariable Integer friendshipID) {
+        friendshipServiceInterface.deleteFriend(friendshipID);
         return "showAllFriends";
     }
 
     /*
     Show all of User's Friends
      */
-    @GetMapping("/friends/{id}")
-    public String showAllFriends(@PathVariable Integer id) {
+    @GetMapping("/friends/{userId}")
+    public String showAllFriends(Model model, @PathVariable Integer userId) {
+        model.addAttribute(friendshipServiceInterface.showFriends(userId));
         return "showAllFriends";
     }
 

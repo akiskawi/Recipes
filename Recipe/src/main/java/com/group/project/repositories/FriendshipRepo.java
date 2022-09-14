@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface FriendshipRepo extends JpaRepository<Friendship, Integer> {
     List<Friendship> findByUserId(Integer userID);
+    Friendship findByFriendshipId(Integer friendshipID);
 }
