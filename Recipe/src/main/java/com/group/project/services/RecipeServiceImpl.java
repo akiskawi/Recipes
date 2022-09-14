@@ -18,18 +18,19 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
     RecipeRepo recipeRepo;
 
     @Override
-    public void createRecipe(Recipe r) {
+    public Recipe createRecipe(Recipe r) {
         recipeRepo.save(r);
+        return recipeRepo.findById(r.getId()).get();
     }
 
     @Override
-    public Recipe showRecipe(Integer id) {
+    public Recipe getRecipeById(Integer id) {
         return recipeRepo.findById(id).get();
     }
 
     @Override
     public Recipe updateRecipe(Integer id, Recipe r) {
-        Recipe updateRecipe = showRecipe(id);
+        Recipe updateRecipe = getRecipeById(id);
         updateRecipe.setName(r.getName());
         updateRecipe.setInstructions(r.getInstructions());
         updateRecipe.setUtensils(r.getUtensils());

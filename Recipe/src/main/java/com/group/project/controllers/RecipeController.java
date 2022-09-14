@@ -9,19 +9,22 @@ import com.group.project.services.RecipeServiceInterface;
 import com.group.project.services.UserServiceInterface;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author akisk
  */
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/recipe")
 public class RecipeController {
 
@@ -31,92 +34,41 @@ public class RecipeController {
     UserServiceInterface userServiceInterface;
 
     /*
-    Get Form to Create a Recipe
+    Get All Recipes
      */
-    @GetMapping("/add")
-    public String createRecipe() {
-        return "create";
+    @GetMapping("/all")
+    List<Recipe> getAllRecipes() {
+        return recipeServiceInterface.showAllRecipe();
     }
 
     /*
-    Post Form to Create a Recipe
+    Create a Recipe
      */
-    @PostMapping("/add")
-    public String newRecipe(Model model, @RequestParam Recipe r) {
-        recipeServiceInterface.createRecipe(r);
-        return "productform";
+    @PostMapping("/")
+    Recipe createRecipe(@RequestBody Recipe recipe) {
+        Recipe createdRecipe = recipeServiceInterface.createRecipe(recipe);
+        return createdRecipe;
     }
 
     /*
-    Read a Recipe From an ID
+    Read a Recipe
      */
     @GetMapping("/{id}")
-    public String showRecipe(@PathVariable Integer id, Model model) {
-        model.addAttribute("recipe", recipeServiceInterface.showRecipe(id));
-        return "recipeshow";
+    Recipe getRecipeById(@PathVariable Integer id) {
+        return recipeServiceInterface.getRecipeById(id);
     }
 
     /*
-    Get Form Update a Recipe From an ID
+    Update a Recipe
      */
-    @GetMapping("/update/{id}")
-    public String updateRecipe(@PathVariable Integer id, Model model) {
-        model.addAttribute("recipe", recipeServiceInterface.showRecipe(id));
-        return "updateRecipeForm";
+    @PutMapping("/{id}")
+    Recipe updateRecipeById(@PathVariable Integer id, @RequestBody Recipe recipe) {
+        return recipeServiceInterface.updateRecipe(id, recipe);
     }
 
-    /*
-    Do Update a Recipe From an ID
-     */
-    @PostMapping("/update/{id}")
-    public String doUpdateRecipe(@PathVariable Integer id, Model model, @RequestParam Recipe r) {
-        Recipe updatedRecipe = recipeServiceInterface.updateRecipe(id, r);
-        model.addAttribute("recipe", updatedRecipe);
-        return "recipeshow";
+    @DeleteMapping("/{id}")
+    void deleteRecipeById(@PathVariable Integer id){
+        recipeServiceInterface.deleteRecipe(id);
     }
 
-    /*
-    Delete a Recipe From an ID
-     */
-    @GetMapping("/delete/{id}")
-    public String deleteRecipe(@PathVariable Integer id) {
-        return "showallrecipes";
-    }
-
-    /*
-    Show all Recipes
-     */
-// <<<<<<< HEAD
-// <<<<<<< Updated upstream
-//     @GetMapping("/recipes")
-//     public String showAllRecipes() {
-//         return "showAllRecipes";
-// =======
-//     @GetMapping("/all")
-//     public String showAllRecipes(Model m) {
-// <<<<<<< Updated upstream
-//         m.addAttribute("allrecipes", recipeServiceInterface.showAllRecipe());
-//         return "allrecipes";
-// =======
-//         m.addAttribute("allrecipes",recipeServiceInterface.showAllRecipe());
-//         return "recipelist";
-// >>>>>>> Stashed changes
-// =======
-//     @GetMapping("/all")
-//     public String showAllRecipes(Model m) {
-//         m.addAttribute("allrecipes", recipeServiceInterface.showAllRecipe());
-//         return "allrecipes";
-// >>>>>>> 80385b7efbcd0ba784bf94daf895d108cb1177d4
-//     }
-
-    /*
-    Get User Recipes
-     */
-    @GetMapping("/user/{id}")
-    public String showUserRecipes(@PathVariable Integer id,Model model) {
-        List<Recipe> recipelist = recipeServiceInterface.showAllRecipeFromUser(userServiceInterface.getUserById(id));
-        model.addAttribute(recipelist);
-        return "redirect: /showAllRecipes";
-
-    }
 }
