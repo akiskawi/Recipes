@@ -6,7 +6,8 @@ import BoughtRecipes from './components/BoughtRecipes.js';
 import A from './components/A';
 // import RecipeList from './components/RecipeList';
 
-const doc=document;
+//To change document title
+const doc = document;
 
 function App() {
 
@@ -14,7 +15,12 @@ function App() {
     <BrowserRouter>
       <div className='container'>
         <Routes>
-          <Route path='/' element={<A doc={doc} />} />
+          <Route path='/asd' element={<A doc={doc} />} >
+            <Route path='/asdasd' elem>
+
+            </Route>
+          </Route>
+
           <Route path='/boughtrecipes' element={<BoughtRecipes doc={doc} />} />
         </Routes>
         {/* <RecipeList /> */}
@@ -24,3 +30,15 @@ function App() {
 }
 
 export default App;
+
+/* <Routes>
+    <Route path="/">
+        <Route path="{profilename}" />
+        <Route path="{recipeid}" />
+        <Route path="createrecipe"></Route>
+        <Route path="guest">
+            <Route path="/login" />
+            <Route path="/register" />
+        </Route>
+    </Route>
+</Routes> */
