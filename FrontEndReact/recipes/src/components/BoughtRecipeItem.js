@@ -1,5 +1,6 @@
 import { TiTimes } from 'react-icons/ti';
 
+// MAIN
 const BoughtRecipeItem = (props) => {
 
     return (

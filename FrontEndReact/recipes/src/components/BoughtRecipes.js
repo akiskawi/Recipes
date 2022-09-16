@@ -7,20 +7,20 @@ import { useState } from 'react';
 //Components
 import BoughtRecipeItem from "./BoughtRecipeItem.js";
 
-// Change Document Title
-const changeName = (doc) => {
-  doc.title = "Bought Recipes";
-}
-
-// Delete Task
-const deleteBoughtRecipe=(id)=>{
-  console.log(id+" deleted")
-}
-
+//
+//
+//
+// MAIN
 const BoughtRecipes = (props) => {
 
+  // Delete Bought Recipe
+  const deleteBoughtRecipe = (id) => {
+    // console.log(id + " deleted")
+    setBoughtrec(boughtrec.filter((brec) => brec.id !== id))
+  }
+
   // Data
-  const [boughtrec, setboughtrec] = useState(
+  const [boughtrec, setBoughtrec] = useState(
     [
       {
         id: 1,
@@ -35,9 +35,7 @@ const BoughtRecipes = (props) => {
 
   return (
     <div>
-      {changeName(props.doc)}
       {boughtrec.map((brec) => (<BoughtRecipeItem key={brec.id} brec={brec} onDelete={deleteBoughtRecipe} />))}
-      <Link to='/'>to A</Link>
     </div>
   );
 };

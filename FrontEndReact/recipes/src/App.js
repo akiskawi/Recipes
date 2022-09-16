@@ -1,44 +1,53 @@
+import { React } from 'react';
+
 // Routing
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
+
+// CSS
 import './App.css';
-import BoughtRecipes from './components/BoughtRecipes.js';
-import A from './components/A';
-// import RecipeList from './components/RecipeList';
 
-//To change document title
-const doc = document;
+// Components
+import Home from './components/views/Home';
+import Login from './components/views/Login';
+import Register from './components/views/Register';
+import Profile from './components/views/Profile';
+import Recipe from './components/views/Recipe';
+import CreateRecipe from './components/views/CreateRecipe';
+import NoPage from './components/views/NoPage';
+
+
 
 function App() {
+
+  const changeDocTitle = (doctitle) => {
+    document.title = doctitle;
+  }
 
   return (
     <BrowserRouter>
       <div className='container'>
+        {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
+        {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
+        <Link to='/'>Home</Link>
+        <Link to='/login'>Login</Link>
+        <Link to='/register'>Register</Link>
+        <Link to='/createrecipe'>Create Recipe</Link>
+
+
+        {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
         <Routes>
-          <Route path='/asd' element={<A doc={doc} />} >
-            <Route path='/asdasd' elem>
-
-            </Route>
-          </Route>
-
-          <Route path='/boughtrecipes' element={<BoughtRecipes doc={doc} />} />
+          <Route path='/' element={<Home changeDocTitle={changeDocTitle} />} />
+          <Route path='login' element={<Login changeDocTitle={changeDocTitle} />} />
+          <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />
+          <Route path='profile/:profilename' element={<Profile changeDocTitle={changeDocTitle} />} />
+          <Route path='recipe/:recipeid' element={<Recipe changeDocTitle={changeDocTitle} />} />
+          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
+          <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} />
         </Routes>
-        {/* <RecipeList /> */}
       </div>
     </BrowserRouter>
   );
 }
 
 export default App;
-
-/* <Routes>
-    <Route path="/">
-        <Route path="{profilename}" />
-        <Route path="{recipeid}" />
-        <Route path="createrecipe"></Route>
-        <Route path="guest">
-            <Route path="/login" />
-            <Route path="/register" />
-        </Route>
-    </Route>
-</Routes> */
