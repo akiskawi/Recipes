@@ -1,64 +1,51 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group.project.controllers;
 
 import com.group.project.models.User;
 import com.group.project.services.UserServiceInterface;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author Andreas
  */
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserServiceInterface userServ;
 
-    @GetMapping("")
-    public String showAllUsers(ModelMap mm) {
-        mm.addAttribute("allusers", userServ.getAllUsers());
-        return ("userlist");
+    @GetMapping("/all")
+    public List<User> showAllUsers() {
+        return userServ.getAllUsers();
     }
 
-    @GetMapping("/add")
-    public String addUserForm(ModelMap mm) {
-        mm.addAttribute("newuser", new User());
-        return ("useradd");
+    @GetMapping("/{id}")
+    public User showUser(@PathVariable Integer id) {
+        return userServ.getUserById(id);
     }
 
-    @PostMapping("/doadd")
-    public String addUser(@ModelAttribute("newuser") User u) {
-        userServ.createUser(u);
-        return ("redirect:/users");
+    @PostMapping("/")
+    public User addUser(@RequestBody User u) {
+        return userServ.createUser(u);
     }
 
-    @GetMapping("/update/{id}")
-    public String updateUserForm(@PathVariable("id") Integer id, ModelMap mm) {
-        mm.addAttribute("userup", userServ.getUserById(id));
-        return ("userupdate");
+    @PutMapping("/{id}")
+    public User updateUser(@RequestBody User u) {
+        return userServ.updateUser(u);
     }
 
-    @PostMapping("/doupdate")
-    public String updateUser(@ModelAttribute("userup") User u) {
-        userServ.updateUser(u);
-        return ("redirect:/users");
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id) {
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable("id") Integer id) {
         userServ.deleteUser(id);
-        return ("redirect:/users");
     }
 }
