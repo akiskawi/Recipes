@@ -1,7 +1,7 @@
 import { React } from 'react';
 
 // Routing
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 // CSS
@@ -15,6 +15,7 @@ import Profile from './components/views/Profile';
 import Recipe from './components/views/Recipe';
 import CreateRecipe from './components/views/CreateRecipe';
 import NoPage from './components/views/NoPage';
+import OurNavBar from './components/OurNavBar'
 
 
 
@@ -29,10 +30,7 @@ function App() {
       <div className='container'>
         {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
         {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
-        <Link to='/'>Home</Link>
-        <Link to='/login'>Login</Link>
-        <Link to='/register'>Register</Link>
-        <Link to='/createrecipe'>Create Recipe</Link>
+        <OurNavBar/>
 
 
         {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
