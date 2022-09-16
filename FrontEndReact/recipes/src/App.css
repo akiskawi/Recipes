@@ -28,11 +28,20 @@ button {
 }
 
 
-
+.links {
+  display: block;
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+  font-size: var(--bs-nav-link-font-size);
+  font-weight: var(--bs-nav-link-font-weight);
+  color: var(--bs-nav-link-color);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  margin: 10px;
+}
 
 .recipe {
-background-color: aqua;
-margin: 10px;
+  background-color: aqua;
+  margin: 10px;
 }
 
 
@@ -113,7 +122,7 @@ td {
     0 0 0 0.4em hsl(var(--accent) / 0.7);
 }
 
-td > input {
-    font: inherit;
-    border: none;
+td>input {
+  font: inherit;
+  border: none;
 }
