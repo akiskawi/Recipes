@@ -10,6 +10,8 @@ package com.group.project.dto;
  * @author mhtso
  */
 public class RecipeDTO {
+
+    private Integer id;
     private String name;
     private String instructions;
     private String utensils;
@@ -91,6 +93,13 @@ public class RecipeDTO {
     public void setPaid(Boolean paid) {
         this.paid = paid;
     }
-    
-    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 }
