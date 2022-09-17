@@ -5,10 +5,16 @@
  */
 package com.group.project.services;
 
+import com.group.project.dto.RecipeDTO;
+import com.group.project.models.User;
+import java.util.List;
+
 /**
  *
  * @author mhtso
  */
 public interface BoughtServiceInterface {
-    
+
+    public List<RecipeDTO> getAllBoughtRecipesByLoggedInUserDataOnly(User user);
+
 }

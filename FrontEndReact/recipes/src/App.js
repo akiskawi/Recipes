@@ -38,7 +38,7 @@ function App() {
           <Route path='/' element={<Home changeDocTitle={changeDocTitle} />} />
           <Route path='login' element={<Login changeDocTitle={changeDocTitle} />} />
           <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />
-          <Route path='profile/:profilename' element={<Profile changeDocTitle={changeDocTitle} />} />
+          <Route path='profile/:profileid' element={<Profile changeDocTitle={changeDocTitle} />} />
           <Route path='recipe/:recipeid' element={<Recipe changeDocTitle={changeDocTitle} />} />
           <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
           <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} />
