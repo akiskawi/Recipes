@@ -16,8 +16,7 @@ import Recipe from './components/views/Recipe';
 import CreateRecipe from './components/views/CreateRecipe';
 import NoPage from './components/views/NoPage';
 import OurNavBar from './components/OurNavBar'
-
-
+import UserList from './components/UserList';
 
 function App() {
 
@@ -41,6 +40,7 @@ function App() {
           <Route path='profile/:profilename' element={<Profile changeDocTitle={changeDocTitle} />} />
           <Route path='recipe/:recipeid' element={<Recipe changeDocTitle={changeDocTitle} />} />
           <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
+          <Route path='userlist' element={<UserList changeDocTitle={changeDocTitle} />} />
           <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} />
         </Routes>
       </div>
