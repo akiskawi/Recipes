@@ -1,11 +1,12 @@
-// Axios
-import axios from 'axios'
-
 // State
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+// Services
+import RecipeService from '../services/RecipeService'
 
 //Components
 import BoughtRecipeItem from "./BoughtRecipeItem.js";
+
 
 //
 //
@@ -16,17 +17,19 @@ const BoughtRecipes = (props) => {
   // Data Manipulation
   const [boughtrec, setBoughtrec] = useState([])
 
-  const api = axios.create({ baseURL: 'localhost:8080/' })
-  const getCourses = async () => {
-    let data = await api.get(`bought/${props.profileid}`).then(({ data }) => data)
-    setBoughtrec(data)
+  useEffect(() => {
+    RecipeService.getBoughtRecipesByUserId(props.profileid)
+      .then((response) => setBoughtrec(response.data))
+      .catch((error) => console.log(error))
+      .then()
   }
+    , [boughtrec])
 
+  
   return (
     <div>
-      {getCourses}
       <h2>Bought Recipes</h2>
-      {boughtrec.map((brec) => (<BoughtRecipeItem brec={brec} />))}
+      {boughtrec.map((brec) => (<BoughtRecipeItem key={brec.id} brec={brec} />))}
     </div>
   );
 };

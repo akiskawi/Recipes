@@ -1,15 +1,26 @@
-// axios import
 import http from "../http-common"
 
-const getFirst = () => {
-    http.get("recipe/showrecipe1").then(res => {
-        return res;
-    })
+
+const getBoughtRecipesByUserId = (id) => {
+    return http.get(`recipe/bought/${id}`)
 }
 
-
 const RecipeService = {
-    getFirst
-};
+    getBoughtRecipesByUserId
+}
 
 export default RecipeService
+
+
+
+
+// const getFirst = () => {
+//     http.get("recipe/showrecipe1").then(res => {
+//         return res;
+//     })
+// }
+
+
+// const RecipeService = {
+//     getFirst
+// };
