@@ -17,6 +17,7 @@ function CollapsibleExample() {
                             <Link className='links' to="/createrecipe">Create Recipe</Link>
                             <Link className='links' to="login" style={{position:"absolute", right:"120px"}}>Login</Link>
                             <Link className='links' to="/register" style={{position:"absolute", right:"30px"}}>Register</Link>
+                            <Link className='links' to="userlist">User List</Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
