@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group.project.services;
+package com.group.project.dto;
 
 /**
  *
  * @author mhtso
  */
-public interface BoughtServiceInterface {
+public class UserDTO {
     
 }
