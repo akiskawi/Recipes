@@ -1,14 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.group.project.dto;
+
+import com.group.project.models.Bought;
+import com.group.project.models.Recipe;
+import com.group.project.models.SavedRecipes;
+import java.util.Set;
 
 /**
  *
  * @author mhtso
  */
-public class UserDTO {
-    
+public interface UserDTO {
+
+    public Integer getId();
+
+    public String getEmail();
+
+    public String getName();
+
+    public String getRole();
+
+    public Set<SavedRecipes> getSavedRecipesSet();
+
+    public Set<Bought> getBoughtSet();
+
+    public Set<Recipe> getRecipeSet();
+
 }
