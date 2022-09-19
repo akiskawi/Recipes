@@ -11,6 +11,7 @@ import com.group.project.repositories.BoughtRepo;
 import com.group.project.repositories.RecipeRepo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,12 +54,7 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
 
     @Override
     public List<Recipe> showAllRecipe() {
-        return recipeRepo.findAll();
-    }
-
-    @Override
-    public List<Recipe> showAllRecipeFromUser(User u) {
-        return recipeRepo.findByOwnerId(u);
+        return recipeRepo.findAll().stream().peek(recipe->recipe.getOwnerId().setPassword(null)).collect(Collectors.toList());
     }
 
     @Override
@@ -83,6 +79,21 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
             i++;
         }
         return boughtRecipesByUserXDataOnly;
+    }
+
+    @Override
+    public List<Recipe> showAllRecipesByType(String type) {
+        return recipeRepo.findAllByType(type);
+    }
+
+    @Override
+    public List<Recipe> showAllRecipesByOwnerId(User user) {
+        return recipeRepo.findAllByOwnerId(user);
+    }
+
+    @Override
+    public List<Recipe> showAllRecipesContainsIgnoreCase(String string) {
+        return recipeRepo.findAllByNameContainsIgnoreCase(string);
     }
 
 }
