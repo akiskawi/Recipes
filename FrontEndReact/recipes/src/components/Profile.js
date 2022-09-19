@@ -1,11 +1,11 @@
-import './Profile.css';
-import './Recipes.css';
+// import './Profile.css';
+// import './Recipes.css';
 import Recipes from './Recipes'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import 'react-bootstrap'
 
 
-const Profile = ({ title, setTitle, recipes, setOpt, showOneRecipe }) => {
+const Profile = ({ title, setTitle, recipes, setOpt, showOneRecipe,profileId }) => {
     return (
         <div className="container">
             {/* <div className="row">
@@ -14,7 +14,7 @@ const Profile = ({ title, setTitle, recipes, setOpt, showOneRecipe }) => {
             </div> */}
             <div className="row">
                 <div className="profile-user-deteils">
-                    <div className="col-2 text-danger fs-4">Img TODO:</div>
+                    <div className="col-2 text-danger fs-4">AVATAR TODO:</div>
                     <div className="col-10 text-center fw-bold fs-1">Egi Gabrielatou</div>
                 </div>
                 <div className="row">
@@ -50,7 +50,7 @@ const Profile = ({ title, setTitle, recipes, setOpt, showOneRecipe }) => {
                         {/* </div> */}
                     </div>
                 </div>
-                <div className="row">
+                <div className="row mt-3">
                     {recipes.map(recipe => (
                         <Recipes
                             key={recipe.id}

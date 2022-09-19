@@ -87,12 +87,12 @@ public class RecipeController {
     }
     //to id einai to OwenerID
     @GetMapping("owned/{owner_id}")
-    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "owner_id") Integer id){
+    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "owner_id") Integer owner_id){
         return recipeServiceInterface.showAllRecipesByOwnerId(userServiceInterface.getUserById(owner_id));
     }
     //Search by Name
     @GetMapping("/{name}")
-    public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "name") String string){
+    public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "name") String name){
         return recipeServiceInterface.showAllRecipesContainsIgnoreCase(name);
     }
 }
