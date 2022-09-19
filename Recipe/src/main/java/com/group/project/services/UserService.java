@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group.project.services;
 
 import com.group.project.models.User;
@@ -23,8 +19,8 @@ public class UserService implements UserServiceInterface {
 
     @Override
     @Transactional
-    public void createUser(User u) {
-        userRepo.save(u);
+    public User createUser(User u) {
+        return userRepo.save(u);
     }
 
     @Override
@@ -34,29 +30,31 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getUserById(Integer id) {
-        return userRepo.findById(id).get();
+        return userRepo.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
-    public void updateUser(User u) {
-        User t = userRepo.findById(u.getId()).get();
-        if (t!=null) {
+    public User updateUser(User u) {
+        User t = userRepo.findById(u.getId()).orElse(null);
+        if (t != null) {
             t.setName(u.getName());
             t.setPassword(u.getPassword());
             t.setEmail(u.getEmail());
             t.setRole(u.getRole());
-            userRepo.save(t);
+            return userRepo.save(t);
+        } else {
+            return null;
         }
     }
 
     @Override
     @Transactional
     public void deleteUser(Integer id) {
-        User t = userRepo.findById(id).get();
-        if (t!=null) {
+        User t = userRepo.findById(id).orElse(null);
+        if (t != null) {
             userRepo.delete(t);
         }
     }
-    
+
 }

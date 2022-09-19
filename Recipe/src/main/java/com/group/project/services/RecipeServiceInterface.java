@@ -4,6 +4,7 @@
  */
 package com.group.project.services;
 
+import com.group.project.dto.RecipeDTO;
 import com.group.project.models.Recipe;
 import com.group.project.models.User;
 import java.util.List;
@@ -23,6 +24,9 @@ public interface RecipeServiceInterface {
     void deleteRecipe(Integer id);
 
     List<Recipe> showAllRecipe();
-    
+
     List<Recipe> showAllRecipeFromUser(User u);
+
+    public List<RecipeDTO> getAllBoughtRecipesByLoggedInUserUsefulDataOnly(User user);
+
 }

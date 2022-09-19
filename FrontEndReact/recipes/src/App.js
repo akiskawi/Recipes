@@ -1,26 +1,50 @@
+import { React } from 'react';
+
 // Routing
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import './App.css';
-import BoughtRecipes from './components/BoughtRecipes.js';
-import A from './components/A';
-// import RecipeList from './components/RecipeList';
 
-const doc=document;
+// CSS
+import './App.css';
+
+// Components
+import Home from './components/views/Home';
+import Login from './components/views/Login';
+import Register from './components/views/Register';
+import Profile from './components/views/Profile';
+import Recipe from './components/views/Recipe';
+import CreateRecipe from './components/views/CreateRecipe';
+import NoPage from './components/views/NoPage';
+import OurNavBar from './components/OurNavBar'
+import UserList from './components/UserList';
 
 function App() {
 
-  return (
-    <BrowserRouter>
-      <div className='container'>
-        <Routes>
-          <Route path='/' element={<A doc={doc} />} />
-          <Route path='/boughtrecipes' element={<BoughtRecipes doc={doc} />} />
-        </Routes>
-        {/* <RecipeList /> */}
-      </div>
-    </BrowserRouter>
-  );
+    const changeDocTitle = (doctitle) => {
+        document.title = doctitle;
+    }
+
+    return (
+        <BrowserRouter>
+            <div className='container'>
+                {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
+                {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
+                <OurNavBar />
+
+                {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
+                <Routes>
+                    <Route path='/' element={<Home changeDocTitle={changeDocTitle} />} />
+                    <Route path='login' element={<Login changeDocTitle={changeDocTitle} />} />
+                    <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />
+                    <Route path='profile/:profileid' element={<Profile changeDocTitle={changeDocTitle} />} />
+                    <Route path='recipe/:recipeid' element={<Recipe changeDocTitle={changeDocTitle} />} />
+                    <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
+                    <Route path='userlist' element={<UserList changeDocTitle={changeDocTitle} />} />
+                    <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

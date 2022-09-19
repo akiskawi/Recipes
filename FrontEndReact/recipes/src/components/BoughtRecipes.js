@@ -1,14 +1,32 @@
-import { Link } from "react-router-dom";
+// Axios
+import axios from 'axios'
 
-function changeName(doc) {
-  doc.title = "Bought Recipes";
-}
+// State
+import { useState } from 'react';
 
+//Components
+import BoughtRecipeItem from "./BoughtRecipeItem.js";
+
+//
+//
+//
+// MAIN
 const BoughtRecipes = (props) => {
+
+  // Data Manipulation
+  const [boughtrec, setBoughtrec] = useState([])
+
+  const api = axios.create({ baseURL: 'localhost:8080/' })
+  const getCourses = async () => {
+    let data = await api.get(`bought/${props.profileid}`).then(({ data }) => data)
+    setBoughtrec(data)
+  }
+
   return (
     <div>
-      {changeName(props.doc)}
-      <Link to='/'>to A</Link>
+      {getCourses}
+      <h2>Bought Recipes</h2>
+      {boughtrec.map((brec) => (<BoughtRecipeItem brec={brec} />))}
     </div>
   );
 };

@@ -5,9 +5,7 @@
  */
 package com.group.project.repositories;
 
-import com.group.project.models.Bought;
-import com.group.project.models.User;
-import java.util.List;
+import com.group.project.models.SavedRecipes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author mhtso
  */
 @Repository
-public interface BoughtRepo extends JpaRepository<Bought, Integer> {
-
-    public List<Bought> findAllByUserId(User user);
+public interface SavedRepo extends JpaRepository<SavedRecipes, Integer> {
 
 }

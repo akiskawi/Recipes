@@ -4,7 +4,6 @@
  */
 package com.group.project.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
@@ -118,5 +117,4 @@ public class Bought implements Serializable {
         return "com.group.project.models.Bought[ id=" + id + " ]";
     }
 
-    
 }

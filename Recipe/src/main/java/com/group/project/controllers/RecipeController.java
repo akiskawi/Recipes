@@ -4,7 +4,9 @@
  */
 package com.group.project.controllers;
 
+import com.group.project.dto.RecipeDTO;
 import com.group.project.models.Recipe;
+import com.group.project.models.User;
 import com.group.project.services.RecipeServiceInterface;
 import com.group.project.services.UserServiceInterface;
 import java.util.List;
@@ -67,8 +69,16 @@ public class RecipeController {
     }
 
     @DeleteMapping("/{id}")
-    void deleteRecipeById(@PathVariable Integer id){
+    void deleteRecipeById(@PathVariable Integer id) {
         recipeServiceInterface.deleteRecipe(id);
     }
 
+    @GetMapping("/bought/{id}")
+    public List<RecipeDTO> showAllBoughtRecipesByLoggedInUserId(@PathVariable(value = "id") User user) {
+//        List<RecipeDTO> boughtRecipesByUserXDataOnly = new ArrayList();
+        return recipeServiceInterface.getAllBoughtRecipesByLoggedInUserUsefulDataOnly(user);
+//        boughtService.getAllBoughtRecipesByLoggedInUser(user).forEach(recipe -> boughtRecipesByUserXDataOnly.add(recipe));
+//        return boughtRecipesByUserXDataOnly;
+
+    }
 }
