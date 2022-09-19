@@ -13,7 +13,6 @@ function CollapsibleExample() {
                     <Link className='links' to="/">Home</Link>
                     <Link className='links' to="#">My Profile</Link>
                     <Link className='links' to="createrecipe">Create Recipe</Link>
-                    <Link className='links' to="userlist">User List</Link>
                     <Link className='links' to="login" style={{ position: "absolute", right: "200px" }}>Login</Link>
                     <Link className='links' to="logout" style={{ position: "absolute", right: "0px" }}>Logout</Link>
                     <Link className='links' to="register" style={{ position: "absolute", right: "100px" }}>Register</Link>
