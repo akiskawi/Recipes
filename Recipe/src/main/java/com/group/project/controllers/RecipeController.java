@@ -4,7 +4,9 @@
  */
 package com.group.project.controllers;
 
+import com.group.project.dto.RecipeDTO;
 import com.group.project.models.Recipe;
+import com.group.project.models.User;
 import com.group.project.services.RecipeServiceInterface;
 import com.group.project.services.UserServiceInterface;
 import java.util.List;
@@ -46,8 +48,7 @@ public class RecipeController {
      */
     @PostMapping("/")
     Recipe createRecipe(@RequestBody Recipe recipe) {
-        Recipe createdRecipe = recipeServiceInterface.createRecipe(recipe);
-        return createdRecipe;
+        return recipeServiceInterface.createRecipe(recipe);
     }
 
     /*
@@ -67,8 +68,31 @@ public class RecipeController {
     }
 
     @DeleteMapping("/{id}")
-    void deleteRecipeById(@PathVariable Integer id){
+    void deleteRecipeById(@PathVariable Integer id) {
         recipeServiceInterface.deleteRecipe(id);
     }
 
+    @GetMapping("/bought/{id}")
+    public List<RecipeDTO> showAllBoughtRecipesByLoggedInUserId(@PathVariable(value = "id") User user) {
+//        List<RecipeDTO> boughtRecipesByUserXDataOnly = new ArrayList();
+        return recipeServiceInterface.getAllBoughtRecipesByLoggedInUserUsefulDataOnly(user);
+//        boughtService.getAllBoughtRecipesByLoggedInUser(user).forEach(recipe -> boughtRecipesByUserXDataOnly.add(recipe));
+//        return boughtRecipesByUserXDataOnly;
+
+    }
+    //Seach by Recipe Type
+    @GetMapping("type/{type}")
+    public List<Recipe> showAllRecipesByType(@PathVariable(value = "type") String type){
+        return recipeServiceInterface.showAllRecipesByType(type);
+    }
+    //to id einai to OwenerID
+    @GetMapping("owned/{owner_id}")
+    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "owner_id") Integer id){
+        return recipeServiceInterface.showAllRecipesByOwnerId(userServiceInterface.getUserById(owner_id));
+    }
+    //Search by Name
+    @GetMapping("/{name}")
+    public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "name") String string){
+        return recipeServiceInterface.showAllRecipesContainsIgnoreCase(name);
+    }
 }

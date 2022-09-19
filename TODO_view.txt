@@ -1,0 +1,16 @@
+Routes:
+<Route>
+If LoggedIn{
+Create_recipe
+Read_recipe_view(Paid Feature)
+Home(index)
+My_profile/Other_profile
+}else{
+Read_recipe_view(Must be Logged In?)
+Register
+Login
+}
+
+
+</Route>
+
