@@ -48,8 +48,7 @@ public class RecipeController {
      */
     @PostMapping("/")
     Recipe createRecipe(@RequestBody Recipe recipe) {
-        Recipe createdRecipe = recipeServiceInterface.createRecipe(recipe);
-        return createdRecipe;
+        return recipeServiceInterface.createRecipe(recipe);
     }
 
     /*
@@ -80,5 +79,19 @@ public class RecipeController {
 //        boughtService.getAllBoughtRecipesByLoggedInUser(user).forEach(recipe -> boughtRecipesByUserXDataOnly.add(recipe));
 //        return boughtRecipesByUserXDataOnly;
 
+    }
+    @GetMapping("/{type}")
+    public List<Recipe> showAllRecipesByType(@PathVariable(value = "type") String type){
+        return recipeServiceInterface.showAllRecipesByType(type);
+    }
+
+    @GetMapping("/{id}")
+    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "id") Integer id){
+        return recipeServiceInterface.showAllRecipesByOwnerId(userServiceInterface.getUserById(id));
+    }
+
+    @GetMapping("/{string}")
+    public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "string") String string){
+        return recipeServiceInterface.showAllRecipesContainsIgnoreCase(string);
     }
 }
