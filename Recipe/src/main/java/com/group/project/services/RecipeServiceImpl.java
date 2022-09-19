@@ -11,6 +11,7 @@ import com.group.project.repositories.BoughtRepo;
 import com.group.project.repositories.RecipeRepo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,7 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
 
     @Override
     public List<Recipe> showAllRecipe() {
-        return recipeRepo.findAll();
+        return recipeRepo.findAll().stream().peek(recipe->recipe.getOwnerId().setPassword(null)).collect(Collectors.toList());
     }
 
     @Override
