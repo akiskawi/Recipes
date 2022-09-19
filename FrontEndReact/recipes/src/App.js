@@ -1,22 +1,22 @@
 import { React } from 'react';
 
 // Routing
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 // CSS
 import './App.css';
 
 // Components
+import OurNavBar from './components/OurNavBar';
+import CreateRecipe from './components/views/CreateRecipe';
 import Home from './components/views/Home';
 import Login from './components/views/Login';
-import Register from './components/views/Register';
+import Logout from './components/views/Logout';
+import NoPage from './components/views/NoPage';
 import Profile from './components/views/Profile';
 import Recipe from './components/views/Recipe';
-import CreateRecipe from './components/views/CreateRecipe';
-import NoPage from './components/views/NoPage';
-import OurNavBar from './components/OurNavBar'
-import UserList from './components/UserList';
+import Register from './components/views/Register';
 
 function App() {
 
@@ -36,11 +36,11 @@ function App() {
         <Routes>
           <Route path='/' element={<Home changeDocTitle={changeDocTitle} />} />
           <Route path='login' element={<Login changeDocTitle={changeDocTitle} />} />
+          <Route path='logout' element={<Logout changeDocTitle={changeDocTitle} />} />
           <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />
           <Route path='profile/:profileid' element={<Profile changeDocTitle={changeDocTitle} />} />
           <Route path='recipe/:recipeid' element={<Recipe changeDocTitle={changeDocTitle} />} />
           <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
-          <Route path='userlist' element={<UserList changeDocTitle={changeDocTitle} />} />
           <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} />
         </Routes>
       </div>

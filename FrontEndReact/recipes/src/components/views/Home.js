@@ -11,6 +11,7 @@ function Home(props) {
             {props.changeDocTitle("Home")}
             <h1>Home</h1>
             <RecipeList />
+            {/* <Chat/> */}
         </div>
     )
 }
