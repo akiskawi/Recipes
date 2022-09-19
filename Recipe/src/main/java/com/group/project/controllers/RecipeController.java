@@ -80,18 +80,19 @@ public class RecipeController {
 //        return boughtRecipesByUserXDataOnly;
 
     }
-    @GetMapping("/{type}")
+    //Seach by Recipe Type
+    @GetMapping("type/{type}")
     public List<Recipe> showAllRecipesByType(@PathVariable(value = "type") String type){
         return recipeServiceInterface.showAllRecipesByType(type);
     }
-
-    @GetMapping("/{id}")
-    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "id") Integer id){
-        return recipeServiceInterface.showAllRecipesByOwnerId(userServiceInterface.getUserById(id));
+    //to id einai to OwenerID
+    @GetMapping("owned/{owner_id}")
+    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "owner_id") Integer id){
+        return recipeServiceInterface.showAllRecipesByOwnerId(userServiceInterface.getUserById(owner_id));
     }
-
-    @GetMapping("/{string}")
-    public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "string") String string){
-        return recipeServiceInterface.showAllRecipesContainsIgnoreCase(string);
+    //Search by Name
+    @GetMapping("/{name}")
+    public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "name") String string){
+        return recipeServiceInterface.showAllRecipesContainsIgnoreCase(name);
     }
 }
