@@ -25,8 +25,11 @@ public interface RecipeServiceInterface {
 
     List<Recipe> showAllRecipe();
 
-    List<Recipe> showAllRecipeFromUser(User u);
-
     public List<RecipeDTO> getAllBoughtRecipesByLoggedInUserUsefulDataOnly(User user);
 
+    List<Recipe> showAllRecipesByType(String type);
+
+    List<Recipe> showAllRecipesByOwnerId(User user);
+
+    List<Recipe> showAllRecipesContainsIgnoreCase(String string);
 }
