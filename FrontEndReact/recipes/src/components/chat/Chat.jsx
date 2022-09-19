@@ -117,6 +117,7 @@ export default function Chat() {
                 <div id="chat-container" className="chat-container" style={{ display: isShown ? 'block' : 'none' }}>
                     <div className="center">
                         <div className="contacts">
+                            <h2>Your Friends!</h2>
                             <div className="contact-container">
                                 {/* <List id="chat-window-messages">
                                     {listFriends}
