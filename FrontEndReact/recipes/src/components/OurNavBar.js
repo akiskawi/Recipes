@@ -12,7 +12,7 @@ function CollapsibleExample() {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            {/* <Link className='links' to="/">Home</Link> */}
+                            <Link className='links' to="/">Home</Link>
                             <Link className='links' to="/profile">My Profile</Link>
                             {/* <Link className='links' to="/createrecipe">Create Recipe</Link>
                             <Link className='links' to="login" style={{position:"absolute", right:"120px"}}>Login</Link>
