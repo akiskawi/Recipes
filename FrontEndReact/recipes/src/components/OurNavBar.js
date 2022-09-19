@@ -13,10 +13,11 @@ function CollapsibleExample() {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <Link className='links' to="/">Home</Link>
-                            <Link className='links' to="login">Login</Link>
-                            <Link className='links' to="/register">Register</Link>
-                            <Link className='links' to="/createrecipe">Create Recipe</Link>
                             <Link className='links' to="#">My Profile</Link>
+                            <Link className='links' to="/createrecipe">Create Recipe</Link>
+                            <Link className='links' to="login" style={{position:"absolute", right:"120px"}}>Login</Link>
+                            <Link className='links' to="/register" style={{position:"absolute", right:"30px"}}>Register</Link>
+                            <Link className='links' to="userlist">User List</Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

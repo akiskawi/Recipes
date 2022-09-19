@@ -1,5 +1,5 @@
-//Routing
-import { Link } from "react-router-dom";
+// Axios
+import axios from 'axios'
 
 // State
 import { useState } from 'react';
@@ -13,29 +13,20 @@ import BoughtRecipeItem from "./BoughtRecipeItem.js";
 // MAIN
 const BoughtRecipes = (props) => {
 
-  // Delete Bought Recipe
-  const deleteBoughtRecipe = (id) => {
-    // console.log(id + " deleted")
-    setBoughtrec(boughtrec.filter((brec) => brec.id !== id))
-  }
+  // Data Manipulation
+  const [boughtrec, setBoughtrec] = useState([])
 
-  // Data
-  const [boughtrec, setBoughtrec] = useState(
-    [
-      {
-        id: 1,
-        name: "tiropita strifti",
-      },
-      {
-        id: 2,
-        name: "tiropita xwriatiki"
-      }
-    ]
-  )
+  const api = axios.create({ baseURL: 'localhost:8080/' })
+  const getCourses = async () => {
+    let data = await api.get(`bought/${props.profileid}`).then(({ data }) => data)
+    setBoughtrec(data)
+  }
 
   return (
     <div>
-      {boughtrec.map((brec) => (<BoughtRecipeItem key={brec.id} brec={brec} onDelete={deleteBoughtRecipe} />))}
+      {getCourses}
+      <h2>Bought Recipes</h2>
+      {boughtrec.map((brec) => (<BoughtRecipeItem brec={brec} />))}
     </div>
   );
 };
