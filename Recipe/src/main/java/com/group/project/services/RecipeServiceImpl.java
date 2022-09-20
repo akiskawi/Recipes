@@ -86,13 +86,13 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
     }
 
     @Override
-    public List<Recipe> showAllRecipesByOwnerId(User user) {
-        return recipeRepo.findAllByOwnerId(user);
+    public List<Recipe> showAllRecipesByOwnerId(User user,String name,String type) {
+        return recipeRepo.findByOwnerIdAndTypeAndNameContainsIgnoreCase(user,type,name);
     }
 
     @Override
-    public List<Recipe> showAllRecipesContainsIgnoreCase(String string) {
-        return recipeRepo.findAllByNameContainsIgnoreCase(string);
+    public List<Recipe> showAllByNameContainsIgnoreCaseAndType(String string,String type) {
+        return recipeRepo.findByNameContainsIgnoreCaseAndType(string,type);
     }
 
 }

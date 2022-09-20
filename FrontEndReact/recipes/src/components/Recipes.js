@@ -6,13 +6,13 @@ const Recipes = ({ recipe, showOneRecipe }) => {
   return (
     <div className="col-3">
       <Link className='link-recipes' to={`/recipe/${recipe.id}`} onClick={() => { showOneRecipe(recipe) }}>
-        <div class="card">
-          <div class="card-header">
+        <div className="card">
+          <div className="card-header">
           {recipe.name}
           </div>
-          <div class="card-body">
-            <p class="card-text">{recipe.description.substring(0, 10)}..</p>
-            <p class="card-text text-muted">{recipe.type}</p>
+          <div className="card-body">
+            <p className="card-text">{recipe.description.substring(0, 10)}..</p>
+            <p className="card-text text-muted">{recipe.type}</p>
           </div>
         </div>
       </Link>
