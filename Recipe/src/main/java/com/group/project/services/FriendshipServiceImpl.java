@@ -44,4 +44,9 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
     public Friendship getFriendship(Integer friendshipID) {
         return (friendshipRepo.findByFriendshipId(friendshipID));
     }
+
+    @Override
+    public boolean checkFriendship(Integer userID, Integer friendID) {
+        return friendshipRepo.findByUserIdAndFriendId(userID,friendID);
+    }
 }

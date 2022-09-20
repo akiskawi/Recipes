@@ -9,4 +9,6 @@ public interface FriendshipServiceInterface {
     void deleteFriend(Integer friendshipID);
     List<User> showFriends(Integer userID);
     Friendship getFriendship(Integer friendshipID);
+
+    boolean checkFriendship(Integer userID, Integer friendID);
 }

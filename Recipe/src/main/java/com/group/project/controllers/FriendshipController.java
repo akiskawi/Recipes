@@ -1,11 +1,14 @@
 package com.group.project.controllers;
 
 import com.group.project.models.Friendship;
+import com.group.project.models.User;
 import com.group.project.services.FriendshipServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
@@ -19,28 +22,29 @@ public class FriendshipController {
     /*
     Post Form to Send a Friend Request.
      */
-    @PostMapping("/")
-    public String newRecipe(Model model, @RequestParam Friendship friendship) {
+    @PostMapping("/create")
+    void newRecipe(@RequestParam Friendship friendship) {
         friendshipServiceInterface.addFriend(friendship);
-        return "friendRequestSent";
     }
 
     /*
     Delete a Friend From an ID
      */
     @DeleteMapping("/deleteFriend/{friendshipID}")
-    public String deleteFriend(@PathVariable Integer friendshipID) {
+    void deleteFriend(@PathVariable Integer friendshipID) {
         friendshipServiceInterface.deleteFriend(friendshipID);
-        return "showAllFriends";
     }
 
     /*
     Show all of User's Friends
      */
-    @GetMapping("/friends/{userId}")
-    public String showAllFriends(Model model, @PathVariable Integer userId) {
-        model.addAttribute(friendshipServiceInterface.showFriends(userId));
-        return "showAllFriends";
+    @GetMapping("/friends/{userID}")
+    List<User> showAllFriends(@PathVariable Integer userID) {
+        return friendshipServiceInterface.showFriends(userID);
+    }
+    @GetMapping("/friends/{userID}/{friendID}")
+    Boolean checkFriendship(@PathVariable Integer userID,@PathVariable Integer friendID){
+        return friendshipServiceInterface.checkFriendship(userID, friendID);
     }
 
 }

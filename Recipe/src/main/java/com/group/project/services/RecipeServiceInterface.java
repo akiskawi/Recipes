@@ -32,4 +32,6 @@ public interface RecipeServiceInterface {
     List<Recipe> showAllRecipesByOwnerId(User user);
 
     List<Recipe> showAllRecipesContainsIgnoreCase(String string);
+
+
 }
