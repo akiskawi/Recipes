@@ -46,9 +46,9 @@ function App() {
   const apirecipes = axios.create({
     baseURL: "http://localhost:8080/recipe"
   })
-  const apiusers = axios.create({
-    baseURL: "http://localhost:8080/users"
-  })
+  // const apiusers = axios.create({
+  //   baseURL: "http://localhost:8080/users"
+  // })
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
   }
