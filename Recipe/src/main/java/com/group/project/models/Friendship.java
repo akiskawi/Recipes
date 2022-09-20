@@ -4,6 +4,8 @@
  */
 package com.group.project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,9 +43,11 @@ public class Friendship implements Serializable {
     private Boolean requestValid;
     @JoinColumn(name = "friend_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private User friendId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private User userId;
 
     public Friendship() {

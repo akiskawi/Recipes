@@ -4,6 +4,8 @@
  */
 package com.group.project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -57,10 +59,13 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Friendship> friendshipSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @JsonIgnore
     private Set<SavedRecipes> savedRecipesSet;
     @OneToMany(mappedBy = "userId")
+    @JsonIgnore
     private Set<Bought> boughtSet;
     @OneToMany(mappedBy = "ownerId")
+    @JsonIgnore
     private Set<Recipe> recipeSet;
 
     public User() {
