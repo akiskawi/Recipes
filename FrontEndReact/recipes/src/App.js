@@ -2,8 +2,10 @@ import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Routing
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+// Bootstrap
+import Container from 'react-bootstrap/Container';
 
 // CSS
 import './App.css';

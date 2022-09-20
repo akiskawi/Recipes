@@ -7,7 +7,7 @@ function CollapsibleExample({ profileName, userId, setLoggedInUser }) {
     return (
         <div className="row">
             <div className="col">
-                <Navbar collapseOnSelect expand="lg" bg="light" >
+                <Navbar collapseOnSelect expand="md" bg="light" >
                     <Navbar.Brand>Menu</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
