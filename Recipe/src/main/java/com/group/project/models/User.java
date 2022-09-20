@@ -4,7 +4,6 @@
  */
 package com.group.project.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -23,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "user")
@@ -36,11 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendId")
-    private Set<Friendship> friendshipSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Set<Friendship> friendshipSet1;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,14 +52,15 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendId")
+    private Set<Friendship> friendshipSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    @JsonIgnore
+    private Set<Friendship> friendshipSet1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<SavedRecipes> savedRecipesSet;
     @OneToMany(mappedBy = "userId")
-    @JsonIgnore
     private Set<Bought> boughtSet;
     @OneToMany(mappedBy = "ownerId")
-    @JsonIgnore
     private Set<Recipe> recipeSet;
 
     public User() {
@@ -122,6 +117,24 @@ public class User implements Serializable {
     }
 
     @XmlTransient
+    public Set<Friendship> getFriendshipSet() {
+        return friendshipSet;
+    }
+
+    public void setFriendshipSet(Set<Friendship> friendshipSet) {
+        this.friendshipSet = friendshipSet;
+    }
+
+    @XmlTransient
+    public Set<Friendship> getFriendshipSet1() {
+        return friendshipSet1;
+    }
+
+    public void setFriendshipSet1(Set<Friendship> friendshipSet1) {
+        this.friendshipSet1 = friendshipSet1;
+    }
+
+    @XmlTransient
     public Set<SavedRecipes> getSavedRecipesSet() {
         return savedRecipesSet;
     }
@@ -171,24 +184,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.group.project.models.User[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Set<Friendship> getFriendshipSet() {
-        return friendshipSet;
-    }
-
-    public void setFriendshipSet(Set<Friendship> friendshipSet) {
-        this.friendshipSet = friendshipSet;
-    }
-
-    @XmlTransient
-    public Set<Friendship> getFriendshipSet1() {
-        return friendshipSet1;
-    }
-
-    public void setFriendshipSet1(Set<Friendship> friendshipSet1) {
-        this.friendshipSet1 = friendshipSet1;
     }
     
 }

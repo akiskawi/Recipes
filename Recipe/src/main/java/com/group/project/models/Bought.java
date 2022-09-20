@@ -4,7 +4,6 @@
  */
 package com.group.project.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "bought")
@@ -46,11 +45,9 @@ public class Bought implements Serializable {
     private Date date;
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private Recipe recipeId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
     private User userId;
 
     public Bought() {
@@ -116,5 +113,5 @@ public class Bought implements Serializable {
     public String toString() {
         return "com.group.project.models.Bought[ id=" + id + " ]";
     }
-
+    
 }
