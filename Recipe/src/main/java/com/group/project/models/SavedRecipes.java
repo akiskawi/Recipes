@@ -4,8 +4,6 @@
  */
 package com.group.project.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -22,14 +20,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "saved_recipes")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SavedRecipes.findAll", query = "SELECT s FROM SavedRecipes s"),
-    @NamedQuery(name = "SavedRecipes.findBySavedRecipesId", query = "SELECT s FROM SavedRecipes s WHERE s.savedRecipesId = :savedRecipesId")})
+    @NamedQuery(name = "SavedRecipes.findBySavedRecipesId", query = "SELECT s FROM SavedRecipes s WHERE s.savedRecipesId = :savedRecipesId"),
+    @NamedQuery(name = "SavedRecipes.findByPaidFor", query = "SELECT s FROM SavedRecipes s WHERE s.paidFor = :paidFor")})
 public class SavedRecipes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,13 +37,13 @@ public class SavedRecipes implements Serializable {
     @Basic(optional = false)
     @Column(name = "saved_recipes_id")
     private Integer savedRecipesId;
+    @Column(name = "paid_for")
+    private Boolean paidFor;
     @JoinColumn(name = "recipe_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private Recipe recipeId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private User userId;
 
     public SavedRecipes() {
@@ -60,6 +59,14 @@ public class SavedRecipes implements Serializable {
 
     public void setSavedRecipesId(Integer savedRecipesId) {
         this.savedRecipesId = savedRecipesId;
+    }
+
+    public Boolean getPaidFor() {
+        return paidFor;
+    }
+
+    public void setPaidFor(Boolean paidFor) {
+        this.paidFor = paidFor;
     }
 
     public Recipe getRecipeId() {

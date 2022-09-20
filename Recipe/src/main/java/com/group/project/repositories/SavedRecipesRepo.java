@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author mhtso
  */
 @Repository
-public interface SavedRepo extends JpaRepository<SavedRecipes, Integer> {
+public interface SavedRecipesRepo extends JpaRepository<SavedRecipes, Integer> {
+
 
 }

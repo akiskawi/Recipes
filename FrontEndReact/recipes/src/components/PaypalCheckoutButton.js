@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-const PaypalCheckoutButton = (props) => {
-    const { product } = props;
+const PaypalCheckoutButton = ({ recipeID, userID }) => {
 
     const [error, setError] = useState(null);
+    const api = axios.create({
+        baseURL: "http://localhost:8080/friends"
+    })
 
     const handleApprove = (orderId) => {
         //request to server that order is paid for
@@ -38,7 +40,7 @@ const PaypalCheckoutButton = (props) => {
                 return actions.order.create({
                     purchase_units: [
                         {
-                            description: product.description,
+                            description: recipeID,
                             amount: {
                                 value: 2
                             }
@@ -50,6 +52,8 @@ const PaypalCheckoutButton = (props) => {
                 const order = await actions.order.capture();
                 console.log("order", order);
                 handleApprove(data.orderID);
+
+
             }}
             onCancel={() => {
                 //handle special case where user cancels order

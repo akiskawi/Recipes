@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,6 +32,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Friendship.findByFriendshipId", query = "SELECT f FROM Friendship f WHERE f.friendshipId = :friendshipId"),
     @NamedQuery(name = "Friendship.findByRequestValid", query = "SELECT f FROM Friendship f WHERE f.requestValid = :requestValid")})
 public class Friendship implements Serializable {
+
+    @JoinColumn(name = "friend_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private User friendId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private User userId;
 
     private static final long serialVersionUID = 1L;
     @Column(name = "user_id")
@@ -106,6 +115,22 @@ public class Friendship implements Serializable {
     @Override
     public String toString() {
         return "com.group.project.models.Friendship[ friendshipId=" + friendshipId + " ]";
+    }
+
+    public User getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(User friendId) {
+        this.friendId = friendId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
     
 }

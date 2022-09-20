@@ -1,15 +1,10 @@
 import PaypalCheckoutButton from "./PaypalCheckoutButton"
 import './Checkout.css';
-const Checkout = () => {
-
-    const dummyproduct = {
-        description: "dummy product",
-        price: 10
-    }
+const Checkout = ({ recipeID }) => {
 
     return (
         <div className="paypal-button-container">
-            <PaypalCheckoutButton product={dummyproduct} />
+            <PaypalCheckoutButton product={recipeID} />
         </div>
 
     )
