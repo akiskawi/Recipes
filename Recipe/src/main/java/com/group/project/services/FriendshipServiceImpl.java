@@ -33,7 +33,7 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
         List<User> friends = null;
         for (Friendship friendship : friendships)  {
             if (friendship.getRequestValid()) {
-                friends.add(userService.getByIdAndByNameContainingIgnoreCase(friendship.getFriendId(), name));
+                friends.add(userService.getByIdAndByNameContainingIgnoreCase(friendship.getFriendId().getId(), name));
             }
         }
 
