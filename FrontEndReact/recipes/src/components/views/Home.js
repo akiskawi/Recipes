@@ -1,4 +1,5 @@
 import { React } from 'react'
+import CheckoutTest from '../CheckoutTest'
 
 function Home(props) {
 
@@ -6,6 +7,7 @@ function Home(props) {
         <div>
             {props.changeDocTitle("Home")}
             <h1>Home</h1>
+            <CheckoutTest />
         </div>
     )
 }
