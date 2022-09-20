@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecipeRepo extends JpaRepository<Recipe, Integer>  {
     
-    List<Recipe> findAllByOwnerId(User User);
-    List<Recipe> findAllByPaid(boolean b);
-    List<Recipe> findAllByNameContainsIgnoreCase(String string);
+    List<Recipe> findByOwnerIdAndTypeAndNameContainsIgnoreCase(User User,String type,String name);
+    List<Recipe> findAllByType(String type);
+    List<Recipe> findByNameContainsIgnoreCaseAndType(String string,String type);
 }
