@@ -2,8 +2,10 @@ import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Routing
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+// Bootstrap
+import Container from 'react-bootstrap/Container';
 
 // CSS
 import './App.css';
@@ -23,7 +25,7 @@ import LoginPageA from './components/LoginPageA';
 import Chat from './components/chat/Chat';
 
 // import Recipe from './components/views/Recipe';
-// import CreateRecipe from './components/views/CreateRecipe';
+import CreateRecipe from './components/views/CreateRecipe';
 // import NoPage from './components/views/NoPage';
 import OurNavBar from './components/OurNavBar'
 
@@ -34,30 +36,35 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({
     name: 'Evgenia',//TODO:
     email: null,
-    id: null
+    id: 1
   });// Entity User
 
-  const[email,setEmail]=useState('')
-  const[password,setPassword]=useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const [recipe, setRecipe] = useState(null);
-  const [profileUser, setProfileUser] = useState(null/*User Model*/)
+  const [profileUser, setProfileUser] = useState({
+    name: 'Evgenia',//TODO:
+    email: null,
+    id: 1
+  })
   // Prosorino! TODO:
   const apirecipes = axios.create({
     baseURL: "http://localhost:8080/recipe"
   })
-  const apiusers = axios.create({
-    baseURL: "http://localhost:8080/users"
-  })
+  // const apiusers = axios.create({
+  //   baseURL: "http://localhost:8080/users"
+  // })
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
   }
   const changeDocTitle = (doctitle) => {
     document.title = doctitle;
   }
-  const handleLoginForm = (e)=>{
+  const handleLoginForm = (e) => {
     e.preventDefault();
-    
+
+
 
   }
 
@@ -91,13 +98,17 @@ function App() {
             showOneRecipe={showOneRecipe}
             profileUser={profileUser}
             apirecipes={apirecipes}
+            changeDocTitle={changeDocTitle}
           />} />
           <Route path='recipe/:recipeid' element={<RecipeItem
             recipe={recipe}
             setProfileUser={setProfileUser}
+            profileUser={profileUser}
+            loggedInUser={loggedInUser}
+            changeDocTitle={changeDocTitle}
           />} />
-          {/* <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
-          <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
+          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
+          {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
         </Routes>
 
         {loggedInUser.id !== null ? <div className="row">

@@ -119,10 +119,10 @@ const RecipeList = () => {
     const handleDeleteButton = (id) => {
         api.delete(`/${id}`)
     }
-    const handleEditSumbitButton = (e,id) => {
+    const handleEditSumbitButton = (e, id) => {
         e.preventDefault();
-        
-        api.put(`/${id}`,editFormData).then(res=>{console.log("updated")}).catch(err=>{console.log(err)})
+
+        api.put(`/${id}`, editFormData).then(res => { console.log("updated") }).catch(err => { console.log(err) })
         setisEdidedId(null)
     }
     const handleCancelButton = () => {
@@ -135,7 +135,7 @@ const RecipeList = () => {
         const fieldValue = e.target.value;
         const newFormData = { ...editFormData };
         newFormData[fieldName] = fieldValue;
-    
+
         setEditFormData(newFormData);
     }
 
@@ -143,6 +143,7 @@ const RecipeList = () => {
 
     return (
         <div>
+            {/* <RecipeListNavBar/> */}
             <header>
                 <h1>
                     RecipeList
@@ -196,7 +197,7 @@ const RecipeList = () => {
 
                 </tbody>
             </table>
-
+            {/* <RecipeListPaginator /> */}
         </div>
 
     )

@@ -54,7 +54,7 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
 
     @Override
     public List<Recipe> showAllRecipe() {
-        return recipeRepo.findAll().stream().peek(recipe->recipe.getOwnerId().setPassword(null)).collect(Collectors.toList());
+        return recipeRepo.findAll().stream().peek(recipe -> recipe.getOwnerId().setPassword(null)).collect(Collectors.toList());
     }
 
     @Override
@@ -82,18 +82,23 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
     }
 
     @Override
-    public List<Recipe> showAllRecipesByPaid(boolean b) {
+    public List<Recipe> showAllRecipesByOwnerId(User user, String name, String type) {
+        return recipeRepo.findByOwnerIdAndTypeAndNameContainsIgnoreCase(user, type, name);
+    }
+
+    @Override
+    public List<Recipe> showAllByNameContainsIgnoreCaseAndType(String string, String type) {
+        return recipeRepo.findByNameContainsIgnoreCaseAndType(string, type);
+    }
+
+    @Override
+    public List<Recipe> showAllRecipesByType(String type) {
+        return recipeRepo.findAllByType(type);
+    }
+
+    @Override
+    public List<Recipe> showAllRecipesByPaid(Boolean b) {
         return recipeRepo.findAllByPaid(b);
-    }
-
-    @Override
-    public List<Recipe> showAllRecipesByOwnerId(User user,String name,String type) {
-        return recipeRepo.findByOwnerIdAndTypeAndNameContainsIgnoreCase(user,type,name);
-    }
-
-    @Override
-    public List<Recipe> showAllByNameContainsIgnoreCaseAndType(String string,String type) {
-        return recipeRepo.findByNameContainsIgnoreCaseAndType(string,type);
     }
 
 }
