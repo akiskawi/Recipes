@@ -20,5 +20,9 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     List<UserDTO> findAllUsers();
     
     List<UserDTO> findByNameContainingIgnoreCase(String name);
+
+    User findByIdAndNameContainsIgnoreCase(Integer id,String name);
+
+    User findByEmailAndPassword(String email, String password);
     
 }

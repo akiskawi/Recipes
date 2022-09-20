@@ -2,11 +2,11 @@
 
 
 import { Fragment, useRef, useEffect, useState, } from 'react';
-import { Container, Paper, Typography, Divider, Grid, List, ListItem, ListItemText, TextField, FormControl, IconButton, Box } from "@mui/material";
+import { Grid, List, ListItem, ListItemText, TextField, FormControl, IconButton, Box, Link } from "@mui/material";
 import { ChatMessageDto } from '../../model/ChatMessageDto';
+import { FriendDto } from '../../model/FriendDto';
 import './Chat.css';
 import SendIcon from '@mui/icons-material/Send';
-import ReorderIcon from '@mui/icons-material/Reorder';
 import axios from 'axios';
 
 export default function Chat() {
@@ -19,18 +19,33 @@ export default function Chat() {
     const [chatMessages, setChatMessages] = useState([]);
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
-    const [friends, setFriends] = useState();
-    // const apiFriends = axios.create({
-    //     baseURL: "http://localhost:8080/friends/"
-    // })
+    const [name, setName] = useState('');
 
-    // useEffect(() => {
-    //     apiFriends.get('/userId').then(res => {
-    //         setFriends(res.data);
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
-    // }, [apiFriends])
+
+    const [friends, setFriends] = useState([new FriendDto(1, "a"),
+    new FriendDto(2, "b"),
+    new FriendDto(3, "c"),
+    new FriendDto(4, "d"),
+    new FriendDto(5, "e"),
+    new FriendDto(6, "f"),
+    new FriendDto(7, "g"),
+    new FriendDto(8, "h"),
+    new FriendDto(9, "i"),
+    new FriendDto(10, "j"),
+    new FriendDto(11, "k"),
+    new FriendDto(12, "l")]);
+
+    const apiFriends = axios.create({
+        baseURL: "http://localhost:8080/friends"
+    })
+
+    useEffect(() => {
+        apiFriends.get('/{userId}/{name}').then(res => {
+            setFriends(res.data);
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [friends, name])
 
     useEffect(() => {
         console.log('Opening WebSocket');
@@ -78,14 +93,15 @@ export default function Chat() {
             );
             setMessage('');
         }
-
     }
 
-    // const listFriends = friends.map((FriendsDto, index) =>
-    //     <ListItem key={index} >
-    //         <ListItem id="chat-window-messages" primary={`${FriendsDto.user}`} />
-    //     </ListItem >
-    // );
+    const listFriends = friends.map((FriendDto, index) =>
+        <ListItem key={index} >
+            <Link href={`http://localhost:8081/profile/${FriendDto.name}`}>
+                <ListItemText primary={`${FriendDto.name}`} />
+            </Link>
+        </ListItem >
+    );
 
     const listChatMessages = chatMessages.map((chatMessageDto, index) =>
         <ListItem key={index} >
@@ -93,10 +109,8 @@ export default function Chat() {
         </ListItem >
     );
 
-    // var chat = document.getElementById('chat');
-    // // chat.scrollTop = chat.scrollHeight - chat.clientHeight;
 
-    const toggleChat = (event) => {
+    const toggleChat = () => {
         setIsShown(current => !current);
     };
 
@@ -106,7 +120,7 @@ export default function Chat() {
                 <button
                     onClick={toggleChat}
                     style={{ position: "fixed", bottom: 10, float: "right", right: 10 }}
-                    className="btn btn-outline-success mb-5 me-5"
+                    className="btn btn-dark mb-5 me-5"
                     type="submit"
                 >
                     Chat
@@ -118,17 +132,18 @@ export default function Chat() {
                     <div className="center">
                         <div className="contacts">
                             <h2>Your Friends!</h2>
-                            <div className="contact-container">
-                                {/* <List id="chat-window-messages">
-                                    {listFriends}
-                                </List> */}
-                            </div>
+
+                            <form className="d-flex me-auto" role="search">
+                                <input className="form-control me-2" type="search" placeholder="Search for a friend"
+                                    onInput={(e) => setName(e.target.value)} value={name} />
+                            </form>
+                            <List className="contact-container">
+                                {listFriends}
+                                <ListItem ref={scrollBottomRef} />
+                            </List>
                         </div>
-                        <Box className="chat"
-                            sx={{
-                                height: "fit-container",
-                            }}>
-                            <Grid className="messages" spacing={4} alignItems="center" id="chat">
+                        <Box className="chat">
+                            <Grid className="messages" alignItems="center" id="chat">
                                 <Grid id="chat-window">
                                     <List id="chat-window-messages">
                                         {listChatMessages}

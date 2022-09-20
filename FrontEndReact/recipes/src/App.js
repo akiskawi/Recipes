@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 // Components
+import Chat from './components/chat/Chat';
 import Home from './components/views/Home';
 import Login from './components/views/Login';
 import Register from './components/views/Register';
@@ -42,7 +43,7 @@ function App() {
                     {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
                     {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
                     <OurNavBar />
-
+                    <Chat />
                     {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
                     <Routes>
                         <Route path='/' element={<Home changeDocTitle={changeDocTitle} />} />

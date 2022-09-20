@@ -80,7 +80,7 @@ public class RecipeController {
 //        return boughtRecipesByUserXDataOnly;
 
     }
-    //Seach by Recipe Type
+    //Search by Recipe Type
     @GetMapping("type/{type}")
     public List<Recipe> showAllRecipesByType(@PathVariable(value = "type") String type){
         return recipeServiceInterface.showAllRecipesByType(type);
