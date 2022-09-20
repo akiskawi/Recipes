@@ -19,6 +19,9 @@ export default function Chat() {
     const [chatMessages, setChatMessages] = useState([]);
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
+    const [name, setName] = useState('');
+
+
     const [friends, setFriends] = useState([new FriendDto(1, "a"),
     new FriendDto(2, "b"),
     new FriendDto(3, "c"),
@@ -32,18 +35,17 @@ export default function Chat() {
     new FriendDto(11, "k"),
     new FriendDto(12, "l")]);
 
-
     const apiFriends = axios.create({
         baseURL: "http://localhost:8080/friends"
     })
 
-    // useEffect(() => {
-    //     apiFriends.get('/userId').then(res => {
-    //         setFriends(res.data);
-    //     }).catch(err => {
-    //         console.log(err)
-    //     })
-    // }, [friends])
+    useEffect(() => {
+        apiFriends.get('/{userId}/{name}').then(res => {
+            setFriends(res.data);
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [friends, name])
 
     useEffect(() => {
         console.log('Opening WebSocket');
@@ -130,8 +132,10 @@ export default function Chat() {
                     <div className="center">
                         <div className="contacts">
                             <h2>Your Friends!</h2>
+
                             <form className="d-flex me-auto" role="search">
-                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search for a friend" />
+                                <input className="form-control me-2" type="search" placeholder="Search for a friend"
+                                    onInput={(e) => setName(e.target.value)} value={name} />
                             </form>
                             <List className="contact-container">
                                 {listFriends}

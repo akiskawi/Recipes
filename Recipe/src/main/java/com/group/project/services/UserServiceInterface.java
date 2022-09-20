@@ -21,5 +21,9 @@ public interface UserServiceInterface {
     public User updateUser(User u);
     
     public void deleteUser(Integer id);
+
+    public User getByIdAndByNameContainingIgnoreCase(Integer id, String name);
+
+    User findByEmailAndPassword(String email, String password);
     
 }

@@ -40,7 +40,7 @@ const PaypalCheckoutButton = (props) => {
                         {
                             description: product.description,
                             amount: {
-                                value: product.price
+                                value: 2
                             }
                         }
                     ]

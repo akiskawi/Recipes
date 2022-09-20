@@ -63,4 +63,17 @@ public class UserService implements UserServiceInterface {
         }
     }
 
+    @Override
+    public User getByIdAndByNameContainingIgnoreCase(Integer id, String name) {
+        return userRepo.findByIdAndNameContainsIgnoreCase(id, name);
+    }
+
+    @Override
+    public User findByEmailAndPassword(String email, String password) {
+        User u =userRepo.findByEmailAndPassword(email, password);
+        u.setPassword(null);
+        return u;
+    }
+
+
 }

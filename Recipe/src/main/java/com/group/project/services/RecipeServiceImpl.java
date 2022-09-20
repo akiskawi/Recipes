@@ -82,8 +82,8 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
     }
 
     @Override
-    public List<Recipe> showAllRecipesByType(String type) {
-        return recipeRepo.findAllByType(type);
+    public List<Recipe> showAllRecipesByPaid(boolean b) {
+        return recipeRepo.findAllByPaid(b);
     }
 
     @Override

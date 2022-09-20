@@ -14,4 +14,6 @@ public interface FriendshipRepo extends JpaRepository<Friendship, Integer> {
 
     Boolean findByUserIdAndFriendId(Integer userID, Integer friendID);
 
+
+
 }

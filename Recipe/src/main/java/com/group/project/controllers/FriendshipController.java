@@ -36,12 +36,15 @@ public class FriendshipController {
     }
 
     /*
-    Show all of User's Friends
+    Show all of User's Friends whose Name contains said string
      */
-    @GetMapping("/friends/{userID}")
-    List<User> showAllFriends(@PathVariable Integer userID) {
-        return friendshipServiceInterface.showFriends(userID);
+    @GetMapping("/friends/{userID}/{name}")
+    List<User> showAllFriends(@PathVariable Integer userID, @PathVariable String name) {
+        return friendshipServiceInterface.showFriends(userID, name);
     }
+    /*
+    Check's if logged-in User is friend with another user.
+     */
     @GetMapping("/friends/{userID}/{friendID}")
     Boolean checkFriendship(@PathVariable Integer userID,@PathVariable Integer friendID){
         return friendshipServiceInterface.checkFriendship(userID, friendID);
