@@ -4,55 +4,113 @@ import { React } from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 // Components
 import CustomForm from '../CustomForm'
 
 function CreateRecipe(props) {
     return (
-        <Container>
+        <div>
             {props.changeDocTitle("Create Recipe")}
             <h1>Create Recipe</h1>
-            <Row>
+            <Form>
+                <Row>
+                    <Col xs={6}>
+                        <Form.Group className="mb-6" controlId="recipeTitle">
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control type='text' placeholder="type recipe's title"></Form.Control>
+                            <Form.Text className="text-muted">
+                                e.g.: IKEA meatballs
+                            </Form.Text>
+                        </Form.Group>
+                    </Col>
+                    <Col xs={4}>
+                        <Form.Group className="mb-6" controlId="recipeType">
+                            <Form.Label>Type</Form.Label>
+                            <Form.Select aria-label="Default select example">
+                                <option className="text-muted">Open this select menu</option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <p></p>
+                        <p></p>
+                        <Form.Group className="mb-6" controlId="recipeForSell">
+                            <Form.Check type="switch" id="custom-switch" label="For Sell" />
+                        </Form.Group>
+                    </Col>
+                </Row>
                 <Col>
-                    title
+                    <div className="d-grid gap-2" style={{ height: '300px' }}>
+                        <Button variant="primary" size="lg">
+                            Add photo for your recipe
+                        </Button>
+                    </div>
                 </Col>
-                <Col>
-                    CHOOSE type
-                </Col>
-                <Col>
-                    CHECK sell recipe
-                </Col>
-            </Row>
-            <Col>
-                photo
-            </Col>
-            <Row>
-                <Col>
-                    ingredients
-                </Col>
-                <Col>
-                    <Row>
-                        description
-                    </Row>
-                    <Row>
-                        instructions
-                    </Row>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    utensils
-                </Col>
-                <Col>
-                    video
-                </Col>
-            </Row>
-            <Row>
-                BUTTON create recipe
-            </Row>
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-6" controlId="recipeInstructions">
+                            <Form.Label>Instructions</Form.Label>
+                            <Form.Control style={{ height: '350px' }} size="lg" aria-label="With textarea" as='textarea' placeholder="type recipe's instructions"></Form.Control>
+                            <Form.Text className="text-muted">
+                                seperated by commas (,)
+                            </Form.Text>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Form.Group className="mb-6" controlId="recipeDescription">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control style={{ height: '50px' }} type='text' placeholder="type recipe's description"></Form.Control>
+                                <Form.Text className="text-muted">
+                                    e.g.: fresh made horse meatballs
+                                </Form.Text>
+                            </Form.Group>
+                        </Row>
+                        <Row>
+                            <Form.Group className="mb-6" controlId="recipeIngredients">
+                                <Form.Label>Ingredients</Form.Label>
+                                <Form.Control style={{ height: '230px' }} size="lg" aria-label="With textarea" as='textarea' placeholder="type recipe's ingredients"></Form.Control>
+                                <Form.Text className="text-muted">
+                                    seperated by commas (,)
+                                </Form.Text>
+                            </Form.Group>
+                        </Row>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-6" controlId="recipeUtensils">
+                            <Form.Label>Utensils</Form.Label>
+                            <Form.Control size="lg" aria-label="With textarea" as='textarea' placeholder="type recipe's utensils"></Form.Control>
+                            <Form.Text className="text-muted">
+                                seperated by commas (,)
+                            </Form.Text>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <div className="d-grid gap-2" style={{ height: '135px' }}>
+                            <Button variant="primary" size="lg">
+                                Add video for your recipe
+                            </Button>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <div className="d-grid gap-2">
+                        <Button variant="success" size="lg">
+                            Create Recipe
+                        </Button>
+                    </div>
+                </Row>
+            </Form>
             {/* <CustomForm /> */}
-        </Container>
+        </div>
     )
 }
 

@@ -3,6 +3,8 @@ import { React } from 'react';
 // Routing
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+// Bootstrap
+import Container from 'react-bootstrap/Container';
 
 // CSS
 import './App.css';
@@ -26,9 +28,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className='container'>
+      <Container fluid='xxl'>
         {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
-        {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
         <OurNavBar />
 
         {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
@@ -42,7 +43,7 @@ function App() {
           <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
           <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} />
         </Routes>
-      </div>
+      </Container>
     </BrowserRouter>
   );
 }
