@@ -25,7 +25,7 @@ import LoginPageA from './components/LoginPageA';
 import Chat from './components/chat/Chat';
 
 // import Recipe from './components/views/Recipe';
-// import CreateRecipe from './components/views/CreateRecipe';
+import CreateRecipe from './components/views/CreateRecipe';
 // import NoPage from './components/views/NoPage';
 import OurNavBar from './components/OurNavBar'
 
@@ -98,8 +98,8 @@ function App() {
             recipe={recipe}
             setProfileUser={setProfileUser}
           />} />
-          {/* <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
-          <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
+          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
+          {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
         </Routes>
 
         {loggedInUser.id !== null ? <div className="row">
