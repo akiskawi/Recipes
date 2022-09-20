@@ -1,8 +1,5 @@
 import { React } from 'react'
-
-// Components
-import RecipeList from '../RecipeList';
-
+import Checkout from '../Checkout'
 
 function Home(props) {
 
@@ -10,8 +7,7 @@ function Home(props) {
         <div>
             {props.changeDocTitle("Home")}
             <h1>Home</h1>
-            <RecipeList />
-            {/* <Chat/> */}
+            <Checkout />
         </div>
     )
 }

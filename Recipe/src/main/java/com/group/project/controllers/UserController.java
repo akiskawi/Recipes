@@ -1,5 +1,6 @@
 package com.group.project.controllers;
 
+import com.group.project.dto.UserDTO;
 import com.group.project.models.User;
 import com.group.project.services.UserServiceInterface;
 import java.util.List;
@@ -27,13 +28,18 @@ public class UserController {
     UserServiceInterface userServ;
 
     @GetMapping("/all")
-    public List<User> showAllUsers() {
+    public List<UserDTO> showAllUsers() {
         return userServ.getAllUsers();
     }
 
     @GetMapping("/{id}")
     public User showUser(@PathVariable Integer id) {
         return userServ.getUserById(id);
+    }
+    
+    @GetMapping("/search/{name}")
+    public List<UserDTO> searchByname(@PathVariable String name) {
+        return userServ.searchByName(name);
     }
 
     @PostMapping("/")
@@ -49,5 +55,10 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") Integer id) {
         userServ.deleteUser(id);
+    }
+
+    @GetMapping("/{email}/{password}")
+    public User NoName (@PathVariable String email,@PathVariable String password) {
+        return userServ.findByEmailAndPassword(email,password);
     }
 }

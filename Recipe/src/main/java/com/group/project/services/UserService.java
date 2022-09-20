@@ -1,5 +1,6 @@
 package com.group.project.services;
 
+import com.group.project.dto.UserDTO;
 import com.group.project.models.User;
 import com.group.project.repositories.UserRepo;
 import java.util.List;
@@ -24,8 +25,13 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
+    public List<UserDTO> searchByName(String name) {
+        return userRepo.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        return userRepo.findAllUsers();
     }
 
     @Override
@@ -56,5 +62,18 @@ public class UserService implements UserServiceInterface {
             userRepo.delete(t);
         }
     }
+
+    @Override
+    public User getByIdAndByNameContainingIgnoreCase(Integer id, String name) {
+        return userRepo.findByIdAndNameContainsIgnoreCase(id, name);
+    }
+
+    @Override
+    public User findByEmailAndPassword(String email, String password) {
+        User u =userRepo.findByEmailAndPassword(email, password);
+        u.setPassword(null);
+        return u;
+    }
+
 
 }

@@ -3,40 +3,11 @@
 *::before {
   box-sizing: border-box;
   margin: 0;
-  padding: 2px;
+  padding: 0px;
 }
-
-button {
-  font: inherit;
-  border: none;
-  cursor: pointer;
-}
-
-:root {
-  --_hue: 245;
-  --_size: 1.8rem;
-  --_radius: 0.2em;
-
-
-  /* Light Mode */
-  --bg--light: var(--_hue) 30% 94%;
-  --txt--light: var(--_hue) 40% 5%;
-  --accent--light: var(--_hue) 55% 50%;
-  --accent1--light: 10 80% 60%;
-  --muted--light: var(--_hue) 30% 99%;
-
-}
-
-
-.links {
-  display: block;
-  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-  font-size: var(--bs-nav-link-font-size);
-  font-weight: var(--bs-nav-link-font-weight);
-  color: var(--bs-nav-link-color);
+a{
   text-decoration: none;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-  margin: 10px;
+  color:inherit
 }
 
 

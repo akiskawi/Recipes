@@ -29,7 +29,7 @@ public interface RecipeServiceInterface {
 
     List<Recipe> showAllRecipesByType(String type);
 
-    List<Recipe> showAllRecipesByOwnerId(User user);
+    List<Recipe> showAllRecipesByOwnerId(User user,String name,String type);
 
-    List<Recipe> showAllRecipesContainsIgnoreCase(String string);
+    List<Recipe> showAllByNameContainsIgnoreCaseAndType(String string,String type);
 }

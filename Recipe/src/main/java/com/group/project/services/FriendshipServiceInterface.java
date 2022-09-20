@@ -7,6 +7,8 @@ import java.util.List;
 public interface FriendshipServiceInterface {
     void addFriend(Friendship friendship);
     void deleteFriend(Integer friendshipID);
-    List<User> showFriends(Integer userID);
+    public List<User> showFriends(Integer userID, String name);
     Friendship getFriendship(Integer friendshipID);
+
+    boolean checkFriendship(Integer userID, Integer friendID);
 }

@@ -3,22 +3,36 @@ import { Link } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function CollapsibleExample() {
+function CollapsibleExample({ profileName, userId, setLoggedInUser }) {
     return (
-        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-            <Navbar.Brand>Menu</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="me-auto">
-                    <Link className='links' to="/">Home</Link>
-                    <Link className='links' to="#">My Profile</Link>
-                    <Link className='links' to="createrecipe">Create Recipe</Link>
-                    <Link className='links' to="login" style={{ position: "absolute", right: "200px" }}>Login</Link>
-                    <Link className='links' to="logout" style={{ position: "absolute", right: "0px" }}>Logout</Link>
-                    <Link className='links' to="register" style={{ position: "absolute", right: "100px" }}>Register</Link>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
+        <div className="row">
+            <div className="col">
+                <Navbar collapseOnSelect expand="md" bg="light" >
+                    <Navbar.Brand>Menu</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="me-auto">
+                            <Link className='nav-link' to="/">Home</Link>
+                            {userId !== null
+                                ? <><Link className='nav-link' to={`/profile/${profileName}`}>My Profile</Link>
+                                    <Link className='nav-link' to="/createrecipe">Create Recipe</Link>
+                                    <Link className='nav-link' to="/" style={{ position: "absolute", right: "30px" }} onClick={() => setLoggedInUser({
+                                        name: null,
+                                        email: null,
+                                        id: null
+                                    })}>Logout</Link>
+                                </>
+                                : <>
+                                    < Link className='nav-link' to="/login" style={{ position: "absolute", right: "120px" }}>Login</Link>
+                                    <Link className='nav-link' to="/register" style={{ position: "absolute", right: "30px" }}>Register</Link>
+                                </>}
+
+
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
+        </div >
     );
 }
 
