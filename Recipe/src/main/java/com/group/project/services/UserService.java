@@ -23,6 +23,11 @@ public class UserService implements UserServiceInterface {
     public User createUser(User u) {
         return userRepo.save(u);
     }
+    
+    @Override
+    public User getByUsername(String name)  {
+        return userRepo.findByName(name);
+    }
 
     @Override
     public List<UserDTO> searchByName(String name) {

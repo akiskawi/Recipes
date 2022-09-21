@@ -12,6 +12,8 @@ public interface UserServiceInterface {
     
     public User createUser(User u);
     
+    public User getByUsername(String name);
+    
     public List<UserDTO> searchByName(String name);
     
     public List<UserDTO> getAllUsers();

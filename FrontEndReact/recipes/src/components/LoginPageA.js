@@ -1,12 +1,17 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
-const LoginPageA = (username, password, setUsername, setPassword, handleLoginForm) => {
+const LoginPageA = (/*username, password, setUsername, setPassword,*/ handleLoginForm) => {
+    //To login
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
     const navigate = useNavigate();
-    const navigateHome=(e)=>{
+    const navigateHome = (e) => {
         handleLoginForm(e)
         navigate('/', { replace: true });
-        
-    } 
+
+    }
 
     return (
         <form onSubmit={navigateHome}>

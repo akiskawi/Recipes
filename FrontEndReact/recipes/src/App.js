@@ -28,14 +28,11 @@ import Chat from './components/chat/Chat';
 import CreateRecipe from './components/views/CreateRecipe';
 // import NoPage from './components/views/NoPage';
 import OurNavBar from './components/OurNavBar'
-import { data } from 'jquery';
 
 
 
 function App() {
-  //To login
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  
   
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
@@ -102,10 +99,10 @@ function App() {
             apirecipes={apirecipes}
           />} />
           <Route path='login' element={<LoginPageA
-            username={username}
+            /*username={username}
             setUsername={setUsername}
             password={password}
-            setPassword={setPassword}
+            setPassword={setPassword}*/
             handleLoginForm={handleLoginForm}
           />}
           />
