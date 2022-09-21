@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
-const addFriendButton = ({loggedInUser, profileUser}) => {
+const addFriendButton = ({ loggedInUser, profileUser }) => {
+
     const [isFriend, setIsFriend] = useState();
     const [friend, setFriends] = useState();
 
@@ -16,25 +17,6 @@ const addFriendButton = ({loggedInUser, profileUser}) => {
         })
     }, [isFriend])
 
-    // const addFriend = async () => {
-    //     await fetch(`http://localhost:8080/friendship/addFriend`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-type': 'application/json; charset=UTF-8',
-    //         },
-    //         body: JSON.stringify({
-    //             userID: loggedInUser.id,
-    //             friendID: profileUser.id,
-    //         }),
-    //     })
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setFriends((friend) => [...friend, data]);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err.message);
-    //         });
-    // };
     const addFriend = () => {
         api.post(`/addFriend/${loggedInUser.id}/${profileUser.id}`)
             .then(function (response) {

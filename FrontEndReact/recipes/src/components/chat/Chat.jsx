@@ -40,12 +40,20 @@ export default function Chat({ loggedInUser }) {
     })
 
     useEffect(() => {
+        apiFriends.get(`/${loggedInUser.id}`).then(res => {
+            setFriends(res.data);
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [friends])
+
+    const searchByName = () => {
         apiFriends.get(`/${loggedInUser.id}/${name}`).then(res => {
             setFriends(res.data);
         }).catch(err => {
             console.log(err)
         })
-    }, [friends, name])
+    };
 
     useEffect(() => {
         console.log('Opening WebSocket');
@@ -104,7 +112,7 @@ export default function Chat({ loggedInUser }) {
 
     const listChatMessages = chatMessages.map((chatMessageDto, index) =>
         <ListItem key={index} >
-            <ListItemText className={loggedInUser.id === chatMessageDto.id ? 'message.user' : 'message'}
+            <ListItemText className={loggedInUser.id === chatMessageDto.id ? 'message received' : 'message'}
                 id="chat-window-messages" primary={`${loggedInUser.name}: ${chatMessageDto.message}`} />
         </ListItem >
     );
@@ -135,7 +143,7 @@ export default function Chat({ loggedInUser }) {
 
                             <form className="d-flex me-auto" role="search">
                                 <input className="form-control me-2" type="search" placeholder="Search for a friend"
-                                    onInput={(e) => setName(e.target.value)} value={name} />
+                                    onInput={(e) => { setName(e.target.value); searchByName() }} value={name} />
                             </form>
                             <List className="contact-container">
                                 {listFriends}

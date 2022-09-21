@@ -42,6 +42,11 @@ public class FriendshipController {
     List<User> showAllFriends(@PathVariable Integer userID, @PathVariable String name) {
         return friendshipServiceInterface.showFriends(userID, name);
     }
+
+    @GetMapping("/friends/{userID}")
+    List<User> showAllFriends(@PathVariable Integer userID) {
+        return friendshipServiceInterface.showFriends(userID);
+    }
     /*
     Check's if logged-in User is friend with another user.
      */
