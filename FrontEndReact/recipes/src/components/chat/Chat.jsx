@@ -9,7 +9,7 @@ import './Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
-export default function Chat(loggedInUser) {
+export default function Chat({ loggedInUser }) {
 
     const ENTER_KEY_CODE = 13;
 

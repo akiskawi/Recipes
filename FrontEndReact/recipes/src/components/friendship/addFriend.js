@@ -9,7 +9,7 @@ const addFriendButton = (loggedInUser, profileUser) => {
     })
 
     useEffect(() => {
-        api.get(`/friends/${loggedInUser.id}/${profileUser.id}`).then(res => {
+        api.get(`/friend/${loggedInUser.id}/${profileUser.id}`).then(res => {
             setIsFriend(res.data);
         }).catch(err => {
             console.log(err)
