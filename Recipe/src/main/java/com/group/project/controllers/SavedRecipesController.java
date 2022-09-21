@@ -31,7 +31,7 @@ public class SavedRecipesController {
     /*
     Finds a SavedRecipes obj and sets paidFor value 'true'.
      */
-    @PostMapping("/update/{userID}/{recipeID}")
+    @PutMapping("/update/{userID}/{recipeID}")
     void setPaidForTrue(@PathVariable Integer userID, @PathVariable Integer recipeID){
         savedRecipesInterface.setPaidForTrue(userID,recipeID);
     }

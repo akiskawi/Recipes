@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-const PaypalCheckoutButton = (loggedInUser, recipe) => {
+const PaypalCheckoutButton = ({ loggedInUser, recipe }) => {
 
     const [error, setError] = useState(null);
     const api = axios.create({
@@ -65,7 +65,7 @@ const PaypalCheckoutButton = (loggedInUser, recipe) => {
                             console.log(error);
                         });
                 }) ? (() => {
-                    api.post(`/update/${loggedInUser.id}/${recipe.id}`)
+                    api.put(`/update/${loggedInUser.id}/${recipe.id}`)
                         .then(function (response) {
                             console.log(response);
                         })

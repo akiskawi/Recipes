@@ -45,7 +45,7 @@ public class FriendshipController {
     /*
     Check's if logged-in User is friend with another user.
      */
-    @GetMapping("/friends/{userID}/{friendID}")
+    @GetMapping("/friend/{userID}/{friendID}")
     Boolean checkFriendship(@PathVariable Integer userID,@PathVariable Integer friendID){
         return friendshipServiceInterface.checkFriendship(userID, friendID);
     }
