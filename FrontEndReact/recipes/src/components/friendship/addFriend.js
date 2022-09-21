@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const addFriendButton = ({ loggedInUser, profileUser }) => {
+
     const [isFriend, setIsFriend] = useState();
     const [friend, setFriends] = useState();
 
