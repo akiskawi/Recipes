@@ -7,9 +7,6 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-// Components
-import CustomForm from '../CustomForm'
-
 function CreateRecipe(props) {
     return (
         <div>
