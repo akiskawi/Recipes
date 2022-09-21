@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "recipe")
@@ -217,5 +217,5 @@ public class Recipe implements Serializable {
     public String toString() {
         return "com.group.project.models.Recipe[ id=" + id + " ]";
     }
-
+    
 }

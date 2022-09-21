@@ -18,8 +18,12 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
     UserService userService;
 
     @Override
-    public void addFriend(Friendship friendship) {
-        friendshipRepo.save(friendship);
+    public void addFriend(Integer userID, Integer friendID) {
+        Friendship f = new Friendship();
+        f.setRequestValid(true);
+        f.setUserId(userService.getUserById(userID));
+        f.setFriendId(userService.getUserById(friendID));
+        friendshipRepo.save(f);
     }
 
     @Override
@@ -33,7 +37,20 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
         List<User> friends = null;
         for (Friendship friendship : friendships)  {
             if (friendship.getRequestValid()) {
-                friends.add(userService.getByIdAndByNameContainingIgnoreCase(friendship.getFriendId(), name));
+                friends.add(userService.getByIdAndByNameContainingIgnoreCase(friendship.getFriendId().getId(), name));
+            }
+        }
+
+        return (friends);
+    }
+
+    @Override
+    public List<User> showFriends(Integer userID) {
+        List<Friendship> friendships = friendshipRepo.findByUserId(userID);
+        List<User> friends = null;
+        for (Friendship friendship : friendships)  {
+            if (friendship.getRequestValid()) {
+                friends.add(userService.getUserById(friendship.getFriendId().getId()));
             }
         }
 
@@ -49,4 +66,5 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
     public boolean checkFriendship(Integer userID, Integer friendID) {
         return friendshipRepo.findByUserIdAndFriendId(userID,friendID);
     }
+
 }

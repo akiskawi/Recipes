@@ -9,7 +9,7 @@ import './Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
-export default function Chat() {
+export default function Chat({ loggedInUser }) {
 
     const ENTER_KEY_CODE = 13;
 
@@ -40,12 +40,20 @@ export default function Chat() {
     })
 
     useEffect(() => {
-        apiFriends.get('/{userId}/{name}').then(res => {
+        apiFriends.get(`/${loggedInUser.id}`).then(res => {
             setFriends(res.data);
         }).catch(err => {
             console.log(err)
         })
-    }, [friends, name])
+    }, [friends])
+
+    const searchByName = () => {
+        apiFriends.get(`/${loggedInUser.id}/${name}`).then(res => {
+            setFriends(res.data);
+        }).catch(err => {
+            console.log(err)
+        })
+    };
 
     useEffect(() => {
         console.log('Opening WebSocket');
@@ -67,7 +75,6 @@ export default function Chat() {
             const chatMessageDto = JSON.parse(event.data);
             console.log('Message: ', chatMessageDto);
             setChatMessages([...chatMessages, {
-                user: chatMessageDto.user,
                 message: chatMessageDto.message
             }]);
             if (scrollBottomRef.current) {
@@ -89,7 +96,7 @@ export default function Chat() {
         if (message) {
             console.log('Send!');
             webSocket.current.send(
-                JSON.stringify(new ChatMessageDto(user, message))
+                JSON.stringify(new ChatMessageDto(message))
             );
             setMessage('');
         }
@@ -105,7 +112,8 @@ export default function Chat() {
 
     const listChatMessages = chatMessages.map((chatMessageDto, index) =>
         <ListItem key={index} >
-            <ListItemText id="chat-window-messages" primary={`${chatMessageDto.user}: ${chatMessageDto.message}`} />
+            <ListItemText className={loggedInUser.id === chatMessageDto.id ? 'message received' : 'message'}
+                id="chat-window-messages" primary={`${loggedInUser.name}: ${chatMessageDto.message}`} />
         </ListItem >
     );
 
@@ -135,7 +143,7 @@ export default function Chat() {
 
                             <form className="d-flex me-auto" role="search">
                                 <input className="form-control me-2" type="search" placeholder="Search for a friend"
-                                    onInput={(e) => setName(e.target.value)} value={name} />
+                                    onInput={(e) => { setName(e.target.value); searchByName() }} value={name} />
                             </form>
                             <List className="contact-container">
                                 {listFriends}

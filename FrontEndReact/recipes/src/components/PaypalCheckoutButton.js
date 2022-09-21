@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-const PaypalCheckoutButton = (props) => {
-    const { product } = props;
+const PaypalCheckoutButton = ({ loggedInUser, recipe }) => {
 
     const [error, setError] = useState(null);
+    const api = axios.create({
+        baseURL: "http://localhost:8080/friends"
+    })
 
     const handleApprove = (orderId) => {
         //request to server that order is paid for
@@ -38,7 +40,7 @@ const PaypalCheckoutButton = (props) => {
                 return actions.order.create({
                     purchase_units: [
                         {
-                            description: product.description,
+                            description: recipeID,
                             amount: {
                                 value: 2
                             }
@@ -50,6 +52,38 @@ const PaypalCheckoutButton = (props) => {
                 const order = await actions.order.capture();
                 console.log("order", order);
                 handleApprove(data.orderID);
+
+                /*Checks if recipe is saved.
+                If recipe is not saved, creates a new saved_recipe object with paid value set to true.
+                Else update saved_recipe's paid value to true. */
+                ((() => {
+                    api.get(`/check/${loggedInUser.id}/${recipe.id}`)
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }) ? (() => {
+                    api.put(`/update/${loggedInUser.id}/${recipe.id}`)
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }) : (() => {
+                    api.post(`/buy/${loggedInUser.id}/${recipe.id}`)
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }))
+
+
+
             }}
             onCancel={() => {
                 //handle special case where user cancels order

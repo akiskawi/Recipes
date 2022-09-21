@@ -5,6 +5,7 @@
 package com.group.project.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "user")
@@ -53,6 +54,10 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friendId")
+    private Set<Friendship> friendshipSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Friendship> friendshipSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     @JsonIgnore
     private Set<SavedRecipes> savedRecipesSet;
@@ -114,6 +119,24 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @XmlTransient
+    public Set<Friendship> getFriendshipSet() {
+        return friendshipSet;
+    }
+
+    public void setFriendshipSet(Set<Friendship> friendshipSet) {
+        this.friendshipSet = friendshipSet;
+    }
+
+    @XmlTransient
+    public Set<Friendship> getFriendshipSet1() {
+        return friendshipSet1;
+    }
+
+    public void setFriendshipSet1(Set<Friendship> friendshipSet1) {
+        this.friendshipSet1 = friendshipSet1;
     }
 
     @XmlTransient

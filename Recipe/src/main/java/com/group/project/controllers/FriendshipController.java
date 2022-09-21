@@ -20,11 +20,11 @@ public class FriendshipController {
 
 
     /*
-    Post Form to Send a Friend Request.
+    Add a Friend.
      */
-    @PostMapping("/create")
-    void newRecipe(@RequestParam Friendship friendship) {
-        friendshipServiceInterface.addFriend(friendship);
+    @PostMapping("/addFriend/{userID}/{friendID}")
+    void addFriend(@PathVariable Integer userID, @PathVariable Integer friendID) {
+        friendshipServiceInterface.addFriend(userID,friendID);
     }
 
     /*
@@ -36,16 +36,21 @@ public class FriendshipController {
     }
 
     /*
-    Show all of User's Friends whose Name contains said string
+    Show all of User's Friends whose Name contains, said string.
      */
     @GetMapping("/friends/{userID}/{name}")
     List<User> showAllFriends(@PathVariable Integer userID, @PathVariable String name) {
         return friendshipServiceInterface.showFriends(userID, name);
     }
+
+    @GetMapping("/friends/{userID}")
+    List<User> showAllFriends(@PathVariable Integer userID) {
+        return friendshipServiceInterface.showFriends(userID);
+    }
     /*
     Check's if logged-in User is friend with another user.
      */
-    @GetMapping("/friends/{userID}/{friendID}")
+    @GetMapping("/friend/{userID}/{friendID}")
     Boolean checkFriendship(@PathVariable Integer userID,@PathVariable Integer friendID){
         return friendshipServiceInterface.checkFriendship(userID, friendID);
     }

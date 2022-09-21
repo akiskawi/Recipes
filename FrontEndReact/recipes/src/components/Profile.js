@@ -1,12 +1,14 @@
 // import './Profile.css';
 // import './Recipes.css';
+import './Recipes.css';
 import { useState, useEffect } from 'react';
 import Recipes from './Recipes'
 import Pagination from './Pagination';
 
 
 
-const Profile = ({ apirecipes, showOneRecipe, profileUser/* User Model */ }) => {
+const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User Model */ }) => {
+    changeDocTitle(`${profileUser.name}`)
     const [recipes, setRecipes] = useState([])
     const [title, setTitle] = useState('')
     const [type, setType] = useState('Breakfast')

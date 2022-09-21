@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Routing
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 
 // Bootstrap
 import Container from 'react-bootstrap/Container';
@@ -32,36 +32,54 @@ import OurNavBar from './components/OurNavBar'
 
 
 function App() {
+  
+  
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
     name: 'Evgenia',//TODO:
     email: null,
-    id: null
+    id: 1
   });// Entity User
 
-  const[email,setEmail]=useState('')
-  const[password,setPassword]=useState('')
 
   const [recipe, setRecipe] = useState(null);
-  const [profileUser, setProfileUser] = useState(null/*User Model*/)
+  const [profileUser, setProfileUser] = useState({
+    name: 'Evgenia',//TODO:
+    email: null,
+    id: 1
+  })
   // Prosorino! TODO:
   const apirecipes = axios.create({
     baseURL: "http://localhost:8080/recipe"
   })
-  const apiusers = axios.create({
-    baseURL: "http://localhost:8080/users"
-  })
+  // const apiusers = axios.create({
+  //   baseURL: "http://localhost:8080/users"
+  // })
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
+  }
+
+
+  const handleLoginForm = (e) => {
+    e.preventDefault();
+    // const apilogin = axios.create({
+    //   baseURL: "http://localhost:8080/login"
+    // })
+    // let body = {
+    //   username: username,
+    //   password: password
+    // }
+
+    // apilogin.post('/', body).then(res => {
+    //   console.log(res)
+    // }).catch(err => console.log(err))
+    console.log("Logged In!")
+
   }
   const changeDocTitle = (doctitle) => {
     document.title = doctitle;
   }
-  const handleLoginForm = (e)=>{
-    e.preventDefault();
-    
 
-  }
 
   return (
     <BrowserRouter>
@@ -81,10 +99,10 @@ function App() {
             apirecipes={apirecipes}
           />} />
           <Route path='login' element={<LoginPageA
-            email={email}
-            setEmail={setEmail}
+            /*username={username}
+            setUsername={setUsername}
             password={password}
-            setPassword={setPassword}
+            setPassword={setPassword}*/
             handleLoginForm={handleLoginForm}
           />}
           />
@@ -93,10 +111,14 @@ function App() {
             showOneRecipe={showOneRecipe}
             profileUser={profileUser}
             apirecipes={apirecipes}
+            changeDocTitle={changeDocTitle}
           />} />
           <Route path='recipe/:recipeid' element={<RecipeItem
             recipe={recipe}
             setProfileUser={setProfileUser}
+            profileUser={profileUser}
+            loggedInUser={loggedInUser}
+            changeDocTitle={changeDocTitle}
           />} />
           <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
           {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
@@ -104,7 +126,7 @@ function App() {
 
         {loggedInUser.id !== null ? <div className="row">
           <div className="col justify-content-end">
-            <Chat />
+            <Chat loggedInUser={loggedInUser} />
           </div>
         </div> :
           <div className="row"></div>

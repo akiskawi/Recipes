@@ -4,6 +4,8 @@
  */
 package com.group.project.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,24 +22,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author akisk
+ * @author georg
  */
 @Entity
 @Table(name = "friendship")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Friendship.findAll", query = "SELECT f FROM Friendship f"),
-    @NamedQuery(name = "Friendship.findByUserId", query = "SELECT f FROM Friendship f WHERE f.userId = :userId"),
-    @NamedQuery(name = "Friendship.findByFriendId", query = "SELECT f FROM Friendship f WHERE f.friendId = :friendId"),
     @NamedQuery(name = "Friendship.findByFriendshipId", query = "SELECT f FROM Friendship f WHERE f.friendshipId = :friendshipId"),
     @NamedQuery(name = "Friendship.findByRequestValid", query = "SELECT f FROM Friendship f WHERE f.requestValid = :requestValid")})
 public class Friendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Column(name = "user_id")
-    private Integer userId;
-    @Column(name = "friend_id")
-    private Integer friendId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -43,28 +41,20 @@ public class Friendship implements Serializable {
     private Integer friendshipId;
     @Column(name = "request_valid")
     private Boolean requestValid;
+    @JoinColumn(name = "friend_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    @JsonIgnore
+    private User friendId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    @JsonIgnore
+    private User userId;
 
     public Friendship() {
     }
 
     public Friendship(Integer friendshipId) {
         this.friendshipId = friendshipId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getFriendId() {
-        return friendId;
-    }
-
-    public void setFriendId(Integer friendId) {
-        this.friendId = friendId;
     }
 
     public Integer getFriendshipId() {
@@ -81,6 +71,22 @@ public class Friendship implements Serializable {
 
     public void setRequestValid(Boolean requestValid) {
         this.requestValid = requestValid;
+    }
+
+    public User getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(User friendId) {
+        this.friendId = friendId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
