@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-const PaypalCheckoutButton = ({ recipeID, userID }) => {
+const PaypalCheckoutButton = (loggedInUser, recipe) => {
 
     const [error, setError] = useState(null);
     const api = axios.create({
@@ -52,6 +52,36 @@ const PaypalCheckoutButton = ({ recipeID, userID }) => {
                 const order = await actions.order.capture();
                 console.log("order", order);
                 handleApprove(data.orderID);
+
+                /*Checks if recipe is saved.
+                If recipe is not saved, creates a new saved_recipe object with paid value set to true.
+                Else update saved_recipe's paid value to true. */
+                ((() => {
+                    api.get(`/check/${loggedInUser.id}/${recipe.id}`)
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }) ? (() => {
+                    api.post(`/update/${loggedInUser.id}/${recipe.id}`)
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }) : (() => {
+                    api.post(`/buy/${loggedInUser.id}/${recipe.id}`)
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }))
+
 
 
             }}

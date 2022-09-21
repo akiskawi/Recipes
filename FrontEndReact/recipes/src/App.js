@@ -113,7 +113,7 @@ function App() {
 
         {loggedInUser.id !== null ? <div className="row">
           <div className="col justify-content-end">
-            <Chat />
+            <Chat loggedInUser={loggedInUser} />
           </div>
         </div> :
           <div className="row"></div>
