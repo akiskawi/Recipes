@@ -45,6 +45,19 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
     }
 
     @Override
+    public List<User> showFriends(Integer userID) {
+        List<Friendship> friendships = friendshipRepo.findByUserId(userID);
+        List<User> friends = null;
+        for (Friendship friendship : friendships)  {
+            if (friendship.getRequestValid()) {
+                friends.add(userService.getUserById(friendship.getFriendId().getId()));
+            }
+        }
+
+        return (friends);
+    }
+
+    @Override
     public Friendship getFriendship(Integer friendshipID) {
         return (friendshipRepo.findByFriendshipId(friendshipID));
     }
