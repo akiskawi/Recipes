@@ -33,14 +33,14 @@ import OurNavBar from './components/OurNavBar'
 
 function App() {
   const [user, setUser] = useState({
-    username: null,
-    password: null
+    username: '',
+    password: ''
   })
 
 
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
-    name: null,//TODO:
+    name: null,
     email: null,
     id: null
   });// Entity User
@@ -48,7 +48,7 @@ function App() {
 
   const [recipe, setRecipe] = useState(null);
   const [profileUser, setProfileUser] = useState({
-    name: null,//TODO:
+    name: null,
     email: null,
     id: null
   })
@@ -56,13 +56,12 @@ function App() {
   const apirecipes = axios.create({
     baseURL: "http://localhost:8080/recipe"
   })
-  // const apiusers = axios.create({
-  //   baseURL: "http://localhost:8080/users"
-  // })
+
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
   }
-  const handleLoginChange = (e) => {
+
+  const handleFormChange = (e) => {
     e.preventDefault();
     const fieldName = e.target.getAttribute("name");
     const fieldValue = e.target.value;
@@ -73,7 +72,7 @@ function App() {
 
   const handleLoginForm = (e) => {
     e.preventDefault();
-    console.log(1)
+    // console.log(1)
     const apilogin = axios.create({
       baseURL: "http://localhost:8080/login"
     })
@@ -108,7 +107,7 @@ function App() {
           />} />
           <Route path='login' element={<LoginPageA
             user={user}
-            handleLoginChange={handleLoginChange}
+            handleFormChange={handleFormChange}
             handleLoginForm={handleLoginForm}
           />}
           />
