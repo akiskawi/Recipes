@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from 'react';
-import axios from 'axios';
 
 // Routing
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -32,28 +31,22 @@ import OurNavBar from './components/OurNavBar'
 
 
 function App() {
-
-  const [user, setUser] = useState({
-    username: '',
-    password: ''
-  })
-
   const [jwtToken, setJwtToken] = useState(null);
-
-  //From Profile
+  // loggedIn User details
   const [loggedInUser, setLoggedInUser] = useState({
     name: null,
     email: null,
     id: null
-  });// Entity User
-
-
+  });
+  // SHowing / Editing recipe details
   const [recipe, setRecipe] = useState(null);
+  // Showing profile User Details
   const [profileUser, setProfileUser] = useState({
     name: null,
     email: null,
     id: null
   })
+
   // Prosorino! TODO:
   const apirecipes = axios.create({
     baseURL: "http://localhost:8080/recipe",
@@ -106,28 +99,29 @@ function App() {
         {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
         {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
         <OurNavBar
-          userId={loggedInUser.id}
-          profileName={loggedInUser.name}
-          setLoggedInUser={setLoggedInUser} />
+          loggedInUser={loggedInUser}
+          setProfileUser={setProfileUser}
+          setLoggedInUser={setLoggedInUser}
+          setJwtToken={setJwtToken} />
 
         {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
         <Routes>
           <Route path='/' element={<Home
             changeDocTitle={changeDocTitle}
             showOneRecipe={showOneRecipe}
-            apirecipes={apirecipes}
+            jwtToken={jwtToken}
           />} />
           <Route path='login' element={<LoginPageA
-            user={user}
-            handleFormChange={handleFormChange}
-            handleLoginForm={handleLoginForm}
+            setJwtToken={setJwtToken}
+            setLoggedInUser={setLoggedInUser}
           />}
           />
           {<Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />}
           <Route path='profile/:profileName' element={<Profile
             showOneRecipe={showOneRecipe}
             profileUser={profileUser}
-            apirecipes={apirecipes}
+            loggedInUser={loggedInUser}
+            jwtToken={jwtToken}
             changeDocTitle={changeDocTitle}
           />} />
           <Route path='recipe/:recipeid' element={<RecipeItem
@@ -136,6 +130,7 @@ function App() {
             profileUser={profileUser}
             loggedInUser={loggedInUser}
             changeDocTitle={changeDocTitle}
+            jwtToken={jwtToken}
           />} />
           <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} loggedinuser={loggedInUser} />} />
           {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
