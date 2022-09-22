@@ -42,17 +42,6 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
     }, [title, type])
     
 
-
-    useEffect(() => {
-        apirecipes.get(`owned/${profileUser.id}/${type}/${title}`).then(res => {
-            // console.log(res.data)
-            setRecipes(res.data);
-        }).catch(err => {
-            console.log(err)
-        })
-    }, [title, type])
-
-
     // Paginator
     // User is currently on this page
     const [currentPage, setCurrentPage] = useState(1);

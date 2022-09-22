@@ -6,6 +6,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // Bootstrap
 import Container from 'react-bootstrap/Container';
 
+// custom hooks
+import useLocalStorage from './hooks/useLocalStorage'
+
 // CSS
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.css';
@@ -32,9 +35,9 @@ import OurNavBar from './components/OurNavBar'
 
 
 function App() {
-  const [jwtToken, setJwtToken] = useState(null);
+  const [jwtToken, setJwtToken] = useLocalStorage('front-end.jwtToken', null);
   // loggedIn User details
-  const [loggedInUser, setLoggedInUser] = useState({
+  const [loggedInUser, setLoggedInUser] = useLocalStorage('front-end.loggedInUser',{
     name: null,
     email: null,
     id: null
