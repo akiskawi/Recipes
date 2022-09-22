@@ -37,6 +37,7 @@ function App() {
     password: ''
   })
 
+  const [jwtToken, setJwtToken] = useState(null);
 
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
@@ -72,17 +73,24 @@ function App() {
 
   const handleLoginForm = (e) => {
     e.preventDefault();
-    // console.log(1)
     const apilogin = axios.create({
       baseURL: "http://localhost:8080/login"
     })
+    var bodyFormData = new FormData();
+    bodyFormData.append('username', user.username);
+    bodyFormData.append('password', user.password);
 
-    apilogin.post('/', user).then(res => {
-      console.log(res)
-    }).catch(err => console.log(err))
-    console.log("Logged In!")
-
+    apilogin.post('', bodyFormData).then(res => {
+      //efoson iparxei to token prepei na iparxei se kathe neo request
+      setJwtToken(res.headers['access_token']);
+      setLoggedInUser({
+        name: res.headers['username'],
+        email: res.headers['useremail'],
+        id: res.headers['userid']
+      });
+    }).catch(err => console.log("error", err))
   }
+
   const changeDocTitle = (doctitle) => {
     document.title = doctitle;
   }
