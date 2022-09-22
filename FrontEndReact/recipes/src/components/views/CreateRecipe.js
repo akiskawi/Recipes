@@ -88,7 +88,7 @@ function CreateRecipe({ changeDocTitle, loggedinuser, jwtToken }) {
     return (
         <div>
             {changeDocTitle("Create Recipe")}
-            <h2 style={{ textAlign: 'center' }}>create your Recipe here</h2>
+            <h2 style={{ textAlign: 'center' }}>create your Recipe</h2>
             <p />
             <Form>
                 <Row>
