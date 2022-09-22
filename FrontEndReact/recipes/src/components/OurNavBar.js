@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function CollapsibleExample({ profileName, userId, setLoggedInUser }) {
+function CollapsibleExample({ loggedInUser, setProfileUser, setLoggedInUser, setJwtToken }) {
     return (
         <div className="row">
             <div className="col">
@@ -13,14 +13,16 @@ function CollapsibleExample({ profileName, userId, setLoggedInUser }) {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <Link className='nav-link' to="/">Home</Link>
-                            {userId !== null
-                                ? <><Link className='nav-link' to={`/profile/${profileName}`}>My Profile</Link>
+                            {loggedInUser.id !== null
+                                ? <><Link className='nav-link' to={`/profile/${loggedInUser.name}`} onClick={() => { setProfileUser({ ...loggedInUser }) }}>My Profile</Link>
                                     <Link className='nav-link' to="/createrecipe">Create Recipe</Link>
-                                    <Link className='nav-link' to="/" style={{ position: "absolute", right: "30px" }} onClick={() => setLoggedInUser({
-                                        name: null,
-                                        email: null,
-                                        id: null
-                                    })}>Logout</Link>
+                                    <Link className='nav-link' to="/" style={{ position: "absolute", right: "30px" }} onClick={() => {
+                                        setLoggedInUser({
+                                            name: null,
+                                            email: null,
+                                            id: null
+                                        }); setJwtToken(null)
+                                    }}>Logout</Link>
                                 </>
                                 : <>
                                     < Link className='nav-link' to="/login" style={{ position: "absolute", right: "120px" }}>Login</Link>

@@ -1,20 +1,41 @@
-// import './Profile.css';
-// import './Recipes.css';
 import './Recipes.css';
 import { useState, useEffect } from 'react';
 import Recipes from './Recipes'
 import Pagination from './Pagination';
+import axios from 'axios';
 
 
 
-const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User Model */ }) => {
+
+const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedInUser }) => {
     changeDocTitle(`${profileUser.name}`)
+    // States for the Component
     const [recipes, setRecipes] = useState([])
     const [title, setTitle] = useState('')
     const [type, setType] = useState('Breakfast')
+    //Axios created with JwtToken
+    let apirecipes = axios.create({
+        baseURL: "http://localhost:8080/recipe",
+        headers: { Authorization: `Bearer ${jwtToken}` }
+    })
+    useEffect(() => {
+        apirecipes = axios.create({
+            baseURL: "http://localhost:8080/recipe",
+            headers: { Authorization: `Bearer ${jwtToken}` }
+        })
+    }, [jwtToken])
+    // Get Recipes when the Title and Type are Checked
+    useEffect(() => {
+        apirecipes.get(`owned/${profileUser.id}/${type}/${title}`).then(res => {
+            // console.log(res.data)
+            setRecipes(res.data);
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [title, type])
 
 
-
+    // Paginator
     // User is currently on this page
     const [currentPage, setCurrentPage] = useState(1);
     // No of Records to be displayed on each page   
@@ -27,14 +48,6 @@ const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User 
     //calc the Number of Pages
     const nPages = Math.ceil(recipes.length / recordsPerPage)
 
-    useEffect(() => {
-        apirecipes.get(`owned/${profileUser.id}/${type}/${title}`).then(res => {
-            // console.log(res.data)
-            setRecipes(res.data);
-        }).catch(err => {
-            console.log(err)
-        })
-    }, [title, type])
     return (
         <div className="container">
             <div className="row">
@@ -43,14 +56,11 @@ const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User 
                     <div className="col-10 text-center fw-bold fs-1">{profileUser.name}</div>
                 </div>
                 <div className="row">
-                    <div className="col">
-                        TODO:Thelw Logged In User na Iparxei kai na mpei edw
-                        Change Pic
+                    {loggedInUser.id === profileUser.id && <div className="col">
+                        <button>Change Email</button>
                         <br></br>
-                        Email Btn
-                        <br></br>
-                        Saved Recipes
-                    </div>
+                        <button>Saved Recipes</button>
+                    </div>}
                 </div>
                 <div className="row">
                     <div className="row">
