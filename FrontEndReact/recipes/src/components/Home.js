@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
 import Recipes from './Recipes'
 import Pagination from './Pagination';
+import axios from 'axios';
 
-const Home = ({ showOneRecipe, apirecipes, changeDocTitle }) => {
+
+const Home = ({changeDocTitle, showOneRecipe,jwtToken}) => {
+  changeDocTitle('Home');
   const [recipes, setRecipes] = useState([])
   const [title, setTitle] = useState('')
   const [type, setType] = useState('Breakfast')
-  changeDocTitle("Home")
+
+  const apirecipes = axios.create({
+    baseURL: "http://localhost:8080/recipe",
+    headers:{Authorization : `Bearer ${jwtToken}`}
+  })
 
 
 

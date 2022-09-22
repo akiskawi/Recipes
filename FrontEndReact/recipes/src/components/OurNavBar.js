@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-function CollapsibleExample({ profileName, userId, setLoggedInUser }) {
+function CollapsibleExample({ profileName, userId, setLoggedInUser,setJwtToken }) {
     return (
         <div className="row">
             <div className="col">
@@ -16,11 +16,11 @@ function CollapsibleExample({ profileName, userId, setLoggedInUser }) {
                             {userId !== null
                                 ? <><Link className='nav-link' to={`/profile/${profileName}`}>My Profile</Link>
                                     <Link className='nav-link' to="/createrecipe">Create Recipe</Link>
-                                    <Link className='nav-link' to="/" style={{ position: "absolute", right: "30px" }} onClick={() => setLoggedInUser({
+                                    <Link className='nav-link' to="/" style={{ position: "absolute", right: "30px" }} onClick={() => {setLoggedInUser({
                                         name: null,
                                         email: null,
                                         id: null
-                                    })}>Logout</Link>
+                                    });setJwtToken(null)}}>Logout</Link>
                                 </>
                                 : <>
                                     < Link className='nav-link' to="/login" style={{ position: "absolute", right: "120px" }}>Login</Link>
