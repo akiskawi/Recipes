@@ -104,10 +104,10 @@ function App() {
             jwtToken={jwtToken}
           />} />
           <Route path='edit/:recipeid' element={<EditRecipe
-            recipe={recipe}
+            oldrecipe={recipe}
             setProfileUser={setProfileUser}
             profileUser={profileUser}
-            loggedInUser={loggedInUser}
+            loggedinuser={loggedInUser}
             changeDocTitle={changeDocTitle}
             jwtToken={jwtToken}
           />} />

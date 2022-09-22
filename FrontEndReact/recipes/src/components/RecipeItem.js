@@ -42,7 +42,7 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                 </div>
 
                 <div className="col">Author:
-                    <Link /*to={`/profile/${recipe.ownerId.name}`}*/ onClick={getProfileUser}>
+                    <Link to={`/profile/${recipe.ownerId.name}`} onClick={getProfileUser}>
                         {recipe.ownerId.name}
                     </Link>
                 </div>
