@@ -43,7 +43,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({
     name: null,
     email: null,
-    id: 675
+    id: null
   });// Entity User
 
 
@@ -88,7 +88,8 @@ function App() {
         email: res.headers['useremail'],
         id: res.headers['userid']
       });
-    }).catch(err => console.log("error", err))
+    }).catch(err => console.log("errir1", err))
+    console.log(jwtToken);
   }
 
   const changeDocTitle = (doctitle) => {

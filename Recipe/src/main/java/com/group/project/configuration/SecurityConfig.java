@@ -4,6 +4,7 @@ import com.group.project.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -35,7 +36,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors()
+        http
+                .cors()
                 .and()
                 .csrf()
                 .disable()
@@ -57,16 +59,17 @@ public class SecurityConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
+        return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8081")
+                        .allowedMethods("*")
+                        .allowedOrigins("http://localhost:8081/")
                         .exposedHeaders("Access-Control-Allow-Origin, access_token, userid, useremail, username");
             }
         };
     }
-    
+
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.debug(securityDebug)
