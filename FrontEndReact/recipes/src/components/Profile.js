@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import Recipes from './Recipes'
 import Pagination from './Pagination';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import { Link, useParams } from 'react-router-dom';
+
 
 
 
@@ -69,6 +72,11 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
                 <div className="profile-user-deteils">
                     <div className="col-2 text-danger fs-4">AVATAR TODO:</div>
                     <div className="col-10 text-center fw-bold fs-1">{profileUser.name}</div>
+                </div>
+                <div className="col mb-6">
+                    {profileUser.id != loggedInUser.id
+                        && <Button variant='warning' ><Link className='link-recipes' >Friend Request</Link></Button>
+                    }
                 </div>
                 <div className="row">
                     {loggedInUser.id === profileUser.id && <div className="col">

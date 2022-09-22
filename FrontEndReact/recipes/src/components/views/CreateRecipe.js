@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function CreateRecipe({ changeDocTitle, loggedinuser }) {
+function CreateRecipe({ changeDocTitle, loggedinuser, jwtToken }) {
 
     // Functionality
     const [recipe, setRecipe] = useState(
@@ -28,7 +28,8 @@ function CreateRecipe({ changeDocTitle, loggedinuser }) {
     )
 
     const api = axios.create({
-        baseURL: "http://localhost:8080/recipe"
+        baseURL: "http://localhost:8080/recipe",
+        headers: { Authorization: `Bearer ${jwtToken}` }
     })
 
     const handleAddFormSubmit = (e) => {
@@ -39,7 +40,8 @@ function CreateRecipe({ changeDocTitle, loggedinuser }) {
             .then(res => console.log(res))
             .catch(err => {
                 console.log(err)
-            }).finnaly(
+            })
+            .finnaly(
                 setRecipe({
                     id: null,
                     name: "",
