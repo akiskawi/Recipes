@@ -11,6 +11,8 @@ import com.group.project.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  *
  * @author mhtso
@@ -19,4 +21,7 @@ import org.springframework.stereotype.Repository;
 public interface SavedRecipesRepo extends JpaRepository<SavedRecipes, Integer> {
 
     SavedRecipes findByUserIdAndRecipeId(User user, Recipe recipe);
+
+    List<SavedRecipes> findByPaidForAndUserId(boolean paidFor, User userID);
+
 }

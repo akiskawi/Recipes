@@ -9,18 +9,19 @@ import './Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
+
 export default function Chat({ jwtToken, loggedInUser }) {
+
 
     const ENTER_KEY_CODE = 13;
 
-    const [isShown, setIsShown] = useState(true);
+    const [isShown, setIsShown] = useState(false);
     const scrollBottomRef = useRef(null);
     const webSocket = useRef(null);
     const [chatMessages, setChatMessages] = useState([]);
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
-
 
     const [friends, setFriends] = useState([new FriendDto(1, "a"),
     new FriendDto(2, "b"),
@@ -52,7 +53,7 @@ export default function Chat({ jwtToken, loggedInUser }) {
         apiFriends.get(`/${loggedInUser.id}/${name}`).then(res => {
             setFriends(res.data);
         }).catch(err => {
-            console.log(err)
+            setFriends([])
         })
     };
 

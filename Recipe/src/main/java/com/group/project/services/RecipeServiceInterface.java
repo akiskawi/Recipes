@@ -34,4 +34,9 @@ public interface RecipeServiceInterface {
     List<Recipe> showAllRecipesByPaid(Boolean b);
 
     List<Recipe> showAllByNameContainsIgnoreCaseAndType(String string, String type);
+
+    List<Recipe> showAllRecipesByOwner(User ownerID);
+    List<Recipe> showAllRecipesByOwnerAndName(User ownerID, String name);
+
+
 }
