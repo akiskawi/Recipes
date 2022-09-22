@@ -21,6 +21,7 @@ public class UserService implements UserServiceInterface {
     @Override
     @Transactional
     public User createUser(User u) {
+        u.setRole("ROLE_USER");
         return userRepo.save(u);
     }
     

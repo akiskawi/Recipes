@@ -42,7 +42,7 @@ public class UserController {
         return userServ.searchByName(name);
     }
 
-    @PostMapping("/")
+    @PostMapping("/create")
     public User addUser(@RequestBody User u) {
         return userServ.createUser(u);
     }
