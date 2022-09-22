@@ -9,7 +9,7 @@ import './Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
-export default function Chat({ loggedInUser }) {
+export default function Chat({ jwtToken, loggedInUser }) {
 
     const ENTER_KEY_CODE = 13;
 
@@ -36,7 +36,8 @@ export default function Chat({ loggedInUser }) {
     new FriendDto(12, "l")]);
 
     const apiFriends = axios.create({
-        baseURL: "http://localhost:8080/friendship"
+        baseURL: "http://localhost:8080/friendship",
+        headers: { Authorization: `Bearer ${jwtToken}` }
     })
 
     useEffect(() => {
