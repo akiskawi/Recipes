@@ -33,20 +33,24 @@ import OurNavBar from './components/OurNavBar'
 
 function App() {
 
+  const [user, setUser] = useState({
+    username: null,
+    password: null
+  })
 
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
-    name: 'Evgenia',//TODO:
+    name: null,//TODO:
     email: null,
-    id: 1
+    id: null
   });// Entity User
 
 
   const [recipe, setRecipe] = useState(null);
   const [profileUser, setProfileUser] = useState({
-    name: 'Evgenia',//TODO:
+    name: null,//TODO:
     email: null,
-    id: 1
+    id: null
   })
   // Prosorino! TODO:
   const apirecipes = axios.create({
@@ -58,21 +62,25 @@ function App() {
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
   }
-
+  const handleLoginChange = (e) => {
+    e.preventDefault();
+    const fieldName = e.target.getAttribute("name");
+    const fieldValue = e.target.value;
+    const tempUser = { ...user }
+    tempUser[fieldName] = fieldValue;
+    setUser(tempUser);
+  }
 
   const handleLoginForm = (e) => {
     e.preventDefault();
-    // const apilogin = axios.create({
-    //   baseURL: "http://localhost:8080/login"
-    // })
-    // let body = {
-    //   username: username,
-    //   password: password
-    // }
+    console.log(1)
+    const apilogin = axios.create({
+      baseURL: "http://localhost:8080/login"
+    })
 
-    // apilogin.post('/', body).then(res => {
-    //   console.log(res)
-    // }).catch(err => console.log(err))
+    apilogin.post('/', user).then(res => {
+      console.log(res)
+    }).catch(err => console.log(err))
     console.log("Logged In!")
 
   }
@@ -99,10 +107,8 @@ function App() {
             apirecipes={apirecipes}
           />} />
           <Route path='login' element={<LoginPageA
-            /*username={username}
-            setUsername={setUsername}
-            password={password}
-            setPassword={setPassword}*/
+            user={user}
+            handleLoginChange={handleLoginChange}
             handleLoginForm={handleLoginForm}
           />}
           />
