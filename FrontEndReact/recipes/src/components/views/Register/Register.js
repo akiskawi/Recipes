@@ -23,6 +23,7 @@ function Register() {
         const api = axios.create({
             baseURL: "http://localhost:8080/users/create",
         })
+
         api.post("",formValues)
         .then(navigate('/login', {state: formValues, replace: true }))
         .catch(err => console.log(err))

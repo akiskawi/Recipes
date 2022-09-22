@@ -123,7 +123,9 @@ function App() {
 
           {loggedInUser.id !== null ? <div className="row">
             <div className="col justify-content-end">
-              <Chat loggedInUser={loggedInUser} />
+              <Chat 
+            loggedInUser={loggedInUser}
+            jwtToken={jwtToken} />
             </div>
           </div> :
             <div className="row"></div>
