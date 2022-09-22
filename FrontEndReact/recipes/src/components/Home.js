@@ -1,19 +1,11 @@
 import { useState, useEffect } from 'react';
 import Recipes from './Recipes'
 import Pagination from './Pagination';
-import axios from 'axios';
 
-
-const Home = ({changeDocTitle, showOneRecipe,jwtToken}) => {
-  changeDocTitle('Home');
+const Home = ({ showOneRecipe, apirecipes }) => {
   const [recipes, setRecipes] = useState([])
   const [title, setTitle] = useState('')
   const [type, setType] = useState('Breakfast')
-
-  const apirecipes = axios.create({
-    baseURL: "http://localhost:8080/recipe",
-    headers:{Authorization : `Bearer ${jwtToken}`}
-  })
 
 
 
@@ -36,7 +28,7 @@ const Home = ({changeDocTitle, showOneRecipe,jwtToken}) => {
     }).catch(err => {
       console.log(err)
     })
-  }, [title, type])
+  }, [title,type])
 
   return (
     <div>
@@ -46,7 +38,7 @@ const Home = ({changeDocTitle, showOneRecipe,jwtToken}) => {
         </div>
         <div className="col">
 
-          <select defaultValue={type} name="option-recipe" id="option-recipe" onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
+          <select  defaultValue={type} name="option-recipe" id="option-recipe" onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
             <option value="Breakfast">Breakfast</option>
             <option value="Lunch">Lunch</option>
             <option value="Dinner">Dinner</option>

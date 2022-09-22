@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, loggedInUser, jwtToken }) => {
-    changeDocTitle(`${recipe.name}`)
+const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, loggedInUser }) => {
+
     const api = axios.create({
-        baseURL: "http://localhost:8080/",
-        headers: { Authorization: `Bearer ${jwtToken}` }
+        baseURL: "http://localhost:8080/"
     })
-    const getProfileUser = () => {
-        api.get(`/users/${recipe.ownerId.id}`).then(res => setProfileUser({...res.data})).catch(err => console.log(err))
-    }
     const handleSaveButton = () => {
         api.post(`/savedRecipes/save/${loggedInUser.id}/${recipe.id}`)
         console.log(`/savedRecipes/save/${loggedInUser.id}/${recipe.id}`)
@@ -17,7 +13,7 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
     }
 
 
-
+    changeDocTitle(`${recipe.name}`)
     return (
         <div className="container">
             <div className="row">
@@ -40,7 +36,7 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                 </div>
 
                 <div className="col">Author:
-                    <Link /*to={`/profile/${recipe.ownerId.name}`}*/ onClick={getProfileUser}>
+                    <Link to={`/profile/${recipe.ownerId.name}`} onClick={() => { setProfileUser(recipe.ownerId) }}>
                         {recipe.ownerId.name}
                     </Link>
                 </div>
