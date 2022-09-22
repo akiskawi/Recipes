@@ -38,7 +38,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({
     name: 'Evgenia',//TODO:
     email: null,
-    id: 1
+    id: 675
   });// Entity User
 
 
@@ -120,7 +120,7 @@ function App() {
             loggedInUser={loggedInUser}
             changeDocTitle={changeDocTitle}
           />} />
-          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
+          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} loggedinuser={loggedInUser}/>} />
           {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
         </Routes>
 

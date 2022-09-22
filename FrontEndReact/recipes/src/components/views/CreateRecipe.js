@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function CreateRecipe(props) {
+function CreateRecipe({ changeDocTitle, loggedinuser }) {
 
     // Functionality
     const [recipe, setRecipe] = useState(
@@ -23,7 +23,7 @@ function CreateRecipe(props) {
             video: null,
             type: null,
             paid: false,
-            owner_id: null
+            ownerId: null
         }
     )
 
@@ -34,6 +34,7 @@ function CreateRecipe(props) {
     const handleAddFormSubmit = (e) => {
         e.preventDefault();
         const newRecipe = { ...recipe };
+        newRecipe.ownerId = loggedinuser.id
         api.post('/', newRecipe)
             .then(res => console.log(res))
             .catch(err => {
@@ -50,7 +51,7 @@ function CreateRecipe(props) {
                     video: null,
                     type: "",
                     paid: false,
-                    owner_id: null
+                    ownerId: null
                 }))
     }
 
@@ -84,7 +85,7 @@ function CreateRecipe(props) {
 
     return (
         <div>
-            {props.changeDocTitle("Create Recipe")}
+            {changeDocTitle("Create Recipe")}
             <h2 style={{ textAlign: 'center' }}>create your Recipe here</h2>
             <p />
             <Form>
