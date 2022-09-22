@@ -26,6 +26,7 @@ import Chat from './components/chat/Chat';
 
 // import Recipe from './components/views/Recipe';
 import CreateRecipe from './components/views/CreateRecipe';
+import EditRecipe from './components/views/EditRecipe';
 // import NoPage from './components/views/NoPage';
 import OurNavBar from './components/OurNavBar'
 
@@ -42,7 +43,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({
     name: null,
     email: null,
-    id: null
+    id: 20
   });// Entity User
 
 
@@ -50,7 +51,7 @@ function App() {
   const [profileUser, setProfileUser] = useState({
     name: null,
     email: null,
-    id: null
+    id: 20
   })
   // Prosorino! TODO:
   const apirecipes = axios.create({
@@ -120,6 +121,13 @@ function App() {
             changeDocTitle={changeDocTitle}
           />} />
           <Route path='recipe/:recipeid' element={<RecipeItem
+            recipe={recipe}
+            setProfileUser={setProfileUser}
+            profileUser={profileUser}
+            loggedInUser={loggedInUser}
+            changeDocTitle={changeDocTitle}
+          />} />
+          <Route path='edit/:recipeid' element={<EditRecipe
             recipe={recipe}
             setProfileUser={setProfileUser}
             profileUser={profileUser}
