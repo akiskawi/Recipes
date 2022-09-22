@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from 'react';
-import axios from 'axios';
 
 // Routing
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -17,7 +16,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 // Components
 // import Home from './components/views/Home';
 // import Login from './components/views/Login';
-// import Register from './components/views/Register';
+import Register from './components/views/Register/Register';
 import Profile from './components/Profile';
 import Home from './components/Home';
 import RecipeItem from './components/RecipeItem';
@@ -81,7 +80,7 @@ function App() {
             setLoggedInUser={setLoggedInUser}
           />}
           />
-          {/* <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} /> */}
+          {<Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />}
           <Route path='profile/:profileName' element={<Profile
             showOneRecipe={showOneRecipe}
             profileUser={profileUser}
