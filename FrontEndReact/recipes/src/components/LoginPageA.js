@@ -1,14 +1,21 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Bootstrap
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LoginPageA = ({ setJwtToken, setLoggedInUser }) => {
+    const location = useLocation()
+    useEffect(()=>{
+        if (location.state!==null){
+            setUser({username:location.state.email,password:location.state.password})
+        }
+    },[])
+    // console.log(location.state);
     const [user, setUser] = useState({
         username: '',
         password: ''
@@ -44,7 +51,7 @@ const LoginPageA = ({ setJwtToken, setLoggedInUser }) => {
         }).catch(err => console.log("error", err))
     }
     return (
-        <Form onSubmit={handleLoginForm}>
+        <Form id="login-form" onSubmit={handleLoginForm}>
             <Form.Group className="mb-3" controlId="username">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
