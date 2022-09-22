@@ -46,8 +46,7 @@ function App() {
     email: null,
     id: null
   })
-  //TODO: go to components
-  
+
 
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
@@ -63,8 +62,8 @@ function App() {
         {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
         {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
         <OurNavBar
-          userId={loggedInUser.id}
-          profileName={loggedInUser.name}
+          loggedInUser={loggedInUser}
+          setProfileUser={setProfileUser}
           setLoggedInUser={setLoggedInUser}
           setJwtToken={setJwtToken} />
 
@@ -94,6 +93,7 @@ function App() {
             profileUser={profileUser}
             loggedInUser={loggedInUser}
             changeDocTitle={changeDocTitle}
+            jwtToken={jwtToken}
           />} />
           <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} loggedinuser={loggedInUser} />} />
           {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
