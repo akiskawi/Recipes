@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import Recipes from './Recipes'
 import Pagination from './Pagination';
 
-const Home = ({ showOneRecipe, apirecipes }) => {
+const Home = ({ showOneRecipe, apirecipes, changeDocTitle }) => {
   const [recipes, setRecipes] = useState([])
   const [title, setTitle] = useState('')
   const [type, setType] = useState('Breakfast')
+  changeDocTitle("Home")
 
 
 
@@ -28,7 +29,7 @@ const Home = ({ showOneRecipe, apirecipes }) => {
     }).catch(err => {
       console.log(err)
     })
-  }, [title,type])
+  }, [title, type])
 
   return (
     <div>
@@ -38,7 +39,7 @@ const Home = ({ showOneRecipe, apirecipes }) => {
         </div>
         <div className="col">
 
-          <select  defaultValue={type} name="option-recipe" id="option-recipe" onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
+          <select defaultValue={type} name="option-recipe" id="option-recipe" onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
             <option value="Breakfast">Breakfast</option>
             <option value="Lunch">Lunch</option>
             <option value="Dinner">Dinner</option>

@@ -1,6 +1,6 @@
 
-const LoginPageA = ({ user, handleFormChange, handleLoginForm }) => {
-
+const LoginPageA = ({ user, handleFormChange, handleLoginForm, changeDocTitle }) => {
+    changeDocTitle("Login")
     return (
         <form onSubmit={handleLoginForm}>
             <input

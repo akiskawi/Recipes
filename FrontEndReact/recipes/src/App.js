@@ -42,7 +42,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({
     name: null,
     email: null,
-    id: 675
+    id: null
   });// Entity User
 
 
@@ -109,6 +109,7 @@ function App() {
             user={user}
             handleFormChange={handleFormChange}
             handleLoginForm={handleLoginForm}
+            changeDocTitle={changeDocTitle}
           />}
           />
           {/* <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} /> */}
