@@ -1,14 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
 
-const LoginPageA = (user,handleLoginChange, handleLoginForm) => {
+const LoginPageA = ({ user, handleFormChange, handleLoginForm }) => {
+
     return (
         <form onSubmit={handleLoginForm}>
             <input
                 type="email"
                 value={user.username}
                 name='username'
-                onChange={handleLoginChange}
+                onChange={handleFormChange}
                 required
                 autoFocus
                 autoComplete='email' />
@@ -16,7 +15,7 @@ const LoginPageA = (user,handleLoginChange, handleLoginForm) => {
                 type="password"
                 name='password'
                 value={user.password}
-                onChange={handleLoginChange}
+                onChange={handleFormChange}
                 required />
             <button type="submit">Login</button>
         </form>

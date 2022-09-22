@@ -34,13 +34,15 @@ import OurNavBar from './components/OurNavBar'
 function App() {
 
   const [user, setUser] = useState({
-    username: null,
-    password: null
+    username: '',
+    password: ''
   })
+
+  const [jwtToken, setJwtToken] = useState(null);
 
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
-    name: null,//TODO:
+    name: null,
     email: null,
     id: null
   });// Entity User
@@ -48,7 +50,7 @@ function App() {
 
   const [recipe, setRecipe] = useState(null);
   const [profileUser, setProfileUser] = useState({
-    name: null,//TODO:
+    name: null,
     email: null,
     id: null
   })
@@ -56,13 +58,12 @@ function App() {
   const apirecipes = axios.create({
     baseURL: "http://localhost:8080/recipe"
   })
-  // const apiusers = axios.create({
-  //   baseURL: "http://localhost:8080/users"
-  // })
+
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
   }
-  const handleLoginChange = (e) => {
+
+  const handleFormChange = (e) => {
     e.preventDefault();
     const fieldName = e.target.getAttribute("name");
     const fieldValue = e.target.value;
@@ -73,17 +74,25 @@ function App() {
 
   const handleLoginForm = (e) => {
     e.preventDefault();
-    console.log(1)
     const apilogin = axios.create({
       baseURL: "http://localhost:8080/login"
     })
+    var bodyFormData = new FormData();
+    bodyFormData.append('username', user.username);
+    bodyFormData.append('password', user.password);
 
-    apilogin.post('/', user).then(res => {
-      console.log(res)
-    }).catch(err => console.log(err))
-    console.log("Logged In!")
-
+    apilogin.post('', bodyFormData).then(res => {
+      //efoson iparxei to token prepei na iparxei se kathe neo request
+      setJwtToken(res.headers['access_token']);
+      setLoggedInUser({
+        name: res.headers['username'],
+        email: res.headers['useremail'],
+        id: res.headers['userid']
+      });
+    }).catch(err => console.log("errir1", err))
+    console.log(jwtToken);
   }
+
   const changeDocTitle = (doctitle) => {
     document.title = doctitle;
   }
@@ -108,7 +117,7 @@ function App() {
           />} />
           <Route path='login' element={<LoginPageA
             user={user}
-            handleLoginChange={handleLoginChange}
+            handleFormChange={handleFormChange}
             handleLoginForm={handleLoginForm}
           />}
           />
@@ -126,7 +135,7 @@ function App() {
             loggedInUser={loggedInUser}
             changeDocTitle={changeDocTitle}
           />} />
-          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} />} />
+          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} loggedinuser={loggedInUser}/>} />
           {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
         </Routes>
 
