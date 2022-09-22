@@ -36,7 +36,7 @@ export default function Chat({ loggedInUser }) {
     new FriendDto(12, "l")]);
 
     const apiFriends = axios.create({
-        baseURL: "http://localhost:8080/friends"
+        baseURL: "http://localhost:8080/friendship"
     })
 
     useEffect(() => {

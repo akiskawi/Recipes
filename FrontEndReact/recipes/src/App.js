@@ -17,7 +17,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 // Components
 // import Home from './components/views/Home';
 // import Login from './components/views/Login';
-// import Register from './components/views/Register';
+import Register from './components/views/Register/Register';
 import Profile from './components/Profile';
 import Home from './components/Home';
 import RecipeItem from './components/RecipeItem';
@@ -33,17 +33,19 @@ import OurNavBar from './components/OurNavBar'
 
 
 function App() {
+
   const [user, setUser] = useState({
     username: '',
     password: ''
   })
 
+  const [jwtToken, setJwtToken] = useState(null);
 
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
     name: null,
     email: null,
-    id: 20
+    id: null
   });// Entity User
 
 
@@ -73,17 +75,25 @@ function App() {
 
   const handleLoginForm = (e) => {
     e.preventDefault();
-    // console.log(1)
     const apilogin = axios.create({
       baseURL: "http://localhost:8080/login"
     })
+    var bodyFormData = new FormData();
+    bodyFormData.append('username', user.username);
+    bodyFormData.append('password', user.password);
 
-    apilogin.post('/', user).then(res => {
-      console.log(res)
-    }).catch(err => console.log(err))
-    console.log("Logged In!")
-
+    apilogin.post('', bodyFormData).then(res => {
+      //efoson iparxei to token prepei na iparxei se kathe neo request
+      setJwtToken(res.headers['access_token']);
+      setLoggedInUser({
+        name: res.headers['username'],
+        email: res.headers['useremail'],
+        id: res.headers['userid']
+      });
+    }).catch(err => console.log("errir1", err))
+    console.log(jwtToken);
   }
+
   const changeDocTitle = (doctitle) => {
     document.title = doctitle;
   }
@@ -113,7 +123,7 @@ function App() {
             changeDocTitle={changeDocTitle}
           />}
           />
-          {/* <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} /> */}
+          {<Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />}
           <Route path='profile/:profileName' element={<Profile
             showOneRecipe={showOneRecipe}
             profileUser={profileUser}

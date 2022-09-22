@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class JwtUtil {
     
     private static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 1000; //24h
-    private SecretKey key;
+    private final SecretKey key;
     private static JwtUtil instance = null;
 
     private JwtUtil() {
@@ -49,7 +49,11 @@ public class JwtUtil {
 
     //for retrieveing any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private Boolean isTokenExpired(String token) {
