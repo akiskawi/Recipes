@@ -50,7 +50,7 @@ function App() {
     email: null,
     id: null
   })
-  //TODO: go to components
+  
 
 
   const showOneRecipe = (recipe) => {

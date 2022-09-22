@@ -62,7 +62,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        //.allowedMethods("*")
+                        .allowedMethods("*")
                         .allowedOrigins("http://localhost:8081/")
                         .exposedHeaders("Access-Control-Allow-Origin, access_token, userid, useremail, username");
             }
