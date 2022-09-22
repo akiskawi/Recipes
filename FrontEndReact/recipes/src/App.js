@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 // Routing
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -37,7 +38,7 @@ import OurNavBar from './components/OurNavBar'
 function App() {
   const [jwtToken, setJwtToken] = useLocalStorage('front-end.jwtToken', null);
   // loggedIn User details
-  const [loggedInUser, setLoggedInUser] = useLocalStorage('front-end.loggedInUser',{
+  const [loggedInUser, setLoggedInUser] = useLocalStorage('front-end.loggedInUser', {
     name: null,
     email: null,
     id: null
@@ -50,7 +51,7 @@ function App() {
     email: null,
     id: null
   })
-  
+
 
 
   const showOneRecipe = (recipe) => {
@@ -62,72 +63,74 @@ function App() {
 
 
   return (
-    <BrowserRouter>
-      <div className='container'>
-        {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
-        {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
-        <OurNavBar
-          loggedInUser={loggedInUser}
-          setProfileUser={setProfileUser}
-          setLoggedInUser={setLoggedInUser}
-          setJwtToken={setJwtToken}
-          loggedinuser={loggedInUser} />
-
-        {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
-        <Routes>
-          <Route path='/' element={<Home
-            changeDocTitle={changeDocTitle}
-            showOneRecipe={showOneRecipe}
-            jwtToken={jwtToken}
-          />} />
-          <Route path='login' element={<LoginPageA
-            setJwtToken={setJwtToken}
+    <PayPalScriptProvider>
+      <BrowserRouter>
+        <div className='container'>
+          {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
+          {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
+          <OurNavBar
+            loggedInUser={loggedInUser}
+            setProfileUser={setProfileUser}
             setLoggedInUser={setLoggedInUser}
-            changeDocTitle={changeDocTitle}
-          />}
-          />
-          {<Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />}
-          <Route path='profile/:profileName' element={<Profile
-            showOneRecipe={showOneRecipe}
-            profileUser={profileUser}
-            loggedInUser={loggedInUser}
-            jwtToken={jwtToken}
-            changeDocTitle={changeDocTitle}
-            recipe={recipe}
-          />} />
-          <Route path='recipe/:recipeid' element={<RecipeItem
-            recipe={recipe}
-            setProfileUser={setProfileUser}
-            profileUser={profileUser}
-            loggedInUser={loggedInUser}
-            changeDocTitle={changeDocTitle}
-            jwtToken={jwtToken}
-          />} />
-          <Route path='edit/:recipeid' element={<EditRecipe
-            oldrecipe={recipe}
-            setProfileUser={setProfileUser}
-            profileUser={profileUser}
-            loggedinuser={loggedInUser}
-            changeDocTitle={changeDocTitle}
-            jwtToken={jwtToken}
-          />} />
-          <Route path='createrecipe' element={<CreateRecipe
-            changeDocTitle={changeDocTitle}
-            loggedinuser={loggedInUser}
-            jwtToken={jwtToken}
-          />} />
-          {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
-        </Routes>
+            setJwtToken={setJwtToken}
+            loggedinuser={loggedInUser} />
 
-        {loggedInUser.id !== null ? <div className="row">
-          <div className="col justify-content-end">
-            <Chat loggedInUser={loggedInUser} />
-          </div>
-        </div> :
-          <div className="row"></div>
-        }
-      </div>
-    </BrowserRouter>
+          {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
+          <Routes>
+            <Route path='/' element={<Home
+              changeDocTitle={changeDocTitle}
+              showOneRecipe={showOneRecipe}
+              jwtToken={jwtToken}
+            />} />
+            <Route path='login' element={<LoginPageA
+              setJwtToken={setJwtToken}
+              setLoggedInUser={setLoggedInUser}
+              changeDocTitle={changeDocTitle}
+            />}
+            />
+            {<Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />}
+            <Route path='profile/:profileName' element={<Profile
+              showOneRecipe={showOneRecipe}
+              profileUser={profileUser}
+              loggedInUser={loggedInUser}
+              jwtToken={jwtToken}
+              changeDocTitle={changeDocTitle}
+              recipe={recipe}
+            />} />
+            <Route path='recipe/:recipeid' element={<RecipeItem
+              recipe={recipe}
+              setProfileUser={setProfileUser}
+              profileUser={profileUser}
+              loggedInUser={loggedInUser}
+              changeDocTitle={changeDocTitle}
+              jwtToken={jwtToken}
+            />} />
+            <Route path='edit/:recipeid' element={<EditRecipe
+              oldrecipe={recipe}
+              setProfileUser={setProfileUser}
+              profileUser={profileUser}
+              loggedinuser={loggedInUser}
+              changeDocTitle={changeDocTitle}
+              jwtToken={jwtToken}
+            />} />
+            <Route path='createrecipe' element={<CreateRecipe
+              changeDocTitle={changeDocTitle}
+              loggedinuser={loggedInUser}
+              jwtToken={jwtToken}
+            />} />
+            {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
+          </Routes>
+
+          {loggedInUser.id !== null ? <div className="row">
+            <div className="col justify-content-end">
+              <Chat loggedInUser={loggedInUser} />
+            </div>
+          </div> :
+            <div className="row"></div>
+          }
+        </div>
+      </BrowserRouter>
+    </PayPalScriptProvider>
   );
 }
 

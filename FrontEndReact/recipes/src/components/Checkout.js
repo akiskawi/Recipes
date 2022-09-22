@@ -1,10 +1,10 @@
 import PaypalCheckoutButton from "./PaypalCheckoutButton"
 import './Checkout.css';
-const Checkout = ({ recipeID }) => {
+const Checkout = ({ jwtToken, recipe, loggedinuser }) => {
 
     return (
         <div className="paypal-button-container">
-            <PaypalCheckoutButton product={recipeID} />
+            <PaypalCheckoutButton product={recipe.id} jwtToken={jwtToken} loggedinuser={loggedinuser} />
         </div>
 
     )
