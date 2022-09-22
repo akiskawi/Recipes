@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import './Register.css';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+    const navigate = useNavigate();
     const user = { name: "", email: "", password: "" };
     const [formValues, setFormValues] = useState(user);
     const [formErrors, setFormErrors] = useState({});
@@ -21,24 +23,11 @@ function Register() {
         const api = axios.create({
             baseURL: "http://localhost:8080/users/create",
         })
-        api.post("",formValues).then(res => console.log(res.data)).catch(err => console.log(err))
-        // axios({
-        //     method: "post",
-        //     url: "http://localhost:8080/users/create",
-        //     data: user,
-        //     // headers: {
-        //     //     "Access-Control-Allow-Origin": '*',
-        //     //     "Content-Type": "multipart/form-data",
-        //     //     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        //     //     "Access-Control-Allow-Headers": "Content-Type"
-        //     // }
-        // })
-        //     .then((response) => {
-        //         console.log(response.data)
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+
+        api.post("",formValues)
+        .then(navigate('/login', {state: formValues, replace: true }))
+        .catch(err => console.log(err))
+       
     };
 
     useEffect(() => {
