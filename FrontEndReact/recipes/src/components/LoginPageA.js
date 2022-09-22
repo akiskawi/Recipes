@@ -1,5 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
 
-<<<<<<< HEAD
 // Bootstrap
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -42,10 +43,6 @@ const LoginPageA = ({ setJwtToken, setLoggedInUser }) => {
             navigate('/', { replace: true })
         }).catch(err => console.log("error", err))
     }
-=======
-const LoginPageA = ({ user, handleFormChange, handleLoginForm }) => {
-
->>>>>>> parent of 03160f15 (Merge branch 'Yourwash' of https://github.com/akiskawi/Recipes into Yourwash)
     return (
         <Form onSubmit={handleLoginForm}>
             <Form.Group className="mb-3" controlId="username">

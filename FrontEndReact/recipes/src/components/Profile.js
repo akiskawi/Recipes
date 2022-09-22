@@ -1,24 +1,20 @@
-// import './Profile.css';
-// import './Recipes.css';
 import './Recipes.css';
 import { useState, useEffect } from 'react';
 import Recipes from './Recipes'
 import Pagination from './Pagination';
-<<<<<<< HEAD
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import { Link, useParams } from 'react-router-dom';
 
-=======
->>>>>>> parent of 03160f15 (Merge branch 'Yourwash' of https://github.com/akiskawi/Recipes into Yourwash)
 
 
 
-const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User Model */ }) => {
+
+const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedInUser }) => {
     changeDocTitle(`${profileUser.name}`)
+    // States for the Component
     const [recipes, setRecipes] = useState([])
     const [title, setTitle] = useState('')
-<<<<<<< HEAD
     const [type, setType] = useState(profileUser.name)
     //Axios created with JwtToken
     const api = axios.create({
@@ -47,12 +43,6 @@ const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User 
     
 
     // Paginator
-=======
-    const [type, setType] = useState('Breakfast')
-
-
-
->>>>>>> parent of 03160f15 (Merge branch 'Yourwash' of https://github.com/akiskawi/Recipes into Yourwash)
     // User is currently on this page
     const [currentPage, setCurrentPage] = useState(1);
     // No of Records to be displayed on each page   
@@ -65,14 +55,6 @@ const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User 
     //calc the Number of Pages
     const nPages = Math.ceil(recipes.length / recordsPerPage)
 
-    useEffect(() => {
-        apirecipes.get(`owned/${profileUser.id}/${type}/${title}`).then(res => {
-            // console.log(res.data)
-            setRecipes(res.data);
-        }).catch(err => {
-            console.log(err)
-        })
-    }, [title, type])
     return (
         <div className="container">
             <div className="row">
@@ -86,20 +68,9 @@ const Profile = ({ changeDocTitle,apirecipes, showOneRecipe, profileUser/* User 
                     }
                 </div>
                 <div className="row">
-<<<<<<< HEAD
                     {loggedInUser.id === profileUser.id && <div className="col">
                         <button>Change Email</button>
                     </div>}
-=======
-                    <div className="col">
-                        TODO:Thelw Logged In User na Iparxei kai na mpei edw
-                        Change Pic
-                        <br></br>
-                        Email Btn
-                        <br></br>
-                        Saved Recipes
-                    </div>
->>>>>>> parent of 03160f15 (Merge branch 'Yourwash' of https://github.com/akiskawi/Recipes into Yourwash)
                 </div>
                 <div className="row">
                     <div className="row">
