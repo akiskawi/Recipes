@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SavedRecipesImpl implements SavedRecipesInterface {
 
@@ -58,10 +61,24 @@ public class SavedRecipesImpl implements SavedRecipesInterface {
     }
 
     @Override
-    public List<Recipe> getRecipes(Integer userID){
-        User owner = userService.getUserById(userID);
+    public List<Recipe> getRecipesByUserIdAndPaidForAndName(Integer userID, boolean paidFor, String name){
+        List<Recipe> rL = null;
+        for (SavedRecipes sR: savedRecipesRepo.findByPaidForAndUserId(paidFor, userService.getUserById(userID))
+             ) {
+            rL.add(sR.getRecipeId());
+        }
+        assert rL != null;
+        return (rL.stream().filter(r->r.getName().equals(name)).collect(Collectors.toList()));
+    }
 
-        return (recipeService.showAllRecipesByOwner(owner);
+    @Override
+    public List<Recipe> getRecipesByUserIdAndPaidFor(Integer userID, boolean paidFor){
+        List<Recipe> rL = null;
+        for (SavedRecipes sR: savedRecipesRepo.findByPaidForAndUserId(paidFor, userService.getUserById(userID))
+        ) {
+            rL.add(sR.getRecipeId());
+        }
+        return (rL);
     }
 
 }

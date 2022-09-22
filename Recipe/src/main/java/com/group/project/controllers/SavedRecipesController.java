@@ -1,8 +1,12 @@
 package com.group.project.controllers;
 
+import com.group.project.models.Recipe;
+import com.group.project.services.RecipeServiceInterface;
 import com.group.project.services.SavedRecipesInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
@@ -11,6 +15,7 @@ public class SavedRecipesController {
 
     @Autowired
     SavedRecipesInterface savedRecipesInterface;
+    RecipeServiceInterface recipeServiceInterface;
 
     /*
     Creates a SavedRecipes obj and sets paidFor value 'true'.
@@ -44,8 +49,12 @@ public class SavedRecipesController {
         return savedRecipesInterface.exists(userID, recipeID);
     }
 
-    @GetMapping("/show/{userID}")
-    List <Recipe> getRecipes(@PathVariable Integer userID){
-        return  savedRecipesInterface.
+    @GetMapping("/show/{paidFor}/{userID}/{name}")
+    List<Recipe> getRecipesByPaidForAndUserIDAndName(@PathVariable boolean paidFor, @PathVariable Integer userID, @PathVariable String name){
+        return savedRecipesInterface.getRecipesByUserIdAndPaidForAndName(userID, paidFor, name);
+    }
+    @GetMapping("/show/{paidFor}/{userID}")
+    List<Recipe> getRecipesByPaidForAndUserID(@PathVariable boolean paidFor, @PathVariable Integer userID){
+        return savedRecipesInterface.getRecipesByUserIdAndPaidFor(userID, paidFor);
     }
 }
