@@ -1,31 +1,21 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"
 
-const LoginPageA = (/*username, password, setUsername, setPassword,*/ handleLoginForm) => {
-    //To login
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-
-    const navigate = useNavigate();
-    const navigateHome = (e) => {
-        handleLoginForm(e)
-        navigate('/', { replace: true });
-
-    }
+const LoginPageA = ({ user, handleFormChange, handleLoginForm }) => {
 
     return (
-        <form onSubmit={navigateHome}>
+        <form onSubmit={handleLoginForm}>
             <input
                 type="email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={user.username}
+                name='username'
+                onChange={handleFormChange}
                 required
                 autoFocus
                 autoComplete='email' />
             <input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name='password'
+                value={user.password}
+                onChange={handleFormChange}
                 required />
             <button type="submit">Login</button>
         </form>

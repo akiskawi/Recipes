@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Routing
-import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // Bootstrap
 import Container from 'react-bootstrap/Container';
@@ -32,11 +32,15 @@ import OurNavBar from './components/OurNavBar'
 
 
 function App() {
-  
-  
+  const [user, setUser] = useState({
+    username: '',
+    password: ''
+  })
+
+
   //From Profile
   const [loggedInUser, setLoggedInUser] = useState({
-    name: 'Evgenia',//TODO:
+    name: null,
     email: null,
     id: 675
   });// Entity User
@@ -44,35 +48,38 @@ function App() {
 
   const [recipe, setRecipe] = useState(null);
   const [profileUser, setProfileUser] = useState({
-    name: 'Evgenia',//TODO:
+    name: null,
     email: null,
-    id: 1
+    id: null
   })
   // Prosorino! TODO:
   const apirecipes = axios.create({
     baseURL: "http://localhost:8080/recipe"
   })
-  // const apiusers = axios.create({
-  //   baseURL: "http://localhost:8080/users"
-  // })
+
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
   }
 
+  const handleFormChange = (e) => {
+    e.preventDefault();
+    const fieldName = e.target.getAttribute("name");
+    const fieldValue = e.target.value;
+    const tempUser = { ...user }
+    tempUser[fieldName] = fieldValue;
+    setUser(tempUser);
+  }
 
   const handleLoginForm = (e) => {
     e.preventDefault();
-    // const apilogin = axios.create({
-    //   baseURL: "http://localhost:8080/login"
-    // })
-    // let body = {
-    //   username: username,
-    //   password: password
-    // }
+    // console.log(1)
+    const apilogin = axios.create({
+      baseURL: "http://localhost:8080/login"
+    })
 
-    // apilogin.post('/', body).then(res => {
-    //   console.log(res)
-    // }).catch(err => console.log(err))
+    apilogin.post('/', user).then(res => {
+      console.log(res)
+    }).catch(err => console.log(err))
     console.log("Logged In!")
 
   }
@@ -99,10 +106,8 @@ function App() {
             apirecipes={apirecipes}
           />} />
           <Route path='login' element={<LoginPageA
-            /*username={username}
-            setUsername={setUsername}
-            password={password}
-            setPassword={setPassword}*/
+            user={user}
+            handleFormChange={handleFormChange}
             handleLoginForm={handleLoginForm}
           />}
           />
