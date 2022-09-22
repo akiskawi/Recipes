@@ -18,23 +18,27 @@ function Register() {
         e.preventDefault();
         setFormErrors(validate(formValues));
         setIsSubmit(true);
-        axios({
-            method: "post",
-            url: "http://localhost:8080/users/create",
-            data: user,
-            headers: {
-                "Access-Control-Allow-Origin": '*',
-                "Content-Type": "multipart/form-data",
-                "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
-            }
+        const api = axios.create({
+            baseURL: "http://localhost:8080/users/create",
         })
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        api.post("",formValues).then(res => console.log(res.data)).catch(err => console.log(err))
+        // axios({
+        //     method: "post",
+        //     url: "http://localhost:8080/users/create",
+        //     data: user,
+        //     // headers: {
+        //     //     "Access-Control-Allow-Origin": '*',
+        //     //     "Content-Type": "multipart/form-data",
+        //     //     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        //     //     "Access-Control-Allow-Headers": "Content-Type"
+        //     // }
+        // })
+        //     .then((response) => {
+        //         console.log(response.data)
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
     };
 
     useEffect(() => {

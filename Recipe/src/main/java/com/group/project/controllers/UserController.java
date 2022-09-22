@@ -44,6 +44,7 @@ public class UserController {
 
     @PostMapping("/create")
     public User addUser(@RequestBody User u) {
+        System.out.println(u);
         return userServ.createUser(u);
     }
 
