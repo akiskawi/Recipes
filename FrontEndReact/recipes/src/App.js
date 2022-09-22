@@ -17,7 +17,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 // Components
 // import Home from './components/views/Home';
 // import Login from './components/views/Login';
-// import Register from './components/views/Register';
+import Register from './components/views/Register/Register';
 import Profile from './components/Profile';
 import Home from './components/Home';
 import RecipeItem from './components/RecipeItem';
@@ -32,6 +32,7 @@ import OurNavBar from './components/OurNavBar'
 
 
 function App() {
+
   const [user, setUser] = useState({
     username: '',
     password: ''
@@ -120,7 +121,7 @@ function App() {
             handleLoginForm={handleLoginForm}
           />}
           />
-          {/* <Route path='register' element={<Register changeDocTitle={changeDocTitle} />} /> */}
+          {<Route path='register' element={<Register changeDocTitle={changeDocTitle} />} />}
           <Route path='profile/:profileName' element={<Profile
             showOneRecipe={showOneRecipe}
             profileUser={profileUser}
