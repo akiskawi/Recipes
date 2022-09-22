@@ -17,10 +17,16 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
     const [title, setTitle] = useState('')
     const [type, setType] = useState('Breakfast')
     //Axios created with JwtToken
-    const apirecipes = axios.create({
+    let apirecipes = axios.create({
         baseURL: "http://localhost:8080/recipe",
         headers: { Authorization: `Bearer ${jwtToken}` }
     })
+    useEffect(() => {
+        apirecipes = axios.create({
+            baseURL: "http://localhost:8080/recipe",
+            headers: { Authorization: `Bearer ${jwtToken}` }
+        })
+    }, [jwtToken])
     // Get Recipes when the Title and Type are Checked
     useEffect(() => {
         apirecipes.get(`owned/${profileUser.id}/${type}/${title}`).then(res => {

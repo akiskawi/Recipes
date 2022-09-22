@@ -64,8 +64,8 @@ function App() {
         {/* ΜΕΡΟΣ ΣΕΛΙΔΑΣ ΠΟΥ ΔΕΝ ΑΛΛΑΖΕΙ */}
         {/* ΚΑΠΟΙΟΥ ΕΙΔΟΥΣ NAVBAR ΜΠΟΡΕΙ ΝΑ ΜΠΕΙ ΕΔΩ ΑΝ ΕΙΝΑΙ ΙΔΙΟ ΣΕ ΟΛΕΣ ΤΙΣ ΣΕΛΙΔΕΣ */}
         <OurNavBar
-          userId={loggedInUser.id}
-          profileName={loggedInUser.name}
+          loggedInUser={loggedInUser}
+          setProfileUser={setProfileUser}
           setLoggedInUser={setLoggedInUser}
           setJwtToken={setJwtToken}
           loggedinuser={loggedInUser} />
@@ -98,6 +98,7 @@ function App() {
             profileUser={profileUser}
             loggedInUser={loggedInUser}
             changeDocTitle={changeDocTitle}
+            jwtToken={jwtToken}
           />} />
           <Route path='edit/:recipeid' element={<EditRecipe
             recipe={recipe}
