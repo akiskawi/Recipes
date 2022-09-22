@@ -23,9 +23,11 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                 <div className="col text-muted mb-6">
                     {recipe.type}
                 </div>
-
+                {console.log(profileUser.id)}
+                {console.log(loggedInUser.id)}
+                {console.log(recipe.ownerId.id)}
                 <div className="col mb-6">
-                    {profileUser.id === loggedInUser.id
+                    {recipe.ownerId.id == loggedInUser.id
                         ? <Button variant='warning' ><Link className='link-recipes' to={`/edit/${recipe.id}`}>Edit</Link></Button>
 
                         : <>

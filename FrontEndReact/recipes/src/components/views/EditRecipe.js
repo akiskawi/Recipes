@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 import { React, useState } from 'react'
 
 
-function EditRecipe({ recipe }) {
+function EditRecipe({ recipe, changeDocTitle, loggedInUser, jwtToken }) {
     return (
         <div>
             <div>{recipe.id}</div>

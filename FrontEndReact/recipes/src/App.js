@@ -10,8 +10,8 @@ import Container from 'react-bootstrap/Container';
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'jquery/dist/jquery.min.js'
-import 'bootstrap/dist/js/bootstrap.min.js'
+// import 'jquery/dist/jquery.min.js'
+// import 'bootstrap/dist/js/bootstrap.min.js'
 
 // Components
 // import Home from './components/views/Home';
@@ -45,10 +45,10 @@ function App() {
   const [profileUser, setProfileUser] = useState({
     name: null,
     email: null,
-    id: 20
+    id: null
   })
   //TODO: go to components
-  
+
 
   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
@@ -67,7 +67,8 @@ function App() {
           userId={loggedInUser.id}
           profileName={loggedInUser.name}
           setLoggedInUser={setLoggedInUser}
-          setJwtToken={setJwtToken} />
+          setJwtToken={setJwtToken}
+          loggedinuser={loggedInUser} />
 
         {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
         <Routes>
@@ -89,6 +90,7 @@ function App() {
             loggedInUser={loggedInUser}
             jwtToken={jwtToken}
             changeDocTitle={changeDocTitle}
+            recipe={recipe}
           />} />
           <Route path='recipe/:recipeid' element={<RecipeItem
             recipe={recipe}
@@ -103,8 +105,13 @@ function App() {
             profileUser={profileUser}
             loggedInUser={loggedInUser}
             changeDocTitle={changeDocTitle}
+            jwtToken={jwtToken}
           />} />
-          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} loggedinuser={loggedInUser} />} />
+          <Route path='createrecipe' element={<CreateRecipe
+            changeDocTitle={changeDocTitle}
+            loggedinuser={loggedInUser}
+            jwtToken={jwtToken}
+          />} />
           {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
         </Routes>
 
