@@ -101,4 +101,15 @@ public class RecipeServiceImpl implements RecipeServiceInterface {
         return recipeRepo.findAllByPaid(b);
     }
 
+    @Override
+    public List<Recipe> showAllRecipesByOwner(User ownerID){
+        return recipeRepo.findByOwnerId(ownerID);
+    }
+
+    @Override
+    public List<Recipe> showAllRecipesByOwnerAndName(User ownerID, String name) {
+        return recipeRepo.findByOwnerIdAndNameContainsIgnoreCase(ownerID, name);
+    }
+
+
 }

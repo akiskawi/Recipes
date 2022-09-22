@@ -54,7 +54,7 @@ public class RecipeController {
     /*
     Read a Recipe
      */
-    @GetMapping("/{id}")
+    @GetMapping("/owned/{id}")
     Recipe getRecipeById(@PathVariable Integer id) {
         return recipeServiceInterface.getRecipeById(id);
     }
@@ -90,12 +90,22 @@ public class RecipeController {
     }
     //to id einai to OwenerID
     @GetMapping("owned/{owner_id}/{type}/{name}")
-    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "owner_id") Integer owner_id,@PathVariable(value = "name") String name,@PathVariable(value = "type") String type){
+    public List<Recipe> showAllRecipesByOwnerIdAndTypeAndName(@PathVariable(value = "owner_id") Integer owner_id,@PathVariable(value = "name") String name,@PathVariable(value = "type") String type){
         return recipeServiceInterface.showAllRecipesByOwnerId(userServiceInterface.getUserById(owner_id),name,type);
     }
     //Search by Name and Type
     @GetMapping("search/{type}/{name}")
     public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "name") String name,@PathVariable(value = "type") String type){
         return recipeServiceInterface.showAllByNameContainsIgnoreCaseAndType(name, type);
+    }
+
+    @GetMapping("owned/{owner_id}")
+    public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "owner_id") Integer owner_id,@PathVariable(value = "name") String name,@PathVariable(value = "type") String type){
+        return recipeServiceInterface.showAllRecipesByOwner(userServiceInterface.getUserById(owner_id));
+    }
+
+    @GetMapping("owned/{owner_id}/{name}")
+    public List<Recipe> showAllRecipesByOwnerIdAndName(@PathVariable(value = "owner_id") Integer owner_id,@PathVariable(value = "name") String name,@PathVariable(value = "type") String type){
+        return recipeServiceInterface.showAllRecipesByOwnerAndName(userServiceInterface.getUserById(owner_id),name);
     }
 }

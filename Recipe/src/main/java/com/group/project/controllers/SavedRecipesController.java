@@ -40,7 +40,12 @@ public class SavedRecipesController {
     Checks, if a SavedRecipes obj exists.
      */
     @GetMapping("/check/{userID}/{recipeID}")
-    boolean exists(@PathVariable Integer userID, @PathVariable Integer recipeID){
+    boolean exists(@PathVariable Integer userID, @PathVariable Integer recipeID) {
         return savedRecipesInterface.exists(userID, recipeID);
+    }
+
+    @GetMapping("/show/{userID}")
+    List <Recipe> getRecipes(@PathVariable Integer userID){
+        return  savedRecipesInterface.
     }
 }

@@ -57,4 +57,11 @@ public class SavedRecipesImpl implements SavedRecipesInterface {
         savedRecipesRepo.save(sR);
     }
 
+    @Override
+    public List<Recipe> getRecipes(Integer userID){
+        User owner = userService.getUserById(userID);
+
+        return (recipeService.showAllRecipesByOwner(owner);
+    }
+
 }

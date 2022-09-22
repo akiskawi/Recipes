@@ -56,7 +56,8 @@ function App() {
   })
   // Prosorino! TODO:
   const apirecipes = axios.create({
-    baseURL: "http://localhost:8080/recipe"
+    baseURL: "http://localhost:8080/recipe",
+    headers: { Authorization: `Bearer ${jwtToken}` }
   })
 
   const showOneRecipe = (recipe) => {
@@ -75,7 +76,8 @@ function App() {
   const handleLoginForm = (e) => {
     e.preventDefault();
     const apilogin = axios.create({
-      baseURL: "http://localhost:8080/login"
+      baseURL: "http://localhost:8080/login",
+      headers: { Authorization: `Bearer ${jwtToken}` }
     })
     var bodyFormData = new FormData();
     bodyFormData.append('username', user.username);
@@ -135,13 +137,13 @@ function App() {
             loggedInUser={loggedInUser}
             changeDocTitle={changeDocTitle}
           />} />
-          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} loggedinuser={loggedInUser}/>} />
+          <Route path='createrecipe' element={<CreateRecipe changeDocTitle={changeDocTitle} loggedinuser={loggedInUser} />} />
           {/* <Route path='*' element={<NoPage changeDocTitle={changeDocTitle} />} /> */}
         </Routes>
 
         {loggedInUser.id !== null ? <div className="row">
           <div className="col justify-content-end">
-            <Chat loggedInUser={loggedInUser} />
+            <Chat loggedInUser={loggedInUser} jwtToken={jwtToken} />
           </div>
         </div> :
           <div className="row"></div>
