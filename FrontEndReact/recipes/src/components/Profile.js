@@ -12,19 +12,34 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
     // States for the Component
     const [recipes, setRecipes] = useState([])
     const [title, setTitle] = useState('')
-    const [type, setType] = useState('Breakfast')
+    const [type, setType] = useState(profileUser.name)
     //Axios created with JwtToken
-    let apirecipes = axios.create({
-        baseURL: "http://localhost:8080/recipe",
+    const api = axios.create({
+        baseURL: "http://localhost:8080/",
         headers: { Authorization: `Bearer ${jwtToken}` }
     })
+
+
+    // Get Recipes when the Title and Type? are Checked
     useEffect(() => {
-        apirecipes = axios.create({
-            baseURL: "http://localhost:8080/recipe",
-            headers: { Authorization: `Bearer ${jwtToken}` }
-        })
-    }, [jwtToken])
-    // Get Recipes when the Title and Type are Checked
+        if (type===`${profileUser.name}`) {
+            api.get(`recipe/owned/${profileUser.id}/${title}`).then(res=>{
+                setRecipes(res.data);
+            }).catch(err=>{
+                console.log(err)
+            })
+        } else{
+            api.get(`savedrecipes/${type}/${profileUser.id}/${title}`).then(res=>{
+                setRecipes(res.data);
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
+        
+    }, [title, type])
+    
+
+
     useEffect(() => {
         apirecipes.get(`owned/${profileUser.id}/${type}/${title}`).then(res => {
             // console.log(res.data)
@@ -58,8 +73,6 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
                 <div className="row">
                     {loggedInUser.id === profileUser.id && <div className="col">
                         <button>Change Email</button>
-                        <br></br>
-                        <button>Saved Recipes</button>
                     </div>}
                 </div>
                 <div className="row">
@@ -68,10 +81,10 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
                     </div>
                     <div className="col">
 
-                        <select defaultValue="{profileUser.id}" name="option-recipe" id="option-recipe" onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
-                            <option value="paid">Paid</option>
-                            <option value="free">Free</option>
-                            <option value="{profileUser.id}">{profileUser.name} Recipes</option>
+                        <select defaultValue={profileUser.name} name="option-recipe" id="option-recipe" onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
+                            <option value="true">Paid Recipes</option>
+                            <option value="false">Saved Recipes</option>
+                            <option value={profileUser.name}>{profileUser.name} Recipes</option>
                         </select>
                     </div>
                     <div className="col">
