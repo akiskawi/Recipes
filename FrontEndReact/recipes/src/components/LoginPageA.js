@@ -1,11 +1,19 @@
 import axios from "axios";
 import { useState } from "react";
 
-const LoginPageA = ({ setJwtToken,setLoggedInUser }) => {
+// Bootstrap
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
+
+const LoginPageA = ({ setJwtToken, setLoggedInUser }) => {
     const [user, setUser] = useState({
         username: '',
         password: ''
     })
+    const navigate = useNavigate()
     const handleFormChange = (e) => {
         e.preventDefault();
         const fieldName = e.target.getAttribute("name");
@@ -32,26 +40,42 @@ const LoginPageA = ({ setJwtToken,setLoggedInUser }) => {
                 email: res.headers['useremail'],
                 id: res.headers['userid']
             });
+            navigate('/', { replace: true })
         }).catch(err => console.log("error", err))
     }
     return (
-        <form onSubmit={handleLoginForm}>
-            <input
-                type="email"
-                value={user.username}
-                name='username'
-                onChange={handleFormChange}
-                required
-                autoFocus
-                autoComplete='email' />
-            <input
-                type="password"
-                name='password'
-                value={user.password}
-                onChange={handleFormChange}
-                required />
-            <button type="submit">Login</button>
-        </form>
+        <Form onSubmit={handleLoginForm}>
+            <Form.Group className="mb-3" controlId="username">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={user.username}
+                    name='username'
+                    onChange={handleFormChange}
+                    required
+                    autoFocus
+                    autoComplete="email"
+                />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    name='password'
+                    value={user.password}
+                    onChange={handleFormChange}
+                    required
+                />
+            </Form.Group>
+
+
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
     )
 }
 
