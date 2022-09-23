@@ -16,31 +16,50 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
     const [recipes, setRecipes] = useState([])
     const [title, setTitle] = useState('')
     const [type, setType] = useState(profileUser.name)
+    const [friend, setFriend] = useState(false)
     //Axios created with JwtToken
     const api = axios.create({
         baseURL: "http://localhost:8080/",
         headers: { Authorization: `Bearer ${jwtToken}` }
     })
 
+    const friendship = () => {
+        api.get(`friendship/friend/${loggedInUser.id}/${profileUser.id}`)
+            .then((res) => {
+                console.log(res.data)
+                setFriend(res.data)
+                console.log(friend)
+            })
+            .catch((err) => { console.log(err) })
+    }
+
+    const addFriend = () => {
+        api.post(`/friendship/addFriend/${loggedInUser.id}/${profileUser.id}`)
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+
 
     // Get Recipes when the Title and Type? are Checked
     useEffect(() => {
-        if (type===`${profileUser.name}`) {
-            api.get(`recipe/owned/${profileUser.id}/${title}`).then(res=>{
+        if (type === `${profileUser.name}`) {
+            api.get(`recipe/owned/${profileUser.id}/${title}`).then(res => {
                 setRecipes(res.data);
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err)
             })
-        } else{
-            api.get(`savedrecipes/${type}/${profileUser.id}/${title}`).then(res=>{
+        } else {
+            api.get(`savedrecipes/${type}/${profileUser.id}/${title}`).then(res => {
                 setRecipes(res.data);
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err)
             })
         }
-        
+
     }, [title, type])
-    
+
 
     // Paginator
     // User is currently on this page
@@ -63,8 +82,9 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
                     <div className="col-10 text-center fw-bold fs-1">{profileUser.name}</div>
                 </div>
                 <div className="col mb-6">
-                    {profileUser.id != loggedInUser.id
-                        && <Button variant='warning' ><Link className='link-recipes' >Friend Request</Link></Button>
+                    {friendship()}
+                    {(profileUser.id != loggedInUser.id && friend == false)
+                        && <Button variant='warning' ><Link className='link-recipes' onClick={addFriend}>Friend Request</Link></Button>
                     }
                 </div>
                 <div className="row">

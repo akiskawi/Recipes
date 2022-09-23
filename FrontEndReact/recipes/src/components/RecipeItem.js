@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+import Checkout from './Checkout'
 
 
 const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, loggedInUser, jwtToken }) => {
@@ -45,10 +43,11 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                     {recipe.ownerId.id == loggedInUser.id
                         ? <Button variant='warning' ><Link className='link-recipes' to={`/edit/${recipe.id}`}>Edit</Link></Button>
 
-                        : <>
+                        : <span>
                             <Button variant='success' onClick={handleSaveButton}>Save</Button>
-                            <Button variant='primary'>Buy</Button>
-                        </>
+                            <p />
+                            <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
+                        </span>
                     }
                 </div>
 
