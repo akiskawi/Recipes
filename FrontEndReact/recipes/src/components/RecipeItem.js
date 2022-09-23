@@ -22,7 +22,7 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
     useEffect(() => {
         api.get(`/savedRecipes/exists/${profileUser.id}/${recipe.id}`).then(res => setSaved(res.data))
         api.get(`/savedRecipes/existsBought/${profileUser.id}/${recipe.id}`).then(res => setBought(res.data))
-    }, [saved,bought])
+    }, [saved, bought])
 
 
 
@@ -52,9 +52,9 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                             {saved
                                 ? <Button disabled variant='success'>Saved</Button>
                                 : <><Button variant='success' onClick={handleSaveButton}>Save</Button><br />
-                                    {bought
-                                        ? ''
-                                        : <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
+                                    {!bought
+                                        ? <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
+                                        : ''
                                     }
                                 </>
                             }
