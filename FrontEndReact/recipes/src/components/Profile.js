@@ -33,6 +33,14 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
             .catch((err) => { console.log(err) })
     }
 
+    const addFriend = () => {
+        api.post(`/friendship/addFriend/${loggedInUser.id}/${profileUser.id}`)
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+
 
     // Get Recipes when the Title and Type? are Checked
     useEffect(() => {
@@ -76,7 +84,7 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
                 <div className="col mb-6">
                     {friendship()}
                     {(profileUser.id != loggedInUser.id && friend == false)
-                        && <Button variant='warning' ><Link className='link-recipes' >Friend Request</Link></Button>
+                        && <Button variant='warning' ><Link className='link-recipes' onClick={addFriend}>Friend Request</Link></Button>
                     }
                 </div>
                 <div className="row">
