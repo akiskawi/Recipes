@@ -32,9 +32,7 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser,setProfi
     const friendship = () => {
         api.get(`friendship/friend/${loggedInUser.id}/${profileUser.id}`)
             .then((res) => {
-                // console.log(res.data)
                 setFriend(res.data)
-                // console.log(friend)
             })
             .catch((err) => { console.log(err) })
     }

@@ -89,6 +89,7 @@ public class RecipeController {
         return recipeServiceInterface.showAllRecipesByType(type);
     }
     //to id einai to OwenerID
+
     @GetMapping("/owned/{owner_id}/{type}/{name}")
     public List<Recipe> showAllRecipesByOwnerIdAndTypeAndName(@PathVariable(value = "owner_id") Integer owner_id,@PathVariable(value = "name") String name,@PathVariable(value = "type") String type){
         return recipeServiceInterface.showAllRecipesByOwnerId(userServiceInterface.getUserById(owner_id),name,type);
@@ -98,6 +99,7 @@ public class RecipeController {
     public List<Recipe> showAllRecipesContainsIgnoreCase(@PathVariable(value = "name") String name,@PathVariable(value = "type") String type){
         return recipeServiceInterface.showAllByNameContainsIgnoreCaseAndType(name, type);
     }
+
 
     @GetMapping("/owned/{owner_id}")
     public List<Recipe> showAllRecipesByOwnerId(@PathVariable(value = "owner_id") Integer owner_id){

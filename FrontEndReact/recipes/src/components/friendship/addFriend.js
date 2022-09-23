@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 const addFriendButton = ({ loggedInUser, profileUser }) => {
 
-    const [isFriend, setIsFriend] = useState();
     const [friend, setFriends] = useState();
+    const [isFriend, setIsFriend] = useState(false);
 
     const api = axios.create({
         baseURL: "http://localhost:8080/friendship/"
@@ -13,30 +13,34 @@ const addFriendButton = ({ loggedInUser, profileUser }) => {
         api.get(`/friend/${loggedInUser.id}/${profileUser.id}`).then(res => {
             setIsFriend(res.data);
         }).catch(err => {
-            console.log(err)
+            console.log(err);
         })
-    }, [isFriend])
+    }, [isFriend]);
+
+
 
     const addFriend = () => {
         api.post(`/addFriend/${loggedInUser.id}/${profileUser.id}`)
             .then(function (response) {
+                setIsFriend(true);
                 console.log(response);
             })
             .catch(function (error) {
                 console.log(error);
             });
     };
-}
 
-if (!isFriend) {
+
     return (
         <button
+            disabled={isFriend}
             onClick={addFriend}
             type="button"
-            className="btn btn-success">
+            className="btn btn-success" >
             Add Friend
-        </button>
+        </button >
     )
 }
+
 
 export default addFriendButton;

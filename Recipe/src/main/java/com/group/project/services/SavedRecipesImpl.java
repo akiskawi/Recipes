@@ -6,8 +6,6 @@ import com.group.project.models.User;
 import com.group.project.repositories.SavedRecipesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,19 +17,21 @@ public class SavedRecipesImpl implements SavedRecipesInterface {
 
     @Autowired
     UserServiceInterface userService;
+    @Autowired
     RecipeServiceInterface recipeService;
 
     @Override
-    public void saveRecipe(Integer userID, Integer recipeID) {
+    public void saveRecipe(User userID, Recipe recipeID) {
         SavedRecipes sR = new SavedRecipes();
-        sR.setRecipeId(recipeService.getRecipeById(recipeID));
-        sR.setUserId(userService.getUserById(recipeID));
+        sR.setRecipeId(recipeID);
+        sR.setUserId(userID);
         sR.setPaidFor(false);
         savedRecipesRepo.save(sR);
     }
 
     @Override
     public void saveRecipe(SavedRecipes savedRecipes) {
+
         savedRecipesRepo.save(savedRecipes);
     }
 

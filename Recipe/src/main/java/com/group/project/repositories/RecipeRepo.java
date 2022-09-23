@@ -21,6 +21,5 @@ public interface RecipeRepo extends JpaRepository<Recipe, Integer>  {
     List<Recipe> findAllByPaid(boolean b);
     List<Recipe> findByNameContainsIgnoreCaseAndType(String string,String type);
     List<Recipe> findByOwnerId(User User);
-
     List<Recipe> findByOwnerIdAndNameContainsIgnoreCase(User User, String name);
 }
