@@ -58,6 +58,11 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                                     }
                                 </>
                             }
+                            {bought
+                                ? <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
+                                : ''
+                            }
+
                         </span>
                     }
                 </div>
