@@ -21,7 +21,8 @@ import java.util.List;
 public interface SavedRecipesRepo extends JpaRepository<SavedRecipes, Integer> {
 
     SavedRecipes findByUserIdAndRecipeId(User user, Recipe recipe);
-
     List<SavedRecipes> findByPaidForAndUserId(boolean paidFor, User userID);
+
+
 
 }

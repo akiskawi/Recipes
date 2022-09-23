@@ -81,4 +81,9 @@ public class SavedRecipesImpl implements SavedRecipesInterface {
         return (rL);
     }
 
+    @Override
+    public boolean checkPaidFor(Integer userID, Integer recipeID){
+        return savedRecipesRepo.findByUserIdAndRecipeId(userService.getUserById(userID),recipeService.getRecipeById(recipeID)).getPaidFor();
+    }
+
 }
