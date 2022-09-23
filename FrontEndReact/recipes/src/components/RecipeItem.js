@@ -21,8 +21,8 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
     }
     useEffect(() => {
         api.get(`/savedRecipes/exists/${profileUser.id}/${recipe.id}`).then(res => setSaved(res.data))
-        api.get(`/savedRecipes/bought/${profileUser.id}/${recipe.id}`).then(res => setBought(res.data))
-    }, [])
+        api.get(`/savedRecipes/existsBought/${profileUser.id}/${recipe.id}`).then(res => setBought(res.data))
+    }, [saved,bought])
 
 
 
