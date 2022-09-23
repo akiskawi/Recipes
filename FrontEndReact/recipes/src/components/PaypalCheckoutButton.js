@@ -55,12 +55,10 @@ const PaypalCheckoutButton = ({ loggedinuser, product, jwtToken }) => {
                 const order = await actions.order.capture();
                 console.log("order", order);
                 handleApprove(data.orderID);
-
                 /*Checks if recipe is saved.
                 If recipe is not saved, creates a new saved_recipe object with paid value set to true.
                 Else update saved_recipe's paid value to true. */
-
-                if (api.get(`/check/${loggedinuser.id}/${product}`)
+                api.get(`/check/${loggedinuser.id}/${product}`)
                     .then(function (response) {
                         console.log(response);
                         return response.data
@@ -68,24 +66,8 @@ const PaypalCheckoutButton = ({ loggedinuser, product, jwtToken }) => {
                     .catch(function (error) {
                         console.log(error);
                     })
-                ) {
-                    api.put(`/update/${loggedinuser.id}/${product}`)
-                        .then(function (response) {
-                            console.log(response);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                } else {
-                    api.post(`/buy/${loggedinuser.id}/${product}`)
-                        .then(function (response) {
-                            console.log(response);
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
             }}
+
             onCancel={() => {
                 //handle special case where user cancels order
             }}

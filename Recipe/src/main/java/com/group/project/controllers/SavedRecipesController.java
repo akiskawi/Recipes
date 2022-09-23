@@ -3,6 +3,7 @@ package com.group.project.controllers;
 import com.group.project.models.Recipe;
 import com.group.project.services.RecipeServiceInterface;
 import com.group.project.services.SavedRecipesInterface;
+import com.group.project.services.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,11 @@ public class SavedRecipesController {
 
     @Autowired
     SavedRecipesInterface savedRecipesInterface;
+    @Autowired
     RecipeServiceInterface recipeServiceInterface;
+    @Autowired
+    UserServiceInterface userServiceInterface;
+
 
     /*
     Creates a SavedRecipes obj and sets paidFor value 'true'.
@@ -30,13 +35,13 @@ public class SavedRecipesController {
      */
     @PostMapping("/save/{userID}/{recipeID}")
     void saveRecipe(@PathVariable Integer userID,@PathVariable Integer recipeID){
-        savedRecipesInterface.saveRecipe(userID, recipeID);
+        savedRecipesInterface.saveRecipe(userServiceInterface.getUserById(userID),recipeServiceInterface.getRecipeById(recipeID));
     }
 
     /*
     Finds a SavedRecipes obj and sets paidFor value 'true'.
      */
-    @PutMapping("/update/{userID}/{recipeID}")
+    @PostMapping("/update/{userID}/{recipeID}")
     void setPaidForTrue(@PathVariable Integer userID, @PathVariable Integer recipeID){
         savedRecipesInterface.setPaidForTrue(userID,recipeID);
     }
@@ -45,8 +50,19 @@ public class SavedRecipesController {
     Checks, if a SavedRecipes obj exists.
      */
     @GetMapping("/check/{userID}/{recipeID}")
+    void check(@PathVariable Integer userID, @PathVariable Integer recipeID) {
+        if(savedRecipesInterface.exists(userID, recipeID)){
+            savedRecipesInterface.setPaidForTrue(userID,recipeID);
+        }
+        else{
+            savedRecipesInterface.saveRecipe(userServiceInterface.getUserById(userID),recipeServiceInterface.getRecipeById(recipeID));
+            savedRecipesInterface.setPaidForTrue(userID,recipeID);
+        }
+    }
+
+    @GetMapping("/exists/{userID}/{recipeID}")
     boolean exists(@PathVariable Integer userID, @PathVariable Integer recipeID) {
-        return savedRecipesInterface.exists(userID, recipeID);
+        return(savedRecipesInterface.exists(userID, recipeID));
     }
 
     @GetMapping("/show/{paidFor}/{userID}/{name}")
