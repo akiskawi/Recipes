@@ -92,6 +92,7 @@ function App() {
             <Route path='profile/:profileName' element={<Profile
               showOneRecipe={showOneRecipe}
               profileUser={profileUser}
+              setProfileUser={setProfileUser}
               loggedInUser={loggedInUser}
               jwtToken={jwtToken}
               changeDocTitle={changeDocTitle}

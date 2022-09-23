@@ -7,9 +7,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 
 function CreateRecipe({ changeDocTitle, loggedinuser, jwtToken }) {
-
+    const navigate = useNavigate();
     // Functionality
     const [recipe, setRecipe] = useState(
         {
@@ -37,7 +38,7 @@ function CreateRecipe({ changeDocTitle, loggedinuser, jwtToken }) {
         const newRecipe = { ...recipe };
         newRecipe.ownerId = loggedinuser.id
         api.post('/', newRecipe)
-            .then(res => console.log(res))
+            .then(navigate(`/profile/${loggedinuser.name}`,{state: loggedinuser, replace:true}))
             .catch(err => {
                 console.log(err)
             })

@@ -4,14 +4,20 @@ import Recipes from './Recipes'
 import Pagination from './Pagination';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 
 
 
 
-const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedInUser }) => {
+const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser,setProfileUser, loggedInUser }) => {
     changeDocTitle(`${profileUser.name}`)
+    const location = useLocation();
+    useEffect(()=>{
+        if (location.state!==null){
+            setProfileUser({...location.state.loggedInUser})
+        }
+    },[])
     // States for the Component
     const [recipes, setRecipes] = useState([])
     const [title, setTitle] = useState('')
@@ -26,9 +32,9 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
     const friendship = () => {
         api.get(`friendship/friend/${loggedInUser.id}/${profileUser.id}`)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 setFriend(res.data)
-                console.log(friend)
+                // console.log(friend)
             })
             .catch((err) => { console.log(err) })
     }
@@ -45,11 +51,19 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, loggedI
     // Get Recipes when the Title and Type? are Checked
     useEffect(() => {
         if (type === `${profileUser.name}`) {
+            // if (title === '') {
+            //     api.get(`recipe/owned/${profileUser.id}`).then(res => {
+            //         setRecipes(res.data);
+            //     }).catch(err => {
+            //         console.log(err)
+            //     })
+            // } else {
             api.get(`recipe/owned/${profileUser.id}/${title}`).then(res => {
                 setRecipes(res.data);
             }).catch(err => {
                 console.log(err)
             })
+            // }
         } else {
             api.get(`savedrecipes/${type}/${profileUser.id}/${title}`).then(res => {
                 setRecipes(res.data);
