@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Checkout from './Checkout'
+import { useState, useEffect } from 'react';
 
 
 const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, loggedInUser, jwtToken }) => {
     changeDocTitle(`${recipe.name}`)
+    const [saved, setSaved] = useState(false)
+    const [bought, setBought] = useState(false)
     const api = axios.create({
         baseURL: "http://localhost:8080/",
         headers: { Authorization: `Bearer ${jwtToken}` }
@@ -14,10 +17,12 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
         api.get(`/users/${recipe.ownerId.id}`).then(res => setProfileUser({ ...res.data })).catch(err => console.log(err))
     }
     const handleSaveButton = () => {
-        api.post(`/savedRecipes/save/${loggedInUser.id}/${recipe.id}`)
-        console.log(`/savedRecipes/save/${loggedInUser.id}/${recipe.id}`)
-
+        api.post(`/savedRecipes/save/${loggedInUser.id}/${recipe.id}`).then(setSaved(true))
     }
+    useEffect(() => {
+        api.get(`/savedRecipes/exists/${profileUser.id}/${recipe.id}`).then(res => setSaved(res.data))
+        api.get(`/savedRecipes/bought/${profileUser.id}/${recipe.id}`).then(res => setBought(res.data))
+    }, [])
 
 
 
@@ -44,9 +49,15 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                         ? <Button variant='warning' ><Link className='link-recipes' to={`/edit/${recipe.id}`}>Edit</Link></Button>
 
                         : <span>
-                            <Button variant='success' onClick={handleSaveButton}>Save</Button>
-                            <p />
-                            <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
+                            {saved
+                                ? <Button disabled variant='success'>Saved</Button>
+                                : <><Button variant='success' onClick={handleSaveButton}>Save</Button><br />
+                                    {bought
+                                        ? ''
+                                        : <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
+                                    }
+                                </>
+                            }
                         </span>
                     }
                 </div>
