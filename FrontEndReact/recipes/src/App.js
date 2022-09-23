@@ -44,17 +44,14 @@ function App() {
     id: null
   });
   // SHowing / Editing recipe details
-  const [recipe, setRecipe] = useState(null);
+  const [recipe, setRecipe] = useLocalStorage('front-end.recipe',null);
   // Showing profile User Details
-  const [profileUser, setProfileUser] = useState({
+  const [profileUser, setProfileUser] =useLocalStorage('front-end.profileUser',{
     name: null,
     email: null,
     id: null
   })
-
-
-
-  const showOneRecipe = (recipe) => {
+   const showOneRecipe = (recipe) => {
     setRecipe(recipe);
   }
   const changeDocTitle = (doctitle) => {
@@ -72,8 +69,10 @@ function App() {
             loggedInUser={loggedInUser}
             setProfileUser={setProfileUser}
             setLoggedInUser={setLoggedInUser}
+            setRecipe={setRecipe} 
             setJwtToken={setJwtToken}
-            loggedinuser={loggedInUser} />
+            loggedinuser={loggedInUser}
+            />
 
           {/* ΜΕΡΗ ΣΕΛΙΔΑΣ ΠΟΥ ΑΛΛΑΖΟΥΝ */}
           <Routes>

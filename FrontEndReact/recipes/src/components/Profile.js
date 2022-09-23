@@ -10,14 +10,14 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 
 
 
-const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser,setProfileUser, loggedInUser }) => {
+const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser, setProfileUser, loggedInUser }) => {
     changeDocTitle(`${profileUser.name}`)
     const location = useLocation();
-    useEffect(()=>{
-        if (location.state!==null){
-            setProfileUser({...location.state.loggedInUser})
+    useEffect(() => {
+        if (location.state !== null) {
+            setProfileUser({ ...location.state.loggedInUser })
         }
-    },[])
+    }, [])
     // States for the Component
     const [recipes, setRecipes] = useState([])
     const [title, setTitle] = useState('')
@@ -49,13 +49,6 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser,setProfi
     // Get Recipes when the Title and Type? are Checked
     useEffect(() => {
         if (type === `${profileUser.name}`) {
-            // if (title === '') {
-            //     api.get(`recipe/owned/${profileUser.id}`).then(res => {
-            //         setRecipes(res.data);
-            //     }).catch(err => {
-            //         console.log(err)
-            //     })
-            // } else {
             api.get(`recipe/owned/${profileUser.id}/${title}`).then(res => {
                 setRecipes(res.data);
             }).catch(err => {
@@ -63,7 +56,7 @@ const Profile = ({ changeDocTitle, jwtToken, showOneRecipe, profileUser,setProfi
             })
             // }
         } else {
-            api.get(`savedrecipes/${type}/${profileUser.id}/${title}`).then(res => {
+            api.get(`savedRecipes/show/${type}/${profileUser.id}/${title}`).then(res => {
                 setRecipes(res.data);
             }).catch(err => {
                 console.log(err)
