@@ -3,6 +3,7 @@ package com.group.project.services;
 import com.group.project.models.Friendship;
 import com.group.project.models.User;
 import com.group.project.repositories.FriendshipRepo;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +34,9 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
 
     @Override
     public List<User> showFriends(Integer userID, String name) {
-        List<Friendship> friendships = friendshipRepo.findByUserId(userID);
-        List<User> friends = null;
+        User u = userService.getUserById(userID);
+        List<Friendship> friendships = friendshipRepo.findByUserId(u);
+        List<User> friends = new ArrayList<>();
         for (Friendship friendship : friendships)  {
             if (friendship.getRequestValid()) {
                 friends.add(userService.getByIdAndByNameContainingIgnoreCase(friendship.getFriendId().getId(), name));
@@ -46,11 +48,13 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
 
     @Override
     public List<User> showFriends(Integer userID) {
-        List<Friendship> friendships = friendshipRepo.findByUserId(userID);
-        List<User> friends = null;
+        User u = userService.getUserById(userID);
+        List<Friendship> friendships = friendshipRepo.findByUserId(u);
+        List<User> friends = new ArrayList<>();
         for (Friendship friendship : friendships)  {
             if (friendship.getRequestValid()) {
-                friends.add(userService.getUserById(friendship.getFriendId().getId()));
+                //friends.add(userService.getUserById(friendship.getFriendId().getId()));
+                friends.add(friendship.getFriendId());
             }
         }
 
@@ -64,7 +68,13 @@ public class FriendshipServiceImpl implements FriendshipServiceInterface{
 
     @Override
     public boolean checkFriendship(Integer userID, Integer friendID) {
-        return friendshipRepo.findByUserIdAndFriendId(userID,friendID);
+        Friendship tmp = friendshipRepo.findByUserIdAndFriendId(
+                userService.getUserById(userID),
+                userService.getUserById(friendID));
+        if (tmp != null) {
+            return tmp.getRequestValid();
+        }
+        return false;
     }
 
 }
