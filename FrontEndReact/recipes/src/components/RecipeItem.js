@@ -49,20 +49,15 @@ const RecipeItem = ({ changeDocTitle, recipe, setProfileUser, profileUser, logge
                         ? <Button variant='warning' ><Link className='link-recipes' to={`/edit/${recipe.id}`}>Edit</Link></Button>
 
                         : <span>
+
                             {saved
                                 ? <Button disabled variant='success'>Saved</Button>
-                                : <><Button variant='success' onClick={handleSaveButton}>Save</Button><br />
-                                    {!bought
-                                        ? <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
-                                        : ''
-                                    }
-                                </>
+                                : <Button variant='success' onClick={handleSaveButton}>Save</Button>
                             }
-                            {bought
+                            {!bought
                                 ? <Checkout jwtToken={jwtToken} recipe={recipe} loggedinuser={loggedInUser}></Checkout>
                                 : ''
                             }
-
                         </span>
                     }
                 </div>
