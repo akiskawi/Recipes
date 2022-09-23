@@ -1,10 +1,6 @@
-// To do add logged in users, Username.
-
-
 import { Fragment, useRef, useEffect, useState, } from 'react';
 import { Grid, List, ListItem, ListItemText, TextField, FormControl, IconButton, Box, Link } from "@mui/material";
 import { ChatMessageDto } from '../../model/ChatMessageDto';
-import { FriendDto } from '../../model/FriendDto';
 import './Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
@@ -22,19 +18,7 @@ export default function Chat({ jwtToken, loggedInUser }) {
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
-
-    const [friends, setFriends] = useState([new FriendDto(1, "a"),
-    new FriendDto(2, "b"),
-    new FriendDto(3, "c"),
-    new FriendDto(4, "d"),
-    new FriendDto(5, "e"),
-    new FriendDto(6, "f"),
-    new FriendDto(7, "g"),
-    new FriendDto(8, "h"),
-    new FriendDto(9, "i"),
-    new FriendDto(10, "j"),
-    new FriendDto(11, "k"),
-    new FriendDto(12, "l")]);
+    const [friends, setFriends] = useState([]);
 
     const apiFriends = axios.create({
         baseURL: "http://localhost:8080/friendship",
@@ -42,20 +26,25 @@ export default function Chat({ jwtToken, loggedInUser }) {
     })
 
     useEffect(() => {
-        apiFriends.get(`/${loggedInUser.id}`).then(res => {
+        apiFriends.get(`/friends/${loggedInUser.id}`).then(res => {
             setFriends(res.data);
+            console.log(jwtToken)
         }).catch(err => {
             console.log(err)
         })
-    }, [friends])
+    }, [])
 
-    const searchByName = () => {
-        apiFriends.get(`/${loggedInUser.id}/${name}`).then(res => {
+    useEffect(() => {
+        apiFriends.get(`/friends/${loggedInUser.id}/${name}`).then(res => {
+            console.log(res.data)
             setFriends(res.data);
+            console.log(friends)
         }).catch(err => {
+            console.log(err)
             setFriends([])
         })
-    };
+    }, [name])
+
 
     useEffect(() => {
         console.log('Opening WebSocket');
@@ -109,8 +98,7 @@ export default function Chat({ jwtToken, loggedInUser }) {
             <Link href={`http://localhost:8081/profile/${FriendDto.name}`}>
                 <ListItemText primary={`${FriendDto.name}`} />
             </Link>
-        </ListItem >
-    );
+        </ListItem >);
 
     const listChatMessages = chatMessages.map((chatMessageDto, index) =>
         <ListItem key={index} >
@@ -145,7 +133,7 @@ export default function Chat({ jwtToken, loggedInUser }) {
 
                             <form className="d-flex me-auto" role="search">
                                 <input className="form-control me-2" type="search" placeholder="Search for a friend"
-                                    onInput={(e) => { setName(e.target.value); searchByName() }} value={name} />
+                                    onInput={(e) => setName(e.target.value)} value={name} />
                             </form>
                             <List className="contact-container">
                                 {listFriends}
