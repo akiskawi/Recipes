@@ -6,6 +6,8 @@ import com.group.project.models.User;
 import com.group.project.repositories.SavedRecipesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,23 +64,29 @@ public class SavedRecipesImpl implements SavedRecipesInterface {
 
     @Override
     public List<Recipe> getRecipesByUserIdAndPaidForAndName(Integer userID, boolean paidFor, String name){
-        List<Recipe> rL = null;
+        List<Recipe> rL = new ArrayList<>();
         for (SavedRecipes sR: savedRecipesRepo.findByPaidForAndUserId(paidFor, userService.getUserById(userID))
              ) {
             rL.add(sR.getRecipeId());
         }
-        assert rL != null;
         return (rL.stream().filter(r->r.getName().equals(name)).collect(Collectors.toList()));
     }
 
     @Override
     public List<Recipe> getRecipesByUserIdAndPaidFor(Integer userID, boolean paidFor){
-        List<Recipe> rL = null;
+        List<Recipe> rL = new ArrayList<>();
         for (SavedRecipes sR: savedRecipesRepo.findByPaidForAndUserId(paidFor, userService.getUserById(userID))
         ) {
             rL.add(sR.getRecipeId());
         }
         return (rL);
     }
+
+    @Override
+    public boolean checkPaidFor(Integer userID, Integer recipeID){
+        SavedRecipes sR = savedRecipesRepo.findByUserIdAndRecipeId(userService.getUserById(userID),recipeService.getRecipeById(recipeID));
+    return ((sR != null && sR.getPaidFor()));
+    }
+
 
 }

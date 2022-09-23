@@ -26,7 +26,7 @@ public class SavedRecipesController {
     Creates a SavedRecipes obj and sets paidFor value 'true'.
      */
     @PostMapping("/buy/{userID}/{recipeID}")
-    void buyRecipe(@PathVariable Integer userID,@PathVariable Integer recipeID){
+    void buyRecipe(@PathVariable Integer userID, @PathVariable Integer recipeID) {
         savedRecipesInterface.buyRecipe(userID, recipeID);
     }
 
@@ -34,16 +34,16 @@ public class SavedRecipesController {
     Creates a SavedRecipes obj and sets paidFor value 'false'.
      */
     @PostMapping("/save/{userID}/{recipeID}")
-    void saveRecipe(@PathVariable Integer userID,@PathVariable Integer recipeID){
-        savedRecipesInterface.saveRecipe(userServiceInterface.getUserById(userID),recipeServiceInterface.getRecipeById(recipeID));
+    void saveRecipe(@PathVariable Integer userID, @PathVariable Integer recipeID) {
+        savedRecipesInterface.saveRecipe(userServiceInterface.getUserById(userID), recipeServiceInterface.getRecipeById(recipeID));
     }
 
     /*
     Finds a SavedRecipes obj and sets paidFor value 'true'.
      */
     @PostMapping("/update/{userID}/{recipeID}")
-    void setPaidForTrue(@PathVariable Integer userID, @PathVariable Integer recipeID){
-        savedRecipesInterface.setPaidForTrue(userID,recipeID);
+    void setPaidForTrue(@PathVariable Integer userID, @PathVariable Integer recipeID) {
+        savedRecipesInterface.setPaidForTrue(userID, recipeID);
     }
 
     /*
@@ -51,26 +51,31 @@ public class SavedRecipesController {
      */
     @GetMapping("/check/{userID}/{recipeID}")
     void check(@PathVariable Integer userID, @PathVariable Integer recipeID) {
-        if(savedRecipesInterface.exists(userID, recipeID)){
-            savedRecipesInterface.setPaidForTrue(userID,recipeID);
-        }
-        else{
-            savedRecipesInterface.saveRecipe(userServiceInterface.getUserById(userID),recipeServiceInterface.getRecipeById(recipeID));
-            savedRecipesInterface.setPaidForTrue(userID,recipeID);
+        if (savedRecipesInterface.exists(userID, recipeID)) {
+            savedRecipesInterface.setPaidForTrue(userID, recipeID);
+        } else {
+            savedRecipesInterface.saveRecipe(userServiceInterface.getUserById(userID), recipeServiceInterface.getRecipeById(recipeID));
+            savedRecipesInterface.setPaidForTrue(userID, recipeID);
         }
     }
 
     @GetMapping("/exists/{userID}/{recipeID}")
     boolean exists(@PathVariable Integer userID, @PathVariable Integer recipeID) {
-        return(savedRecipesInterface.exists(userID, recipeID));
+        return (savedRecipesInterface.exists(userID, recipeID));
     }
 
     @GetMapping("/show/{paidFor}/{userID}/{name}")
-    List<Recipe> getRecipesByPaidForAndUserIDAndName(@PathVariable boolean paidFor, @PathVariable Integer userID, @PathVariable String name){
+    List<Recipe> getRecipesByPaidForAndUserIDAndName(@PathVariable boolean paidFor, @PathVariable Integer userID, @PathVariable String name) {
         return savedRecipesInterface.getRecipesByUserIdAndPaidForAndName(userID, paidFor, name);
     }
+
     @GetMapping("/show/{paidFor}/{userID}")
-    List<Recipe> getRecipesByPaidForAndUserID(@PathVariable boolean paidFor, @PathVariable Integer userID){
+    List<Recipe> getRecipesByPaidForAndUserID(@PathVariable boolean paidFor, @PathVariable Integer userID) {
         return savedRecipesInterface.getRecipesByUserIdAndPaidFor(userID, paidFor);
+    }
+
+    @GetMapping("/existsBought/{userID}/{recipeID}")
+    boolean existsBought(@PathVariable Integer userID, @PathVariable Integer recipeID) {
+        return (savedRecipesInterface.checkPaidFor(userID, recipeID));
     }
 }

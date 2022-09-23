@@ -14,4 +14,5 @@ public interface SavedRecipesInterface {
     void buyRecipe(Integer userID, Integer recipeID);
     List<Recipe> getRecipesByUserIdAndPaidForAndName(Integer userID, boolean paidFor, String name);
     List<Recipe> getRecipesByUserIdAndPaidFor(Integer userID, boolean paidFor);
+    boolean checkPaidFor(Integer userID, Integer recipeID);
 }
