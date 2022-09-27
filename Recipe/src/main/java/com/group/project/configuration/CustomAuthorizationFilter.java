@@ -31,7 +31,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (request.getServletPath().startsWith("/login")
-                || request.getServletPath().startsWith("/js")) {
+                || request.getServletPath().startsWith("/js")
+                || request.getServletPath().startsWith("/users/create")) {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);

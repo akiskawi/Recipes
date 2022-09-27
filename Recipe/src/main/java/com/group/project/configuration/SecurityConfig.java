@@ -41,9 +41,9 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeRequests()
+                .antMatchers("/users/create").anonymous()
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers("/**").hasAnyRole("ADMIN", "USER")
-                //.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/login/").anonymous()
                 .anyRequest()
                 .authenticated()
@@ -62,9 +62,9 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedMethods("*")
+                        //.allowedMethods("*") //default is GET, HEAD, POST which is enough
                         .allowedOrigins("http://localhost:8081/")
-                        .exposedHeaders("Access-Control-Allow-Origin, access_token, userid, useremail, username");
+                        .exposedHeaders("Access-Control-Allow-Origin", "access_token", "userid", "useremail", "username");
             }
         };
     }
@@ -73,7 +73,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.debug(securityDebug)
                 .ignoring()
-                .antMatchers("/users/create**", "/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
+                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
     }
 
     @Bean
