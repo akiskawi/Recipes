@@ -19,6 +19,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         webSocketSessions.add(session);
+        System.out.println("websession added:" + session.getPrincipal().getName());
     }
 
     @Override
@@ -26,10 +27,12 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         for (WebSocketSession webSocketSession: webSocketSessions) {
             webSocketSession.sendMessage(message);
         }
+        System.out.println(message.getPayload());
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         webSocketSessions.remove(session);
+        System.out.println("websession removed:" + session.getPrincipal().getName());
     }
 }

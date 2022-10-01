@@ -42,6 +42,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/users/create").anonymous()
+                .antMatchers("/chat/**").anonymous()
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers("/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/login/").anonymous()

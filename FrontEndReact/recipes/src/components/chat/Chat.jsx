@@ -5,20 +5,18 @@ import './Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
-
 export default function Chat({ jwtToken, loggedInUser }) {
-
 
     const ENTER_KEY_CODE = 13;
 
     const [isShown, setIsShown] = useState(false);
     const scrollBottomRef = useRef(null);
-    const webSocket = useRef(null);
     const [chatMessages, setChatMessages] = useState([]);
-    const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     const [friends, setFriends] = useState([]);
+
+    const ws = useRef(null);
 
     const apiFriends = axios.create({
         baseURL: "http://localhost:8080/friendship",
@@ -45,49 +43,57 @@ export default function Chat({ jwtToken, loggedInUser }) {
         })
     }, [name])
 
-
-    useEffect(() => {
-        console.log('Opening WebSocket');
-        webSocket.current = new WebSocket('ws://localhost:8080/Chat');
-        webSocket.current.onopen = (event) => {
-            console.log('Open: ', event);
-        }
-        webSocket.current.onclose = (event) => {
-            console.log('Close: ', event);
-        }
-        return () => {
-            console.log('Closing WebSocket');
-            webSocket.current.close();
-        };
-    }, []);
-
-    useEffect(() => {
-        webSocket.current.onmessage = (event) => {
-            const chatMessageDto = JSON.parse(event.data);
-            console.log('Message: ', chatMessageDto);
-            setChatMessages([...chatMessages, {
-                message: chatMessageDto.message
-            }]);
-            if (scrollBottomRef.current) {
-                scrollBottomRef.current.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-        return () => {
-
-        };
-    }, [chatMessages]);
-
     const handleMessageChange = (event) => { setMessage(event.target.value); }
     const handleEnterKey = (event) => {
         if (event.keyCode === ENTER_KEY_CODE) {
             sendMessage();
         }
     }
+
+    const toggleChat = () => {
+        setIsShown(current => !current);
+    };
+
+    useEffect(() => {
+        if (!isShown) return;
+        ws.current = new WebSocket(`ws://localhost:8080/chat?access-token=${jwtToken}`);
+        ws.current.onopen = () => {
+            console.log("ws open:", ws.current.readyState);
+        }
+        ws.current.onclose = () => {
+            console.log("ws closed");
+        }
+
+        const wsCurrent = ws.current;
+
+        return () => {
+            wsCurrent.close();
+        };
+    }, [isShown]);
+
+    useEffect(() => {
+        if (!ws.current) {
+            console.log("websocket connection not open")
+            return;
+        }
+        ws.current.onmessage = e => {
+            const chatMessageDto = JSON.parse(e.data);
+            console.log('Message: ', chatMessageDto);
+            setChatMessages([...chatMessages, {
+                userID: chatMessageDto.userID,
+                message: chatMessageDto.message
+            }]);
+        };
+    });
+
+    useEffect(() => {
+        scrollBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [chatMessages])
+
     const sendMessage = () => {
         if (message) {
-            console.log('Send!');
-            webSocket.current.send(
-                JSON.stringify(new ChatMessageDto(message))
+            ws.current.send(
+                JSON.stringify(new ChatMessageDto(message, loggedInUser.name))
             );
             setMessage('');
         }
@@ -102,15 +108,10 @@ export default function Chat({ jwtToken, loggedInUser }) {
 
     const listChatMessages = chatMessages.map((chatMessageDto, index) =>
         <ListItem key={index} >
-            <ListItemText className={loggedInUser.id === chatMessageDto.id ? 'message received' : 'message'}
-                id="chat-window-messages" primary={`${loggedInUser.name}: ${chatMessageDto.message}`} />
+            <ListItemText className={loggedInUser.name === chatMessageDto.userID ? 'message' : 'message received'}
+                id="chat-window-messages" primary={`${chatMessageDto.userID}: ${chatMessageDto.message}`} />
         </ListItem >
     );
-
-
-    const toggleChat = () => {
-        setIsShown(current => !current);
-    };
 
     return (
         <Fragment>
